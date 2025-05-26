@@ -1,11 +1,17 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
+import AllDestinations from "../components/destinationsComponents/AllDestinations";
 
 const Destinations = () => {
   return (
-    <div>
-      <h1>Hello World from Destinations!</h1>
-    </div>
+    <Container>
+      <Destinations />
+    </Container>
   );
 };
+const Container = styled.div`
+  padding: 0;
+  /* overflow-x: hidden; */
+`;
 
-export default Destinations;
+export default AllDestinations;
