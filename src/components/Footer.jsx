@@ -1,152 +1,164 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
+import logo from "../assets/logo.png";
+import { FaPhoneAlt, FaFacebook, FaTiktok } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
+import { RiInstagramFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import ASitesLogo1 from "../assets/ASitesLogo.png";
 
-export default function Footer() {
+const Footer = () => {
   return (
-    <div>
-           {/* Footer Start */}
-    <div
-      className="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn"
-      data-wow-delay="0.1s"
-    >
-      <div className="container py-5">
-        <div className="row g-5">
-          <div className="col-lg-3 col-md-6">
-            <h4 className="text-white mb-3">Company</h4>
-            <a className="btn btn-link" href="/About">
-              About
-            </a>
-            <a className="btn btn-link" href="/Services">
-              Services
-            </a>
-            <a className="btn btn-link" href="/Packages">
-              Packages
-            </a>
+    <Container>
+      <div className="top">
+        <img src={logo} className="logo" alt="" />
+        <div className="right">
+          <div className="links">
+            <h3>Links</h3>
+            <Link to={"/"} className="link-styles">
+              <p>Home</p>
+            </Link>
+            <Link to={"/produktet"} className="link-styles">
+              <p>Produktet</p>
+            </Link>
+            <Link to={"/kontakti"} className="link-styles">
+              <p>Kontakti</p>
+            </Link>
           </div>
-          <div className="col-lg-3 col-md-6">
-            <h4 className="text-white mb-3">Contact</h4>
-            <p className="mb-2">
-              <i className="fa fa-map-marker-alt me-3" />
-              123 Street, Finland
-            </p>
-            <p className="mb-2">
-              <i className="fa fa-phone-alt me-3" />
-              +012 345 67890
-            </p>
-            <p className="mb-2">
-              <i className="fa fa-envelope me-3" />
-              info@example.com
-            </p>
-            <div className="d-flex pt-2">
-              <a className="btn btn-outline-light btn-social" href="/">
-                <i className="fab fa-twitter" />
-              </a>
-              <a className="btn btn-outline-light btn-social" href="/">
-                <i className="fab fa-facebook-f" />
-              </a>
-              <a className="btn btn-outline-light btn-social" href="">
-                <i className="fab fa-youtube" />
-              </a>
-              <a className="btn btn-outline-light btn-social" href="">
-                <i className="fab fa-linkedin-in" />
-              </a>
+          <div className="contact">
+            <div>
+              <IoMail className="icon" />
+              <h3>info@travelo.web.app</h3>
             </div>
-          </div>
-          <div className="col-lg-3 col-md-6">
-            <h4 className="text-white mb-3">Gallery</h4>
-            <div className="row g-2 pt-2">
-              <div className="col-4">
-                <img
-                  className="img-fluid bg-light p-1"
-                  src="assets/img/package-1.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="col-4">
-                <img
-                  className="img-fluid bg-light p-1"
-                  src="assets/img/package-2.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="col-4">
-                <img
-                  className="img-fluid bg-light p-1"
-                  src="assets/img/package-3.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="col-4">
-                <img
-                  className="img-fluid bg-light p-1"
-                  src="assets/img/package-2.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="col-4">
-                <img
-                  className="img-fluid bg-light p-1"
-                  src="assets/img/package-3.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="col-4">
-                <img
-                  className="img-fluid bg-light p-1"
-                  src="assets/img/package-1.jpg"
-                  alt=""
-                />
-              </div>
+            <div>
+              <FaPhoneAlt className="icon" />
+              <h3>+383 45 123 123</h3>
             </div>
-          </div>
-          <div className="col-lg-3 col-md-6">
-            <h4 className="text-white mb-3">Newsletter</h4>
-            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-            <div
-              className="position-relative mx-auto"
-              style={{ maxWidth: 400 }}
-            >
-              <input
-                className="form-control border-primary w-100 py-3 ps-4 pe-5"
-                type="text"
-                placeholder="Your email"
-              />
-              <button
-                type="button"
-                className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+            <span>
+              <Link
+                to={"https://www.instagram.com/21_dite_paakne/"}
+                target="_blank"
               >
-                SignUp
-              </button>
-            </div>
+                <RiInstagramFill className="icon" />
+              </Link>
+              <Link to={"https://www.tiktok.com/@21ditepaakne"} target="_blank">
+                <FaTiktok className="icon" />
+              </Link>
+              <Link
+                to={"https://www.facebook.com/21ditepaakne"}
+                target="_blank"
+              >
+                <FaFacebook className="icon" />
+              </Link>
+            </span>
           </div>
         </div>
       </div>
-      <div className="container">
-        <div className="copyright">
-          <div className="row">
-            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              ©{" "}
-              <a className="border-bottom" href="#">
-                Beyond Lanka
-              </a>
-              , All Right Reserved.
-              Designed By{" "}
-              <a className="border-bottom">
-                TL Solutions.
-              </a>
-            </div>
-            <div className="col-md-6 text-center text-md-end">
-              <div className="footer-menu">
-                <a href="/">Home</a>
-                <a href="/">Cookies</a>
-                <a href="/">Help</a>
-                <a href="/">FQAs</a>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="bottom">
+        <p>Designed and Developed by:</p>
+        <Link
+          to={"https://asitesagency.com/"}
+          className="link-styles"
+          target="_blank"
+        >
+          <img src={ASitesLogo1} alt="" />
+          <p>Visit ASites Agency</p>
+        </Link>
       </div>
-    </div>
-    {/* Footer End */}
-    </div>
-  )
-}
+    </Container>
+  );
+};
+const Container = styled.div`
+  padding: 7em 7% 3em 7%;
+  border-top: 1px solid #c5c5c5;
+  .top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    img {
+      width: 240px;
+    }
+    .right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4em;
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        h3 {
+          font-weight: 500;
+        }
+        p {
+          color: gray;
+          font-weight: 300;
+        }
+      }
+      .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          .icon {
+            font-size: 3em;
+            background: var(--primaryColor);
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+          }
+          h3 {
+            font-weight: 300;
+            color: var(--fontSecondaryColor);
+          }
+        }
+        span {
+          display: flex;
+          gap: 10px;
+          .icon {
+            font-size: 3em;
+            background: var(--primaryColor);
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .bottom {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    p {
+      color: var(--fontSecondaryColor);
+      font-weight: 300;
+      text-align: center;
+    }
+    img {
+      width: 120px;
+      margin: auto;
+      display: flex;
+    }
+  }
+  @media (max-width: 700px) {
+    .top {
+      flex-direction: column;
+      gap: 3em;
+      align-items: center;
+      .right {
+        flex-wrap: wrap;
+        div {
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+`;
+
+export default Footer;

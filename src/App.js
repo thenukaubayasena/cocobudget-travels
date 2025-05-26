@@ -1,25 +1,18 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import About from './pages/About'
-import Services from './pages/Services'
-import Packages from './pages/Packages'
-import Destinations from './pages/Destinations'
+import { Route, Routes } from "react-router-dom";
+import Home from "./routes/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-export default function App() {
+function App() {
   return (
-    <div>
-        <Header />
-        <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/services' element={<Services/>}/>
-        <Route path='/packages' element={<Packages/>}/>
-        <Route path='/destination' element={<Destinations/>}/>
-        </Routes>
-        <Footer />
+    <div className="App">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+      <Footer />
     </div>
-  )
+  );
 }
+
+export default App;
