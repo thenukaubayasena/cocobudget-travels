@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import mainImage from "../../assets/homeAssets/santoriniImg.jpg";
-import subImg1 from "../../assets/homeAssets/santoriniHotel1.jpg";
-import subImg2 from "../../assets/homeAssets/santoriniHotel2.jpg";
-import subImg3 from "../../assets/homeAssets/santoriniHotel3.jpg";
+import mainImage from "../../assets/homeAssets/sigiriya1.jpg";
+import subImg1 from "../../assets/homeAssets/sigiriya2.jpg";
+import subImg2 from "../../assets/homeAssets/sigiriya3.jpg";
+import subImg3 from "../../assets/homeAssets/sigiriya4.jpg";
+import subImg4 from "../../assets/homeAssets/maligawa1.jpg";
+import subImg5 from "../../assets/homeAssets/maligawa2.jpg";
+import subImg6 from "../../assets/homeAssets/maligawa3.jpg";
+
 import { motion, useAnimation, useInView } from "framer-motion";
 
 const OfferOfTheWeek = () => {
@@ -46,6 +50,86 @@ const OfferOfTheWeek = () => {
       <div className="wrapper">
         <div className="left">
           <h1>
+            EXPLORE <span>SIGIRIYA</span>
+          </h1>
+          <p>
+            Sigiriya or Sinhagiri is an ancient rock fortress located in the northern Matale District near the town of Dambulla in the Central Province, Sri Lanka.
+          </p>
+          <span>
+            <img src={subImg1} alt="" />
+            <img src={subImg2} alt="" />
+            <img src={subImg3} alt="" />
+          </span>
+        </div>
+        <img src={mainImage} alt="" />
+      </div>
+      <div className="title">
+        <motion.h1
+          ref={ref}
+          variants={{
+            hidden: { opacity: 0, y: 100 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate={animation}
+          transition={{ duration: 0.4, delay: 0.2, type: "spring" }}
+        >
+          All Our Destinations
+        </motion.h1>
+        <motion.hr
+          variants={{
+            hidden: { opacity: 0, width: 0 },
+            visible: { opacity: 1, width: "50%" },
+          }}
+          initial="hidden"
+          animate={animation}
+          transition={{ duration: 1, delay: 0.3, type: "spring" }}
+        />
+      </div>
+      <div className="wrapper">
+        <div className="left">
+          <h1>
+            EXPLORE <span>Sri Dalada Maligawa</span>
+          </h1>
+          <p></p>
+          <p></p>
+          <p>
+            Sri Dalada Maligawa, commonly known in English as the Temple of the Sacred Tooth Relic, is a Buddhist temple in Kandy, Sri Lanka.
+          </p>
+          <span>
+            <img src={subImg1} alt="" />
+            <img src={subImg2} alt="" />
+            <img src={subImg3} alt="" />
+          </span>
+        </div>
+        <img src={mainImage} alt="" />
+      </div>
+      <div className="title">
+        <motion.h1
+          ref={ref}
+          variants={{
+            hidden: { opacity: 0, y: 100 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate={animation}
+          transition={{ duration: 0.4, delay: 0.2, type: "spring" }}
+        >
+          All Our Destinations
+        </motion.h1>
+        <motion.hr
+          variants={{
+            hidden: { opacity: 0, width: 0 },
+            visible: { opacity: 1, width: "50%" },
+          }}
+          initial="hidden"
+          animate={animation}
+          transition={{ duration: 1, delay: 0.3, type: "spring" }}
+        />
+      </div>
+      <div className="wrapper">
+        <div className="left">
+          <h1>
             EXPLORE <span>SANTORINI</span>
           </h1>
           <p>
@@ -54,9 +138,9 @@ const OfferOfTheWeek = () => {
             Similique!
           </p>
           <span>
-            <img src={subImg1} alt="" />
-            <img src={subImg2} alt="" />
-            <img src={subImg3} alt="" />
+            <img src={subImg4} alt="" />
+            <img src={subImg5} alt="" />
+            <img src={subImg6} alt="" />
           </span>
         </div>
         <img src={mainImage} alt="" />
@@ -72,7 +156,7 @@ const Container = styled.div`
       font-family: "The Seasons";
       font-size: 3em;
       font-weight: 100;
-      color: gray;
+      color: green;
     }
     hr {
       width: 50%;
