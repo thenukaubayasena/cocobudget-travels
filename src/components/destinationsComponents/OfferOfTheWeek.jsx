@@ -61,9 +61,15 @@ const OfferOfTheWeek = () => {
         </div>
         <img src={mainImage} alt="" />
       </div>
+      
     </Container>
+    
   );
+
+
+  
 };
+
 const Container = styled.div`
   padding: 5em 0;
   .title {
@@ -141,3 +147,5 @@ const Container = styled.div`
 `;
 
 export default OfferOfTheWeek;
+
+
