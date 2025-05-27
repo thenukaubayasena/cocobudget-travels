@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import AllDestinations from "../components/destinationsComponents/AllDestinations";
+import ContactSec from "../components/aboutUsComponents/ContactSection";
 
-const Destinations = () => {
+const Contact = () => {
   return (
     <Container>
-      <Destinations />
+      <Contact />
     </Container>
   );
 };
@@ -15,4 +15,4 @@ const Container = styled.div`
   /* overflow-x: hidden; */
 `;
 
-export default AllDestinations;
+export default ContactSec;

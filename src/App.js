@@ -3,6 +3,10 @@ import Home from "./routes/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Destinations from "./routes/Destinations";
+import AboutUs from "./routes/AboutUs";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 function App() {
   return (
@@ -11,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/destinations" element={<Destinations />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
       <Footer />
     </div>

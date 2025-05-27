@@ -5,160 +5,243 @@ import { FaPhoneAlt, FaFacebook, FaTiktok } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import ASitesLogo1 from "../assets/ASitesLogo.png";
 
 const Footer = () => {
   return (
-    <Container>
-      <div className="top">
-        <img src={logo} className="logo" alt="" />
-        <div className="right">
-          <div className="links">
-            <h3>Links</h3>
-            <Link to={"/"} className="link-styles">
-              <p>Home</p>
-            </Link>
-            <Link to={"/produktet"} className="link-styles">
-              <p>Produktet</p>
-            </Link>
-            <Link to={"/kontakti"} className="link-styles">
-              <p>Kontakti</p>
-            </Link>
-          </div>
-          <div className="contact">
-            <div>
-              <IoMail className="icon" />
-              <h3>info@travelo.web.app</h3>
-            </div>
-            <div>
-              <FaPhoneAlt className="icon" />
-              <h3>+383 45 123 123</h3>
-            </div>
-            <span>
-              <Link
-                to={"https://www.instagram.com/21_dite_paakne/"}
-                target="_blank"
-              >
-                <RiInstagramFill className="icon" />
-              </Link>
-              <Link to={"https://www.tiktok.com/@21ditepaakne"} target="_blank">
-                <FaTiktok className="icon" />
-              </Link>
-              <Link
-                to={"https://www.facebook.com/21ditepaakne"}
-                target="_blank"
-              >
-                <FaFacebook className="icon" />
-              </Link>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div className="bottom">
-        <p>Designed and Developed by:</p>
-        <Link
-          to={"https://asitesagency.com/"}
-          className="link-styles"
-          target="_blank"
-        >
-          <img src={ASitesLogo1} alt="" />
-          <p>Visit ASites Agency</p>
-        </Link>
-      </div>
-    </Container>
+    <FooterContainer>
+      <FooterTop>
+        <LogoContainer>
+          <Logo src={logo} alt="Travelo Logo" />
+        </LogoContainer>
+
+        <FooterContent>
+          <QuickLinks>
+            <SectionTitle>Quick Links</SectionTitle>
+            <FooterLink to="/">Home</FooterLink>
+            <FooterLink to="/about-us">About Us</FooterLink>
+            <FooterLink to="/destinations">Destinations</FooterLink>
+            <FooterLink to="/kontakti">Current Packages</FooterLink>
+          </QuickLinks>
+
+          <ContactInfo>
+            <SectionTitle>Contact Us</SectionTitle>
+            <ContactItem>
+              <ContactIcon>
+                <IoMail />
+              </ContactIcon>
+              <ContactText>info@travelo.web.app</ContactText>
+            </ContactItem>
+            <ContactItem>
+              <ContactIcon>
+                <FaPhoneAlt />
+              </ContactIcon>
+              <ContactText>+383 45 123 123</ContactText>
+            </ContactItem>
+            <SocialLinks>
+              <SocialLink href="https://www.instagram.com/21_dite_paakne/" target="_blank" aria-label="Instagram">
+                <RiInstagramFill />
+              </SocialLink>
+              <SocialLink href="https://www.tiktok.com/@21ditepaakne" target="_blank" aria-label="TikTok">
+                <FaTiktok />
+              </SocialLink>
+              <SocialLink href="https://www.facebook.com/21ditepaakne" target="_blank" aria-label="Facebook">
+                <FaFacebook />
+              </SocialLink>
+            </SocialLinks>
+          </ContactInfo>
+        </FooterContent>
+      </FooterTop>
+
+      <FooterBottom>
+        <Copyright>
+          &copy; {new Date().getFullYear()} CocoBudget Travels. All rights reserved.
+        </Copyright>
+      </FooterBottom>
+    </FooterContainer>
   );
 };
-const Container = styled.div`
-  padding: 7em 7% 3em 7%;
-  border-top: 1px solid #c5c5c5;
-  .top {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    img {
-      width: 240px;
-    }
-    .right {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 4em;
-      .links {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        h3 {
-          font-weight: 500;
-        }
-        p {
-          color: gray;
-          font-weight: 300;
-        }
-      }
-      .contact {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-        div {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          .icon {
-            font-size: 3em;
-            background: var(--primaryColor);
-            padding: 10px;
-            border-radius: 10px;
-            color: white;
-          }
-          h3 {
-            font-weight: 300;
-            color: var(--fontSecondaryColor);
-          }
-        }
-        span {
-          display: flex;
-          gap: 10px;
-          .icon {
-            font-size: 3em;
-            background: var(--primaryColor);
-            padding: 10px;
-            border-radius: 10px;
-            color: white;
-          }
-        }
-      }
-    }
-  }
-  .bottom {
-    margin-top: 2em;
-    display: flex;
+
+// Styled Components
+const FooterContainer = styled.footer`
+  background: #f8f9fa;
+  padding: 2rem 5%;
+  border-top: 1px solid #e0e0e0;
+`;
+
+const FooterTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+
+  @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    gap: 1em;
-    p {
-      color: var(--fontSecondaryColor);
-      font-weight: 300;
-      text-align: center;
-    }
-    img {
-      width: 120px;
-      margin: auto;
-      display: flex;
-    }
+    text-align: center;
   }
-  @media (max-width: 700px) {
-    .top {
-      flex-direction: column;
-      gap: 3em;
-      align-items: center;
-      .right {
-        flex-wrap: wrap;
-        div {
-          flex-wrap: wrap;
-        }
-      }
-    }
+`;
+
+const LogoContainer = styled.div`
+  flex: 1;
+  min-width: 250px;
+`;
+
+const Logo = styled.img`
+  width: 300px;
+  height: auto;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
   }
+`;
+
+const Tagline = styled.p`
+  color: #666;
+  font-weight: 300;
+  font-size: 1rem;
+  max-width: 250px;
+`;
+
+const FooterContent = styled.div`
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+
+const QuickLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 150px;
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+`;
+
+const FooterLink = styled(Link)`
+  color: #666;
+  font-weight: 300;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 0.25rem 0;
+
+  &:hover {
+    color: var(--primaryColor);
+    transform: translateX(5px);
+  }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 200px;
+`;
+
+const ContactItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const ContactIcon = styled.div`
+  background: var(--primaryColor);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const ContactText = styled.p`
+  color: #666;
+  font-weight: 300;
+  margin: 0;
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const SocialLink = styled.a`
+  background: var(--primaryColor);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    background: #333;
+    transform: translateY(-3px);
+  }
+`;
+
+const FooterBottom = styled.div`
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+`;
+
+const MissionStatement = styled.p`
+  color: #666;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 700px;
+`;
+
+const Copyright = styled.p`
+  color: #666;
+  font-weight: 300;
+  font-size: 0.9rem;
 `;
 
 export default Footer;

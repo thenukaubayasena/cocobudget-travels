@@ -1,327 +1,229 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components"; // This import was missing
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 const FAQ = () => {
-  const [activeAnswer, setActiveAnswer] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
-  const animation1 = useAnimation();
+  const animation = useAnimation();
 
   useEffect(() => {
     if (isInView) {
-      animation1.start("visible");
+      animation.start("visible");
     }
-    // eslint-disable-next-line
-  }, [isInView]);
+  }, [isInView, animation]);
+
+  const faqs = [
+    {
+      question: "How do I make a reservation?",
+      answer: "You can make a reservation online through our website or by calling our customer service team."
+    },
+    {
+      question: "Are there any additional hidden fees?",
+      answer: "No, our pricing is transparent. All costs are included in the final price, with no hidden fees."
+    },
+    {
+      question: "What is the cancellation policy?",
+      answer: "You can cancel up to 48 hours before departure for a full refund. Terms may vary by package."
+    },
+    {
+      question: "Do you offer travel insurance?",
+      answer: "Yes, we offer comprehensive travel insurance options to cover any unexpected events during your trip."
+    }
+  ];
+
+  const toggleFAQ = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
 
   return (
     <Container>
-      <div className="title">
+      <TitleWrapper>
         <motion.h1
           variants={{
-            hidden: { opacity: 0, y: 100 },
+            hidden: { opacity: 0, y: 50 },
             visible: { opacity: 1, y: 0 },
           }}
           initial="hidden"
-          animate={animation1}
-          transition={{ duration: 0.4, delay: 0.2, type: "spring" }}
+          animate={animation}
+          transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
         >
           Wondering About Something? <br /> Find Out Here!
         </motion.h1>
-        <motion.hr
+        <motion.div
           variants={{
             hidden: { opacity: 0, width: 0 },
             visible: { opacity: 1, width: "50%" },
           }}
           initial="hidden"
-          animate={animation1}
-          transition={{ duration: 1, delay: 0.3, type: "spring" }}
+          animate={animation}
+          transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+          className="divider"
         />
-      </div>
-      <div ref={ref} className="questions">
-        <motion.div
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          initial="hidden"
-          animate={animation1}
-          transition={{ duration: 0.4, delay: 0.3, type: "spring" }}
-          className={activeAnswer === 1 ? "active" : "row"}
-          onClick={() => setActiveAnswer(activeAnswer === 1 ? null : 1)}
-        >
-          <span>
-            <h2>How do I make a reservation?</h2>
-            <MdKeyboardArrowDown className="icon" />
-          </span>
-          <p>
-            You can make a reservation online through our website or by calling
-            our customer service team.
-          </p>
-        </motion.div>
+      </TitleWrapper>
 
-        <hr />
-        <motion.div
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          initial="hidden"
-          animate={animation1}
-          transition={{ duration: 0.4, delay: 0.5, type: "spring" }}
-          className={activeAnswer === 3 ? "active" : "row"}
-          onClick={() => setActiveAnswer(activeAnswer === 3 ? null : 3)}
-        >
-          <span>
-            <h2>Are there any additional hidden fees?</h2>
-            <MdKeyboardArrowDown className="icon" />
-          </span>
-          <p>
-            No, our pricing is transparent. All costs are included in the final
-            price, with no hidden fees.
-          </p>
-        </motion.div>
-        <hr />
-        <motion.div
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          initial="hidden"
-          animate={animation1}
-          transition={{ duration: 0.4, delay: 0.7, type: "spring" }}
-          className={activeAnswer === 4 ? "active" : "row"}
-          onClick={() => setActiveAnswer(activeAnswer === 4 ? null : 4)}
-        >
-          <span>
-            <h2>What is the cancellation policy?</h2>
-            <MdKeyboardArrowDown className="icon" />
-          </span>
-          <p>
-            You can cancel up to 48 hours before departure for a full refund.
-            Terms may vary by package.
-          </p>
-        </motion.div>
-        <hr />
-        <motion.div
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          initial="hidden"
-          animate={animation1}
-          transition={{ duration: 0.4, delay: 0.9, type: "spring" }}
-          className={activeAnswer === 2 ? "active" : "row"}
-          onClick={() => setActiveAnswer(activeAnswer === 2 ? null : 2)}
-        >
-          <span>
-            <h2>Do you offer travel insurance?</h2>
-            <MdKeyboardArrowDown className="icon" />
-          </span>
-          <p>
-            Yes, we offer comprehensive travel insurance options to cover any
-            unexpected events during your trip.
-          </p>
-        </motion.div>
-      </div>
+      <FAQList ref={ref}>
+        {faqs.map((faq, index) => (
+          <FAQItem 
+            key={index}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            initial="hidden"
+            animate={animation}
+            transition={{ 
+              duration: 0.6, 
+              delay: 0.4 + (index * 0.1),
+              type: "spring" 
+            }}
+          >
+            <FAQQuestion 
+              onClick={() => toggleFAQ(index)}
+              $isActive={activeIndex === index}
+            >
+              <h3>{faq.question}</h3>
+              <MdKeyboardArrowDown className={`icon ${activeIndex === index ? "active" : ""}`} />
+            </FAQQuestion>
+            
+            <FAQAnswer $isActive={activeIndex === index}>
+              <p>{faq.answer}</p>
+            </FAQAnswer>
+            
+            {index < faqs.length - 1 && <Divider />}
+          </FAQItem>
+        ))}
+      </FAQList>
     </Container>
   );
 };
-const Container = styled.div`
-  padding: 7em 4%;
-  background-image: var(--bgGradient4);
-  .title {
-    padding: 0 7%;
-    h1 {
-      font-family: "The Seasons";
-      font-size: 3em;
-      font-weight: 100;
-      color: gray;
-    }
-    hr {
-      width: 50%;
-    }
-  }
-  .questions {
-    transition: 0.4s;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    margin: 2em 0;
-    align-items: center;
-    hr {
-      width: 80%;
-      border: none;
-      border-top: 1px solid #b3b3b3;
-    }
-    .row {
-      transition: 0.4s;
-      height: 40px;
-      width: 80%;
-      cursor: pointer;
-      span {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        h2 {
-          color: #4d4d4d;
-          font-weight: 400;
-          font-size: 20px;
-          margin-top: 7px;
-        }
-        .icon {
-          font-size: 2em;
-          color: var(--primaryColor);
-        }
-      }
-      p {
-        display: none;
-      }
-    }
 
-    .active {
-      transition: 0.4s;
-      height: 50px;
-      width: 80%;
-      cursor: pointer;
-      p {
-        transition: 0.4s;
-        display: flex;
-        color: gray;
-        font-weight: 300;
-      }
-      span {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        h2 {
-          font-weight: 500;
-          font-size: 20px;
-          color: var(--primaryColor);
-          transition: 0.4s;
-        }
-        .icon {
-          transform: rotate(180deg);
-          font-size: 2em;
-          color: var(--primaryColor);
-        }
-      }
+// Styled Components
+const Container = styled.section`
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 3rem 0;
+  }
+`;
+
+const TitleWrapper = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 7%;
+
+  h1 {
+    font-family: "The Seasons", serif;
+    font-size: clamp(1.8rem, 3vw, 2.75rem);
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--primaryColor), transparent);
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
+    
+    h1 {
+      font-size: clamp(1.5rem, 6vw, 2rem);
     }
   }
-  @media (min-width: 2050px) {
-    height: 40vh;
-    background: var(--backgroundGradient2S);
+`;
+
+const FAQList = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 7%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const FAQItem = styled(motion.div)`
+  margin-bottom: 0.5rem;
+`;
+
+const FAQQuestion = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  h3 {
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    font-weight: ${props => props.$isActive ? "500" : "400"};
+    color: ${props => props.$isActive ? "var(--primaryColor)" : "#4d4d4d"};
+    margin: 0;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: left;
   }
-  @media (max-width: 1170px) {
-    .questions {
-      hr {
-        width: 97%;
-      }
-      .row {
-        width: 98%;
-      }
-      .active {
-        width: 98%;
-      }
+
+  .icon {
+    font-size: 1.5rem;
+    color: var(--primaryColor);
+    transition: transform 0.3s ease;
+    margin-left: 1rem;
+
+    &.active {
+      transform: rotate(180deg);
     }
   }
-  @media (max-width: 955px) {
-    .questions {
-      .row {
-        h2 {
-          font-size: 1.4em;
-        }
-      }
-      .active {
-        width: 98%;
-        height: 70px;
-        h2 {
-          font-size: 1.4em;
-        }
-        p {
-          line-height: 20px;
-        }
-      }
+
+  &:hover {
+    h3 {
+      color: var(--primaryColor);
     }
   }
-  @media (max-width: 870px) {
-    background-size: 40% 100%, 100% 140%, 79% 100%;
-    .questions {
-      .active {
-        height: 87px;
-      }
+
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+    
+    h3 {
+      font-size: 1.1rem;
     }
   }
-  @media (max-width: 730px) {
-    .questions {
-      .active {
-        height: 110px;
-      }
+`;
+
+const FAQAnswer = styled.div`
+  overflow: hidden;
+  max-height: ${props => props.$isActive ? "500px" : "0"};
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: ${props => props.$isActive ? "1" : "0"};
+  padding: ${props => props.$isActive ? "0 0 1.5rem 0" : "0"};
+
+  p {
+    color: #555;
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0;
+    font-size: clamp(0.9rem, 1vw, 1rem);
+  }
+
+  @media (max-width: 768px) {
+    p {
+      font-size: 0.95rem;
     }
   }
-  @media (max-width: 680px) {
-    .questions {
-      .row {
-        height: 40px;
-        h2 {
-          line-height: 24px;
-        }
-      }
-    }
-  }
-  @media (max-width: 540px) {
-    .questions {
-      .active {
-        height: 110px;
-        p {
-          line-height: 18px;
-        }
-      }
-    }
-  }
-  @media (max-width: 450px) {
-    .title {
-      h1 {
-        font-size: 10vw;
-      }
-    }
-    .questions {
-      .row {
-        height: 50px;
-        h2 {
-        }
-      }
-      .active {
-        h2 {
-          font-size: 1em;
-        }
-        p {
-          font-size: 15px;
-        }
-      }
-    }
-  }
-  @media (max-width: 365px) {
-    .questions {
-      .row {
-        h2 {
-          font-size: 3em;
-        }
-      }
-      .active {
-        h2 {
-          font-size: 1.2em;
-        }
-        p {
-          font-size: 15px;
-        }
-      }
-    }
-  }
+`;
+
+const Divider = styled.div`
+  height: 1px;
+  background: #e0e0e0;
+  width: 100%;
 `;
 
 export default FAQ;

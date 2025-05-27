@@ -1,27 +1,64 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import maldives from "../../assets/homeAssets/sigiriya.jpg";
-import rome from "../../assets/homeAssets/maligawa.jpg";
-import dubai from "../../assets/homeAssets/mirissa.jpg";
-import santorini from "../../assets/homeAssets/ella.jpg";
-import ksamil from "../../assets/homeAssets/yala.jpg";
 import { motion, useAnimation, useInView } from "framer-motion";
+import sigiriya from "../../assets/homeAssets/sigiriya.jpg";
+import maligawa from "../../assets/homeAssets/maligawa.jpg";
+import mirissa from "../../assets/homeAssets/mirissa.jpg";
+import ella from "../../assets/homeAssets/ella.jpg";
+import yala from "../../assets/homeAssets/yala.jpg";
 
-const PopluarDestinations = () => {
+const PopularDestinations = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
   const animation = useAnimation();
 
   useEffect(() => {
     if (isInView) {
       animation.start("visible");
     }
-    // eslint-disable-next-line
-  }, [isInView]);
+  }, [isInView, animation]);
+
+  const destinations = [
+    {
+      id: 1,
+      image: sigiriya,
+      title: "SIGIRIYA",
+      description: "Climb the Lion Rock and witness the ancient marvel of Sigiriya, a fortress in the sky, rich with history and breathtaking views.",
+      reversed: false
+    },
+    {
+      id: 2,
+      image: maligawa,
+      title: "SRI DALADA MALIGAWA",
+      description: "Home to the sacred tooth relic of Lord Buddha, Sri Dalada Maligawa is a symbol of peace and devotion. A timeless treasure nestled in the heart of Kandy.",
+      reversed: true
+    },
+    {
+      id: 3,
+      image: mirissa,
+      title: "MIRISSA",
+      description: "Mirissa, a tropical paradise on Sri Lanka's south coast, offers golden beaches and crystal-clear waters. It's the perfect spot for whale watching, surfing, and sunset dreams.",
+      reversed: false
+    },
+    {
+      id: 4,
+      image: ella,
+      title: "ELLA",
+      description: "Ella is a charming mountain village in Sri Lanka, known for its lush tea plantations and breathtaking views. Hike to Ella Rock or stroll across the iconic Nine Arches Bridge for unforgettable adventures.",
+      reversed: true
+    },
+    {
+      id: 5,
+      image: yala,
+      title: "YALA",
+      description: "Yala National Park is Sri Lanka's premier wildlife sanctuary, home to leopards, elephants, and exotic birds. Explore its rugged terrain and spot incredible wildlife on an unforgettable safari adventure.",
+      reversed: false
+    }
+  ];
+
   return (
     <Container>
-      <div className="title">
+      <TitleContainer>
         <motion.h1
           ref={ref}
           variants={{
@@ -43,253 +80,219 @@ const PopluarDestinations = () => {
           animate={animation}
           transition={{ duration: 1, delay: 0.3, type: "spring" }}
         />
-      </div>
-      <div className="items">
-        <div className="item">
-          <img src={maldives} alt="" />
-          <span>
-            <h1>SIGIRIYA</h1>
-            <p>
-              Climb the Lion Rock and witness the ancient marvel of Sigiriya, 
-              a fortress in the sky, rich with history and breathtaking views.
-            </p>
-            <button>EXPLORE SIGIRIYA</button>
-          </span>
-        </div>
-        <div className="item reversed">
-          <img src={rome} alt="" />
-          <span>
-            <h1>
-              SRI DALADA MALIGAWA
-            </h1>
-            <p>
-              Home to the sacred tooth relic of Lord Buddha, 
-              Sri Dalada Maligawa is a symbol of peace and devotion. 
-              A timeless treasure nestled in the heart of Kandy.
-            </p>
+      </TitleContainer>
+
+      <DestinationsContainer>
+        {destinations.map((destination, index) => (
+          <DestinationItem 
+            key={destination.id}
+            className={destination.reversed ? "reversed" : ""}
+            initial="hidden"
+            animate={animation}
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ 
+              duration: 0.6, 
+              delay: 0.2 + (index * 0.1),
+              type: "spring" 
+            }}
+          >
+            <ImageWrapper>
+              <img 
+                src={destination.image} 
+                alt={destination.title} 
+                loading="lazy"
+              />
+              <Overlay />
+            </ImageWrapper>
             
-            <button>EXPLORE SRI DALADA MALIGAWA</button>
-          </span>
-        </div>
-        <div className="item">
-          <img src={dubai} alt="" />
-          <span>
-            <h1>
-              MIRISSA
-            </h1>
-            <p>
-              Mirissa, a tropical paradise on Sri Lanka's south coast, 
-              offers golden beaches and crystal-clear waters. 
-              It's the perfect spot for whale watching, surfing, and sunset dreams.
-            </p>
-            <button>EXPLORE MIRISSA</button>
-          </span>
-        </div>
-        <div className="item reversed">
-          <img src={santorini} alt="" />
-          <span>
-            <h1>
-              ELLA
-            </h1>
-            <p>
-              Ella is a charming mountain village in Sri Lanka, 
-              known for its lush tea plantations and breathtaking views. 
-              Hike to Ella Rock or stroll across the iconic Nine Arches Bridge for unforgettable adventures.
-            </p>
-            <button>EXPLORE ELLA</button>
-          </span>
-        </div>
-        <div className="item">
-          <img src={ksamil} alt="" />
-          <span>
-            <h1>
-              YALA
-            </h1>
-            <p>
-              Yala National Park is Sri Lanka's premier wildlife sanctuary, 
-              home to leopards, elephants, and exotic birds. 
-              Explore its rugged terrain and spot incredible wildlife on an unforgettable safari adventure.
-            </p>
-            <button>EXPLORE YALA</button>
-          </span>
-        </div>
-      </div>
-      <button>EXPLORE ALL</button>
+            <ContentWrapper>
+              <h2>{destination.title}</h2>
+              <p>{destination.description}</p>
+              <ExploreButton>
+                EXPLORE {destination.title.split(" ")[0]}
+              </ExploreButton>
+            </ContentWrapper>
+          </DestinationItem>
+        ))}
+      </DestinationsContainer>
     </Container>
   );
 };
-const Container = styled.div`
-  padding: 7em 0;
-  .title {
-    padding: 0 7%;
-    h1 {
-      font-family: "The Seasons";
-      font-size: 3em;
-      font-weight: 100;
-      color: gray;
-    }
-    hr {
-      width: 50%;
-    }
-  }
-  .items {
-    margin-top: 2em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6em;
-    margin-bottom: 2em;
-    .item {
-      position: sticky;
-      background-color: #ffffffd8;
-      backdrop-filter: blur(8px);
-      top: 9em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2em;
-      padding: 20px 7%;
-      height: 60vh;
-      max-height: 600px;
-      img {
-        width: 45%;
-        border-radius: 30px;
-        border: 3px solid lightgray;
-        box-shadow: 4px 7px 10px 2px #c7c7c7;
-      }
-      span {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 1em;
-        h1 {
-          font-family: "The Seasons";
-          letter-spacing: 12px;
-          color: var(--primaryColor);
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          font-weight: 300;
-          span {
-            letter-spacing: 2px;
-            color: gray;
-          }
-        }
-        p {
-          color: gray;
-          line-height: 1.7em;
-        }
-        .tags {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 0 1.3em;
-          p {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            color: var(--primaryColor);
-            span {
-              color: gray;
-            }
-          }
-        }
-        button {
-          margin: 0;
-          justify-content: flex-start;
-          align-self: flex-start;
-          background: #ffffff8b;
-          &:hover {
-            color: #464646;
-            border: 1px solid #c5c5c5;
-            background: #d4e2f3;
-          }
-        }
-      }
-    }
-    .reversed {
-      flex-direction: row-reverse;
-      span {
-        text-align: end;
-        align-items: flex-end;
-        .tags {
-          align-self: center;
-        }
-        button {
-          align-self: end;
-        }
-      }
-    }
-  }
-  button {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    color: #464646;
-    font-size: 15px;
-    padding: 15px 20px;
-    border: 1px solid #c5c5c5;
-    font-family: "Montserrat";
+
+// Styled Components
+const Container = styled.section`
+  padding: 5rem 0;
+  background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+`;
+
+const TitleContainer = styled.div`
+  padding: 0 7%;
+  text-align: center;
+  margin-bottom: 4rem;
+
+  h1 {
+    font-family: "The Seasons", serif;
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 300;
-    cursor: pointer;
-    transition: 0.4s;
-    &:hover {
-      background: var(--primaryColor);
-      color: white;
-      border: 1px solid var(--primaryColor);
-    }
+    color: #333;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
   }
-  @media (max-width: 870px) {
-    .items {
-      .item {
-        padding: 10px 7%;
-        display: flex;
-        flex-direction: column;
-        height: 80vh;
-        text-align: center;
-        img {
-          width: 60%;
-        }
-        span {
-          align-items: center;
-          p {
-            max-height: 80px;
-            overflow-y: scroll;
-          }
-          button {
-            align-self: center;
-            align-items: center;
-            margin: auto;
-          }
-        }
-      }
-      .reversed {
-        span {
-          text-align: center;
-        }
-      }
-    }
+
+  hr {
+    width: 50%;
+    max-width: 200px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--primaryColor), transparent);
+    border: none;
+    margin: 0 auto;
   }
-  @media (max-width: 600px) {
-    .items {
-      .item {
-        top: 6em;
-        img {
-          width: 80%;
-        }
-        span {
-          h1 {
-            font-size: 7vw;
-            letter-spacing: 6px;
-          }
-        }
-      }
+`;
+
+const DestinationsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 0 5%;
+`;
+
+const DestinationItem = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  background: white;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &.reversed {
+    flex-direction: row-reverse;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column !important;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  flex: 1;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 900px) {
+    min-height: 250px;
+    width: 100%;
+  }
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  h2 {
+    font-family: "The Seasons", serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--primaryColor);
+    letter-spacing: 3px;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  p {
+    color: #555;
+    line-height: 1.7;
+    font-size: clamp(0.9rem, 1.1vw, 1rem);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+
+    h2 {
+      text-align: center;
     }
   }
 `;
 
-export default PopluarDestinations;
+const ExploreButton = styled.button`
+  align-self: flex-start;
+  background: transparent;
+  color: var(--primaryColor);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--primaryColor);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--primaryColor);
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: white;
+    &:before {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 900px) {
+    align-self: center;
+  }
+`;
+
+export default PopularDestinations;

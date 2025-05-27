@@ -34,12 +34,6 @@ const ContactSection = () => {
           <span>Let's get in touch.</span> Feel free to ask us any questions you
           have :)
         </h1>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore,
-          rem.
-        </p>
-        <RiInstagramFill className="icon" />
-        <FaTiktok className="icon tiktok" />
       </motion.div>
       <motion.form
         animate={{ opacity: 1 }}

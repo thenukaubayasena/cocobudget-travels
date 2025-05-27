@@ -1,213 +1,212 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import ttImg1 from "../../assets/homeAssets/ttImg1.png";
-import ttImg2 from "../../assets/homeAssets/ttImg2.png";
-import ttImg3 from "../../assets/homeAssets/ttImg3.png";
-import ttImg4 from "../../assets/homeAssets/ttImg4.png";
 import { motion, useAnimation, useInView } from "framer-motion";
 
+// Import images
+import ttImg1 from "../../assets/homeAssets/colombo.png";
+import ttImg2 from "../../assets/homeAssets/galle.png";
+import ttImg3 from "../../assets/homeAssets/horton.png";
+import ttImg4 from "../../assets/homeAssets/adams.png";
+import ttImg5 from "../../assets/homeAssets/nuwaraeliya.png";
+
+// Styled Components - Defined in correct order first
+const Container = styled.section`
+  padding: 5rem 7%;
+  background: #f9f9f9;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 3rem 5%;
+  }
+`;
+
+const TitleWrapper = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h1 {
+    font-family: "The Seasons", serif;
+    font-size: clamp(1.8rem, 3vw, 2.75rem);
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--primaryColor), transparent);
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
+  }
+`;
+
+const ToursGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+`;
+
+const TourContent = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  color: white;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  text-align: center;
+  z-index: 2;
+
+  h3 {
+    font-family: "The Seasons", serif;
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: clamp(0.85rem, 1vw, 0.95rem);
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+`;
+
+const TourOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
+`;
+
+const TourImage = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+`;
+
+const TourCard = styled(motion.div)`
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  aspect-ratio: 3/4;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    
+    ${TourContent} {
+      transform: translateY(0);
+    }
+  }
+`;
+
+// Component Implementation
 const ThemeTours = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
   const animation = useAnimation();
 
   useEffect(() => {
     if (isInView) {
       animation.start("visible");
     }
-    // eslint-disable-next-line
-  }, [isInView]);
+  }, [isInView, animation]);
+
+  const tours = [
+    { img: ttImg1, title: "Colombo", description: "City of Lights" },
+    { img: ttImg2, title: "Galle", description: "Heritage Seaside Escape" },
+    { img: ttImg3, title: "Horton Plains", description: "Misty Highland Nature Escape" },
+    { img: ttImg4, title: "Adam's Peak", description: "Sacred Mountain Pilgrimage" },
+    { img: ttImg5, title: "Nuwara Eliya", description: "Cool Mountain Retreat" }
+  ];
+
   return (
     <Container>
-      <div className="title">
+      <TitleWrapper>
         <motion.h1
           variants={{
-            hidden: { opacity: 0, y: 100 },
+            hidden: { opacity: 0, y: 50 },
             visible: { opacity: 1, y: 0 },
           }}
           initial="hidden"
           animate={animation}
-          transition={{ duration: 0.4, delay: 0.2, type: "spring" }}
+          transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
         >
           Theme Tours
         </motion.h1>
-        <motion.hr
+        <motion.div
           variants={{
             hidden: { opacity: 0, width: 0 },
             visible: { opacity: 1, width: "50%" },
           }}
           initial="hidden"
           animate={animation}
-          transition={{ duration: 1, delay: 0.3, type: "spring" }}
+          transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+          className="divider"
         />
-      </div>
-      <div className="items">
-        <motion.div
-          className="item"
-          ref={ref}
-          variants={{
-            hidden: { opacity: 0, y: 100 },
-            visible: { opacity: 1, y: 0 },
-          }}
-          initial="hidden"
-          animate={animation}
-          transition={{
-            duration: 0.4,
-            bounce: 0.3,
-            delay: 0.3,
-            type: "spring",
-          }}
-        >
-          <img src={ttImg1} alt="" />
-          <span>
-            <h2>Las Vegas</h2>
-            <p>The city of lights</p>
-          </span>
-        </motion.div>
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 100 },
-            visible: { opacity: 1, y: 0 },
-          }}
-          initial="hidden"
-          animate={animation}
-          transition={{
-            duration: 0.4,
-            bounce: 0.3,
-            delay: 0.5,
-            type: "spring",
-          }}
-          className="item"
-        >
-          <img src={ttImg2} alt="" />
-          <span>
-            <h2>Paris</h2>
-            <p>The city of love</p>
-          </span>
-        </motion.div>
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 100 },
-            visible: { opacity: 1, y: 0 },
-          }}
-          initial="hidden"
-          animate={animation}
-          transition={{
-            duration: 0.4,
-            bounce: 0.3,
-            delay: 0.7,
-            type: "spring",
-          }}
-          className="item"
-        >
-          <img src={ttImg3} alt="" />
-          <span>
-            <h2>Alps</h2>
-            <p>Family Christmas place</p>
-          </span>
-        </motion.div>
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 100 },
-            visible: { opacity: 1, y: 0 },
-          }}
-          initial="hidden"
-          animate={animation}
-          transition={{
-            duration: 0.4,
-            bounce: 0.3,
-            delay: 0.9,
-            type: "spring",
-          }}
-          className="item"
-        >
-          <img src={ttImg4} alt="" />
-          <span>
-            <h2>Grand Canyon</h2>
-            <p>Unforgettable hiking</p>
-          </span>
-        </motion.div>
-      </div>
+      </TitleWrapper>
+
+      <ToursGrid ref={ref}>
+        {tours.map((tour, index) => (
+          <TourCard
+            key={index}
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            initial="hidden"
+            animate={animation}
+            transition={{
+              duration: 0.6,
+              delay: 0.4 + (index * 0.1),
+              type: "spring"
+            }}
+          >
+            <TourImage>
+              <img 
+                src={tour.img} 
+                alt={tour.title} 
+                loading="lazy"
+              />
+              <TourOverlay />
+            </TourImage>
+            <TourContent>
+              <h3>{tour.title}</h3>
+              <p>{tour.description}</p>
+            </TourContent>
+          </TourCard>
+        ))}
+      </ToursGrid>
     </Container>
   );
 };
-const Container = styled.div`
-  padding: 5em 7%;
-  .title {
-    padding: 0 7%;
-    h1 {
-      font-family: "The Seasons";
-      font-size: 3em;
-      font-weight: 100;
-      color: gray;
-    }
-    hr {
-      width: 50%;
-    }
-  }
-  .items {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin-top: 2em;
-    .item {
-      width: 24%;
-      position: relative;
-      img {
-        width: 100%;
-        user-select: none;
-        pointer-events: none;
-        /* position: absolute;
-        z-index: 0; */
-      }
-      span {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-        width: 86%;
-        z-index: 10;
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: end;
-        backdrop-filter: blur(20px);
-        color: white;
-        bottom: 5%;
-        text-align: center;
-        align-items: center;
-        margin: 2% 7%;
-        border-radius: 20px;
-        padding: 5px 0;
-        h2 {
-          font-family: "The Seasons";
-          font-weight: 300;
-          font-size: 20px;
-        }
-        p {
-          color: #dfdfdf;
-          font-size: 15px;
-          text-transform: capitalize;
-        }
-      }
-    }
-  }
-  @media (max-width: 1030px) {
-    .items {
-      flex-wrap: wrap;
-      .item {
-        width: 45%;
-      }
-    }
-  }
-  @media (max-width: 500px) {
-    .items {
-      .item {
-        width: 95%;
-      }
-    }
-  }
-`;
 
 export default ThemeTours;

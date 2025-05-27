@@ -5,177 +5,175 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(false);
-  const handleToggle = () => setToggle(!toggle);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("home");
   const location = useLocation();
-  const pathname = location.pathname;
 
   useEffect(() => {
-    if (pathname === "/") {
-      setActiveTab("home");
-    } else if (pathname === "/destinations") {
-      setActiveTab("destinations");
-    } else if (pathname === "/holiday-types") {
-      setActiveTab("holiday-types");
-    } else if (pathname === "/contact") {
-      setActiveTab("contact");
-    } else if (pathname === "/about-us") {
-      setActiveTab("about-us");
-    }
-  }, [pathname]);
+    // Close mobile menu when navigating
+    setIsOpen(false);
+    
+    // Set active tab based on pathname
+    const path = location.pathname.split('/')[1] || 'home';
+    setActiveTab(path);
+  }, [location.pathname]);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <Container>
-      <Link to={"/"} className="link-styles">
-        <img src={logo} alt="" className="logo" />
-      </Link>
-      <ul
-        onClick={handleToggle}
-        className={toggle ? "nav-menu active" : "nav-menu"}
-      >
-        <Link to={"/"} className="link-styles">
-          <li className={activeTab === "home" ? "activeTab" : "nonActive"}>
-            Home
-          </li>
-        </Link>
-        <Link to={"/destinations"} className="link-styles">
-          <li
-            className={activeTab === "destinations" ? "activeTab" : "nonActive"}
-          >
-            Destinations
-          </li>
-        </Link>
-        <Link to={"/current-deals"} className="link-styles">
-          <li
-            className={
-              activeTab === "current-deals" ? "activeTab" : "nonActive"
-            }
-          >
-            Current Packages
-          </li>
-        </Link>
-        <Link to={"/contact"} className="link-styles">
-          <li className={activeTab === "contact" ? "activeTab" : "nonActive"}>
-            Contact
-          </li>
-        </Link>
-        <Link to={"/about-us"} className="link-styles">
-          <li className={activeTab === "about-us" ? "activeTab" : "nonActive"}>
-            About Us
-          </li>
-        </Link>
-      </ul>
-      <div className="mobile-menu" onClick={handleToggle}>
-        {toggle ? <FaTimes className="icon" /> : <FaBars className="icon" />}
-      </div>
-    </Container>
+    <NavContainer>
+      <LogoLink to="/">
+        <Logo src={logo} alt="Company Logo" />
+      </LogoLink>
+
+      <Hamburger onClick={toggleMenu}>
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </Hamburger>
+
+      <NavMenu isOpen={isOpen}>
+        <NavItem to="/" $isActive={activeTab === "home"}>
+          Home
+        </NavItem>
+        <NavItem to="/about-us" $isActive={activeTab === "about-us"}>
+          About Us
+        </NavItem>
+        <NavItem to="/destinations" $isActive={activeTab === "destinations"}>
+          Destinations
+        </NavItem>
+        <NavItem to="/current-packages" $isActive={activeTab === "current-packages"}>
+          Current Packages
+        </NavItem>
+      </NavMenu>
+
+      <Overlay isOpen={isOpen} onClick={toggleMenu} />
+    </NavContainer>
   );
 };
-const Container = styled.div`
-  background: var(--trPrimaryBackgroundColor);
-  transition: 0.4s;
-  backdrop-filter: blur(7px);
+
+// Styled Components
+const NavContainer = styled.nav`
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1% 4%;
-  width: 100%;
-  height: 70px;
-  z-index: 100;
-  box-sizing: border-box;
-  color: #1d1d1d;
-  .logo {
-    height: 42.5px;
-    width: auto;
+  padding: 0 5%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const LogoLink = styled(Link)`
+  z-index: 1001;
+`;
+
+const Logo = styled.img`
+  height: 40px;
+  width: auto;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
   }
-  .nav-menu {
-    display: flex;
-    gap: 37px;
-    list-style: none;
-    align-items: center;
-    li {
-      font-weight: 400;
-      transition: 0.3s;
-      cursor: pointer;
-      &:hover {
-        color: var(--primaryColor);
-      }
-    }
-    button {
-      background: var(--fontPrimaryColor);
-      border: none;
-      color: var(--primaryBackgroundColor);
-      padding: 7px 14px;
-      font-size: 18px;
-      border-radius: 20px;
-      font-family: "Poppins", cursive;
-      cursor: pointer;
-      transition: 0.4s;
-      :hover {
-        box-shadow: 0 0 14px 2px var(--shadowColor);
-      }
-    }
-    .activeTab {
-      text-decoration: underline;
-      text-underline-offset: 7px;
-      font-weight: 600;
-      color: var(--primaryColor);
-    }
+
+  @media (max-width: 768px) {
+    height: 35px;
   }
-  .toggleTheme {
-    .themeIcon {
-      font-size: 1.6em;
-      cursor: pointer;
-      color: var(--fontPrimaryColor);
-    }
+`;
+
+const NavMenu = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+    width: 70%;
+    height: 100vh;
+    background: white;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
   }
-  .mobile-menu {
+
+  @media (max-width: 480px) {
+    width: 85%;
+  }
+`;
+
+const NavItem = styled(Link)`
+  position: relative;
+  color: ${({ $isActive }) => ($isActive ? 'var(--primaryColor)' : '#333')};
+  font-weight: ${({ $isActive }) => ($isActive ? '600' : '400')};
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--primaryColor);
+  }
+
+  &::after {
+    content: '';
     position: absolute;
-    color: var(--fontPrimaryColor);
-    right: 5%;
-    font-size: 24px;
-    cursor: pointer;
-    transition: 0.3s;
+    bottom: -5px;
+    left: 0;
+    width: ${({ $isActive }) => ($isActive ? '100%' : '0')};
+    height: 2px;
+    background: var(--primaryColor);
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
+  }
+`;
+
+const Hamburger = styled.div`
+  display: none;
+  cursor: pointer;
+  z-index: 1001;
+  color: #333;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+  visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  @media (min-width: 769px) {
     display: none;
-    margin-top: 7px;
-    :hover {
-      transform: scale(1.1);
-    }
-  }
-  @media (max-width: 770px) {
-    .nav-menu {
-      background: var(--primaryBackgroundColor);
-      width: 90%;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 10%;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0%;
-      right: -100%;
-      transition: 0.3s;
-      z-index: 99;
-      border-left: 1px solid var(--fontSecondaryColor);
-    }
-    .mobile-menu {
-      display: block;
-      z-index: 99;
-    }
-    .nav-menu.active {
-      right: 0%;
-    }
-  }
-  @media (max-width: 400px) {
-    .logo {
-      width: 100px;
-    }
-    .nav-menu {
-      width: 98%;
-    }
   }
 `;
 
