@@ -100,9 +100,9 @@ const PopularDestinations = () => {
             }}
           >
             <ImageWrapper>
-              <img 
+              <DestinationImage 
                 src={destination.image} 
-                alt={destination.title} 
+                alt={destination.title}
                 loading="lazy"
               />
               <Overlay />
@@ -128,6 +128,7 @@ const Container = styled.section`
   background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
+  overflow-x: hidden;
 `;
 
 const TitleContainer = styled.div`
@@ -192,6 +193,7 @@ const ImageWrapper = styled.div`
   min-height: 400px;
   position: relative;
   overflow: hidden;
+  height: auto;
 
   img {
     width: 100%;
@@ -205,9 +207,26 @@ const ImageWrapper = styled.div`
   }
 
   @media (max-width: 900px) {
-    min-height: 250px;
+    min-height: 200px;
     width: 100%;
   }
+`;
+
+const DestinationImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block; /* Remove extra space below image */
+
+  ${DestinationItem}:hover & {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 900px) {
+    height: 50vh; // 50% of the viewport height
+  }
+
 `;
 
 const Overlay = styled.div`
