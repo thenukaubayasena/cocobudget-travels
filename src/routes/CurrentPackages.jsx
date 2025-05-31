@@ -1,131 +1,164 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FaStar, FaMapMarkerAlt, FaCalendarAlt, FaUsers, FaSearch } from "react-icons/fa";
+import { FaStar, FaMapMarkerAlt, FaCalendarAlt, FaUsers, FaSearch, FaCampground, FaHiking, FaUmbrellaBeach, FaMountain, FaSpa, FaUtensils, FaCar, FaHotel, FaPlane } from "react-icons/fa";
 import { motion } from "framer-motion";
-import packagesImage from '../assets/homeAssets/packages.jpg'; 
+import packagesImage from '../assets/homeAssets/packages.jpg';
 
-
-// Sample package data
+// Package data with 5 packages
 const packagesData = [
   {
     id: 1,
-    title: "Classic Sri Lanka Tour",
+    title: "Cultural Triangle & East Coast Adventure",
     duration: "7 Days",
-    destinations: ["Colombo", "Kandy", "Nuwara Eliya", "Galle"],
-    price: 850,
-    rating: 4.8,
-    reviews: 124,
-    image: "https://images.unsplash.com/photo-1654138012287-003b423de8ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    destinations: ["Colombo", "Kandy", "Sigiriya", "Trincomalee", "Ella"],
+    itinerary: [
+      "Day 1: Arrive in Colombo, travel to Kandy (overnight)",
+      "Day 2-3: Sigiriya (includes fire camping and night function)",
+      "Day 4-5: Trincomalee (visit Munneshwaram, Nilaveli, Arugam Bay)",
+      "Day 6: Ella (overnight)",
+      "Day 7: Return to Colombo"
+    ],
+    price: 500, // Price per person in EUR
+    rating: 4.9,
+    reviews: 132,
+    image: "https://images.unsplash.com/photo-1582972236019-ea9e5d8379a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
     category: "cultural",
-    featured: true
+    featured: true,
+    highlights: [
+      "Sigiriya Rock Fortress visit",
+      "Fire camping experience under the stars",
+      "Beach time at Nilaveli and Arugam Bay",
+      "Scenic train ride through tea country to Ella",
+      "Cultural temple visits including Munneshwaram"
+    ],
+    specialDinners: [
+      "Day 2: Traditional Sri Lankan BBQ in Sigiriya",
+      "Day 4: Seafood feast in Trincomalee"
+    ]
   },
   {
     id: 2,
-    title: "Beach Paradise Getaway",
-    duration: "5 Days",
-    destinations: ["Mirissa", "Unawatuna", "Tangalle"],
-    price: 650,
-    rating: 4.7,
+    title: "Hill Country & Coastal Explorer",
+    duration: "10 Days",
+    destinations: ["Colombo", "Kandy", "Nuwara Eliya", "Haputale", "Ohiya", "Horton Plains", "Hikkaduwa"],
+    itinerary: [
+      "Day 1: Arrive in Colombo, travel to Kandy (overnight)",
+      "Day 2-3: Nuwara Eliya (visit Hakgala Gardens & tea plantations)",
+      "Day 4: Haputale (visit Edison Bungalow & Calipso)",
+      "Day 5: Ohiya (overnight)",
+      "Day 6-7: Horton Plains (hike to World's End)",
+      "Day 8-9: Hikkaduwa/Waskaduwa beach stay with beach party",
+      "Day 10: Return to Colombo"
+    ],
+    price: 500, // Price per person in EUR
+    rating: 4.8,
     reviews: 98,
-    image: "https://images.unsplash.com/photo-1552055569-d54ae89a11b7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "beach",
-    featured: true
+    image: "https://images.unsplash.com/photo-1564501049415-61a6a4b5d14a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    category: "adventure",
+    featured: true,
+    highlights: [
+      "Tea plantation tours with tasting sessions",
+      "Horton Plains hike to World's End viewpoint",
+      "Beach relaxation in Hikkaduwa with beach party",
+      "Cool climate hill station stays",
+      "Scenic train journeys through mountains"
+    ],
+    specialDinners: [
+      "Day 3: Hill country special dinner in Nuwara Eliya",
+      "Day 8: Beachside seafood BBQ in Hikkaduwa"
+    ]
   },
   {
     id: 3,
-    title: "Wildlife Safari Adventure",
-    duration: "4 Days",
-    destinations: ["Yala National Park", "Udawalawe"],
-    price: 720,
-    rating: 4.9,
-    reviews: 156,
+    title: "Wildlife & Beach Combo",
+    duration: "6 Days",
+    destinations: ["Colombo", "Yala", "Mirissa", "Galle"],
+    itinerary: [
+      "Day 1: Arrive in Colombo, travel to Yala (overnight)",
+      "Day 2: Morning and evening safaris in Yala",
+      "Day 3: Travel to Mirissa (overnight)",
+      "Day 4: Whale watching & beach time with beach party",
+      "Day 5: Galle Fort exploration",
+      "Day 6: Return to Colombo"
+    ],
+    price: 500, // Price per person in EUR
+    rating: 4.7,
+    reviews: 115,
     image: "https://images.unsplash.com/photo-1501534131-95d4e830200e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     category: "adventure",
-    featured: true
+    featured: true,
+    highlights: [
+      "Yala National Park safari with leopard spotting",
+      "Whale watching tour in Mirissa",
+      "Galle Fort UNESCO World Heritage Site",
+      "Beach relaxation time with beach party",
+      "Wildlife photography opportunities"
+    ],
+    specialDinners: [
+      "Day 2: Jungle BBQ dinner near Yala",
+      "Day 4: Seafood dinner in Mirissa"
+    ]
   },
   {
     id: 4,
-    title: "Tea Country Experience",
-    duration: "3 Days",
-    destinations: ["Nuwara Eliya", "Ella", "Haputale"],
-    price: 480,
-    rating: 4.6,
+    title: "Wellness & Ayurveda Retreat",
+    duration: "5 Days",
+    destinations: ["Colombo", "Bentota", "Ambalangoda"],
+    itinerary: [
+      "Day 1: Arrive in Colombo, transfer to Bentota (overnight)",
+      "Day 2-4: Daily Ayurveda treatments & yoga sessions",
+      "Day 5: Visit mask museum in Ambalangoda, return to Colombo"
+    ],
+    price: 500, // Price per person in EUR
+    rating: 4.9,
     reviews: 87,
-    image: "https://images.unsplash.com/photo-1709926701984-f5ae0099595f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "cultural",
-    featured: true
+    image: "https://images.unsplash.com/photo-1606825004533-dbfb13be4cb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    category: "wellness",
+    featured: true,
+    highlights: [
+      "Daily yoga sessions at sunrise",
+      "Personalized Ayurvedic treatments",
+      "Meditation sessions by the beach",
+      "Healthy organic meals tailored to your dosha",
+      "Traditional mask museum visit"
+    ],
+    specialDinners: [
+      "Day 2: Healthy gourmet dinner",
+      "Day 4: Ayurvedic special dinner"
+    ]
   },
   {
     id: 5,
-    title: "Ancient Cities Explorer",
-    duration: "6 Days",
-    destinations: ["Anuradhapura", "Polonnaruwa", "Sigiriya", "Dambulla"],
-    price: 790,
-    rating: 4.7,
-    reviews: 112,
-    image: "https://images.unsplash.com/photo-1656339953897-e5d10d261ff1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "historical",
-    featured: true
-  },
-  {
-    id: 6,
-    title: "Wellness & Yoga Retreat",
-    duration: "5 Days",
-    destinations: ["Ahangama", "Weligama"],
-    price: 920,
-    rating: 4.9,
-    reviews: 76,
-    image: "https://images.unsplash.com/photo-1606825004533-dbfb13be4cb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "wellness",
-    featured: true
-  },
-  {
-    id: 7,
-    title: "Budget Hill Country Escape",
-    duration: "3 Days",
-    destinations: ["Kandy", "Nuwara Eliya"],
-    price: 390,
-    rating: 4.5,
-    reviews: 65,
-    image: "https://images.unsplash.com/photo-1665849050332-8d5d7e59afb6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "cultural",
-    featured: false
-  },
-  {
-    id: 8,
-    title: "East Coast Budget Beaches",
-    duration: "4 Days",
-    destinations: ["Arugam Bay", "Passekudah"],
-    price: 440,
+    title: "Ancient Cities & Cultural Experience",
+    duration: "8 Days",
+    destinations: ["Colombo", "Anuradhapura", "Polonnaruwa", "Sigiriya", "Kandy"],
+    itinerary: [
+      "Day 1: Arrive in Colombo, travel to Anuradhapura (overnight)",
+      "Day 2: Ancient city tour with cultural show at night",
+      "Day 3: Travel to Polonnaruwa (overnight)",
+      "Day 4: Ancient city exploration",
+      "Day 5: Travel to Sigiriya (overnight with night function)",
+      "Day 6: Climb Sigiriya Rock, travel to Kandy",
+      "Day 7: Kandy cultural tour with temple visit",
+      "Day 8: Return to Colombo"
+    ],
+    price: 500, // Price per person in EUR
     rating: 4.6,
-    reviews: 72,
-    image: "https://bluewatersarugambay.com/wp/wp-content/uploads/2019/09/Arugam-Bay-1024x683.jpg",
-    category: "beach",
-    featured: false
-  },
-  {
-    id: 9,
-    title: "Budget Wildlife Trek",
-    duration: "2 Days",
-    destinations: ["Wilpattu National Park"],
-    price: 280,
-    rating: 4.4,
-    reviews: 51,
-    image: "https://images.unsplash.com/photo-1621847473222-d85c022cbf07?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "adventure",
-    featured: false
-  },
-  {
-    id: 10,
-    title: "Cultural Triangle on a Budget",
-    duration: "5 Days",
-    destinations: ["Sigiriya", "Dambulla", "Anuradhapura"],
-    price: 510,
-    rating: 4.6,
-    reviews: 84,
+    reviews: 142,
     image: "https://images.unsplash.com/photo-1612862862126-865765df2ded?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "historical",
-    featured: false
+    category: "cultural",
+    featured: true,
+    highlights: [
+      "Ancient city exploration",
+      "Cultural shows and night functions",
+      "Sigiriya Rock climb",
+      "Temple of the Tooth relic in Kandy",
+      "Traditional dance performances"
+    ],
+    specialDinners: [
+      "Day 2: Traditional Sri Lankan feast in Anuradhapura",
+      "Day 5: Sigiriya special BBQ dinner"
+    ]
   }
 ];
 
@@ -133,7 +166,7 @@ const CurrentPackages = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState(1000);
-  const [selectedPackage, setSelectedPackage] = useState(null); // Track selected package
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   const filteredPackages = packagesData.filter(pkg => {
     const matchesSearch = pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -144,16 +177,23 @@ const CurrentPackages = () => {
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
-  const categories = ["all", "cultural", "beach", "adventure", "historical", "wellness"];
+  const categories = ["all", "cultural", "adventure", "wellness"];
 
-  // Function to open modal with package details
   const openPackageDetails = (pkg) => {
     setSelectedPackage(pkg);
   };
 
-  // Function to close modal
   const closePackageDetails = () => {
     setSelectedPackage(null);
+  };
+
+  const getCategoryIcon = (category) => {
+    switch(category) {
+      case 'adventure': return <FaHiking />;
+      case 'cultural': return <FaMapMarkerAlt />;
+      case 'wellness': return <FaSpa />;
+      default: return <FaStar />;
+    }
   };
 
   return (
@@ -165,11 +205,60 @@ const CurrentPackages = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Our Current Packages
+            Discover Sri Lanka
           </HeroTitle>
+          <HeroSubtitle>
+            Explore our carefully curated travel packages
+          </HeroSubtitle>
         </HeroContent>
       </HeroSection>
 
+      {/* Package Details Section */}
+      <PackageDetailsSection>
+        <SectionTitle>Our Package Inclusions</SectionTitle>
+        <InclusionsGrid>
+          <InclusionCard>
+            <FaHotel size={40} color="var(--primaryColor)" />
+            <InclusionTitle>Hotel Stays</InclusionTitle>
+            <InclusionText>Comfortable 3-4 star accommodations throughout your journey</InclusionText>
+          </InclusionCard>
+          <InclusionCard>
+            <FaCar size={40} color="var(--primaryColor)" />
+            <InclusionTitle>Transport</InclusionTitle>
+            <InclusionText>Private AC vehicle with professional driver for all transfers</InclusionText>
+          </InclusionCard>
+          <InclusionCard>
+            <FaUtensils size={40} color="var(--primaryColor)" />
+            <InclusionTitle>Meals</InclusionTitle>
+            <InclusionText>Daily breakfast and lunch with authentic Sri Lankan cuisine</InclusionText>
+          </InclusionCard>
+          <InclusionCard>
+            <FaCampground size={40} color="var(--primaryColor)" />
+            <InclusionTitle>Special Dinners</InclusionTitle>
+            <InclusionText>2 special dinners per package (BBQ or seafood depending on location)</InclusionText>
+          </InclusionCard>
+          <InclusionCard>
+            <FaUsers size={40} color="var(--primaryColor)" />
+            <InclusionTitle>Group Size</InclusionTitle>
+            <InclusionText>Minimum 4 persons required (€500 per person)</InclusionText>
+          </InclusionCard>
+          <InclusionCard>
+            <FaPlane size={40} color="var(--primaryColor)" />
+            <InclusionTitle>Flights</InclusionTitle>
+            <InclusionText>Flights to be arranged separately by travelers</InclusionText>
+          </InclusionCard>
+        </InclusionsGrid>
+
+        <FlexibilityNote>
+          <NoteIcon>!</NoteIcon>
+          <NoteText>
+            <strong>Flexible Itineraries:</strong> Customers can customize their routes according to preferences. 
+            All packages include cultural sites, beach parties, historical locations, and night functions.
+          </NoteText>
+        </FlexibilityNote>
+      </PackageDetailsSection>
+
+      {/* Filter and Packages Section */}
       <FilterSection>
         <SearchContainer>
           <SearchInput
@@ -193,14 +282,14 @@ const CurrentPackages = () => {
                   active={selectedCategory === category}
                   onClick={() => setSelectedCategory(category)}
                 >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {getCategoryIcon(category)} {category.charAt(0).toUpperCase() + category.slice(1)}
                 </CategoryButton>
               ))}
             </CategoryButtons>
           </CategoryFilter>
 
           <PriceFilter>
-            <FilterLabel>Max Price: ${priceRange}</FilterLabel>
+            <FilterLabel>Max Price: €{priceRange}</FilterLabel>
             <PriceSlider
               type="range"
               min="100"
@@ -210,8 +299,8 @@ const CurrentPackages = () => {
               onChange={(e) => setPriceRange(parseInt(e.target.value))}
             />
             <PriceRange>
-              <span>$100</span>
-              <span>$1000</span>
+              <span>€100</span>
+              <span>€1000</span>
             </PriceRange>
           </PriceFilter>
         </FilterControls>
@@ -234,13 +323,13 @@ const CurrentPackages = () => {
                 <PackageContent>
                   <PackageHeader>
                     <PackageTitle>{pkg.title}</PackageTitle>
-                    <PackagePrice>${pkg.price}<span>/person</span></PackagePrice>
+                    <PackagePrice>€{pkg.price}<span>/person</span></PackagePrice>
                   </PackageHeader>
                   
                   <PackageDetails>
                     <DetailItem>
                       <FaMapMarkerAlt />
-                      <span>{pkg.destinations.join(", ")}</span>
+                      <span>{pkg.destinations.join(" → ")}</span>
                     </DetailItem>
                     <DetailItem>
                       <FaCalendarAlt />
@@ -257,9 +346,8 @@ const CurrentPackages = () => {
                     <RatingText>{pkg.rating} ({pkg.reviews} reviews)</RatingText>
                   </PackageRating>
                   
-                  {/* <PackageButton>View Details</PackageButton> */}
+                  <PackageButton onClick={() => openPackageDetails(pkg)}>View Details</PackageButton>
                 </PackageContent>
-                <PackageButton onClick={() => openPackageDetails(pkg)}>View Details</PackageButton>
               </PackageCard>
             ))}
           </PackageGrid>
@@ -293,13 +381,13 @@ const CurrentPackages = () => {
             
             <ModalHeader>
               <ModalTitle>{selectedPackage.title}</ModalTitle>
-              <ModalPrice>${selectedPackage.price}<span>/person</span></ModalPrice>
+              <ModalPrice>€{selectedPackage.price}<span>/person</span></ModalPrice>
             </ModalHeader>
             
             <ModalDetails>
               <DetailItem>
                 <FaMapMarkerAlt />
-                <span><strong>Destinations:</strong> {selectedPackage.destinations.join(", ")}</span>
+                <span><strong>Route:</strong> {selectedPackage.destinations.join(" → ")}</span>
               </DetailItem>
               <DetailItem>
                 <FaCalendarAlt />
@@ -307,22 +395,55 @@ const CurrentPackages = () => {
               </DetailItem>
               <DetailItem>
                 <FaUsers />
-                <span><strong>Group Size:</strong> Up to 12 travelers</span>
+                <span><strong>Group Size:</strong> Minimum 4 persons required</span>
               </DetailItem>
             </ModalDetails>
             
             <ModalDescription>
-              <h4>Package Description</h4>
-              <p>Experience the best of Sri Lanka with this carefully curated package. This tour includes visits to all major attractions, comfortable accommodations, and expert local guides.</p>
-              
-              <h4>Highlights</h4>
+              <h4>Detailed Itinerary</h4>
               <ul>
-                <li>Guided tours of all major attractions</li>
-                <li>Comfortable 3-4 star accommodations</li>
-                <li>Local cuisine tasting experiences</li>
-                <li>Transportation between destinations</li>
-                <li>24/7 customer support</li>
+                {selectedPackage.itinerary.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
+              
+              <h4>Package Highlights</h4>
+              <ul>
+                {selectedPackage.highlights.map((highlight, index) => (
+                  <li key={index}>{highlight}</li>
+                ))}
+              </ul>
+
+              <h4>Special Dinners Included</h4>
+              <ul>
+                {selectedPackage.specialDinners.map((dinner, index) => (
+                  <li key={index}>{dinner}</li>
+                ))}
+              </ul>
+
+              <h4>What's Included</h4>
+              <ul>
+                <li>All hotel accommodations (3-4 star)</li>
+                <li>Private AC vehicle transportation</li>
+                <li>Daily breakfast and lunch (Sri Lankan cuisine)</li>
+                <li>2 special dinners as specified</li>
+                <li>All cultural and historical site entries</li>
+                <li>Beach parties and night functions</li>
+                <li>English speaking guide assistance</li>
+              </ul>
+
+              <h4>Not Included</h4>
+              <ul>
+                <li>International flights (to be arranged separately)</li>
+                <li>Travel insurance</li>
+                <li>Personal expenses</li>
+                <li>Additional meals not specified</li>
+              </ul>
+
+              <ImportantNote>
+                <strong>Note:</strong> Itinerary can be customized according to your preferences. 
+                Minimum 4 persons required for booking at €500 per person.
+              </ImportantNote>
             </ModalDescription>
             
             <ModalActions>
@@ -335,11 +456,11 @@ const CurrentPackages = () => {
 
       <NewsletterSection>
         <NewsletterContent>
-          <NewsletterTitle>Want Special Offers?</NewsletterTitle>
-          <NewsletterText>Subscribe to our newsletter for exclusive deals</NewsletterText>
+          <NewsletterTitle>Ready for Your Sri Lankan Adventure?</NewsletterTitle>
+          <NewsletterText>Contact us to customize your perfect itinerary</NewsletterText>
           <NewsletterForm>
             <NewsletterInput type="email" placeholder="Your email address" />
-            <NewsletterButton>Subscribe</NewsletterButton>
+            <NewsletterButton>Get a Quote</NewsletterButton>
           </NewsletterForm>
         </NewsletterContent>
       </NewsletterSection>
@@ -377,7 +498,7 @@ const HeroSection = styled.section`
                 url(${packagesImage});
     background-size: cover;
     background-position: center;
-    filter: blur(4px) brightness(0.9); /* Adjust blur intensity */
+    filter: blur(4px) brightness(0.9);
     z-index: 1;
   }
 
@@ -388,7 +509,7 @@ const HeroSection = styled.section`
 
   > * {
     position: relative;
-    z-index: 2; /* Ensure content appears above the blurred background */
+    z-index: 2;
   }
 `;
 
@@ -422,9 +543,122 @@ const HeroSubtitle = styled.p`
   font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 300;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 1rem auto 0;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 `;
+
+const PackageDetailsSection = styled.section`
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  position: relative;
+  padding-bottom: 1rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--primaryColor);
+  }
+`;
+
+const InclusionsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const InclusionCard = styled.div`
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  svg {
+    margin-bottom: 1rem;
+  }
+`;
+
+const InclusionTitle = styled.h3`
+  font-size: 1.2rem;
+  margin: 0 0 1rem;
+  color: #333;
+`;
+
+const InclusionText = styled.p`
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+`;
+
+const FlexibilityNote = styled.div`
+  background-color: #f8f9fa;
+  border-left: 4px solid var(--primaryColor);
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 0 5px 5px 0;
+`;
+
+const NoteIcon = styled.div`
+  background-color: var(--primaryColor);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+`;
+
+const NoteText = styled.p`
+  margin: 0;
+  color: #555;
+`;
+
+const ImportantNote = styled.p`
+  background-color: #fff8e1;
+  padding: 1rem;
+  border-left: 4px solid #ffc107;
+  margin: 1.5rem 0 0;
+  color: #5d4037;
+`;
+
+// ... (keep all your existing styled components from previous code)
+
+
+
 
 const FilterSection = styled.div`
   max-width: 1200px;
@@ -512,9 +746,16 @@ const CategoryButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
   &:hover {
     background-color: ${props => props.active ? 'var(--primaryColor)' : '#e0e0e0'};
+  }
+
+  svg {
+    font-size: 0.9rem;
   }
 `;
 
@@ -572,6 +813,8 @@ const PackageCard = styled.div`
   transition: all 0.3s ease;
   position: relative;
   border: ${props => props.featured ? '2px solid var(--primaryColor)' : '1px solid #eee'};
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     transform: translateY(-10px);
@@ -600,6 +843,9 @@ const PackageImage = styled.img`
 
 const PackageContent = styled.div`
   padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const PackageHeader = styled.div`
@@ -613,12 +859,14 @@ const PackageTitle = styled.h3`
   font-size: 1.3rem;
   margin: 0;
   color: #333;
+  flex: 1;
 `;
 
 const PackagePrice = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--primaryColor);
+  margin-left: 1rem;
 
   span {
     font-size: 0.8rem;
@@ -641,6 +889,7 @@ const DetailItem = styled.div`
   svg {
     margin-right: 0.5rem;
     color: var(--primaryColor);
+    flex-shrink: 0;
   }
 `;
 
@@ -652,6 +901,7 @@ const PackageRating = styled.div`
 
 const Stars = styled.div`
   margin-right: 0.5rem;
+  display: flex;
 `;
 
 const RatingText = styled.span`
@@ -665,10 +915,11 @@ const PackageButton = styled.button`
   background-color: var(--primaryColor);
   color: white;
   border: none;
-  border-radius: 0px;
+  border-radius: 0 0 8px 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: auto;
 
   &:hover {
     background-color: #333;
@@ -811,12 +1062,14 @@ const ModalTitle = styled.h3`
   font-size: 1.5rem;
   margin: 0;
   color: #333;
+  flex: 1;
 `;
 
 const ModalPrice = styled.div`
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primaryColor);
+  margin-left: 1rem;
 
   span {
     font-size: 1rem;
@@ -838,6 +1091,7 @@ const ModalDescription = styled.div`
   h4 {
     margin: 1.5rem 0 0.5rem;
     color: #444;
+    font-size: 1.2rem;
   }
 
   p, ul {
@@ -847,10 +1101,21 @@ const ModalDescription = styled.div`
 
   ul {
     padding-left: 1.2rem;
+    margin-bottom: 1rem;
   }
 
   li {
     margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.2rem;
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primaryColor);
+      font-weight: bold;
+    }
   }
 `;
 
