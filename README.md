@@ -9,6 +9,8 @@
 - 💻 Responsive and animated React UI.
 - 🔥 Built with React, Styled Components, Framer Motion, and i18next.
 
+![home](https://github.com/user-attachments/assets/a2b6bd0f-154a-4e3c-9277-56ded8481b07)
+
 ## 🚀 Getting Started
 
 ### Prerequisites
