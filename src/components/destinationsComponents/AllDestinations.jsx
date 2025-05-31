@@ -316,6 +316,54 @@ const Destinations = () => {
           </motion.p>
         </IntroSection>
 
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '800px', // Limits maximum width for larger screens
+            height: '400px',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)', // More pronounced shadow
+            margin: '2rem auto', // Increased vertical margin
+            position: 'relative',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Smooth hover effects
+            backgroundColor: '#000', // Black background for loading state
+            border: '1px solid rgba(255, 255, 255, 0.1)', // Subtle border
+            ':hover': {
+              transform: 'translateY(-4px)', // Slight lift on hover
+              boxShadow: '0 12px 28px rgba(0, 0, 0, 0.2)' // Enhanced shadow on hover
+            }
+          }}
+        >
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/q0mbKsKG-ng"
+            title="Test"
+            style={{ 
+              border: 'none',
+              display: 'block',
+              opacity: '0.9', // Slight transparency
+              transition: 'opacity 0.3s ease',
+              ':hover': {
+                opacity: '1' // Full opacity on hover
+              }
+            }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+          {/* Optional overlay elements */}
+          <div style={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            right: '0',
+            bottom: '0',
+            pointerEvents: 'none', // Allows clicks to pass through to iframe
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 100%)'
+          }} />
+        </div>
+
         {/* Destinations Grid */}
         <DestinationsGrid>
           {destinations.map((destination, index) => (
@@ -376,22 +424,6 @@ const Destinations = () => {
             </DestinationCard>
           ))}
         </DestinationsGrid>
-
-        {/* Call to Action */}
-        <CTASection
-          as={motion.div}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          initial="hidden"
-          animate={animation}
-          transition={{ duration: 0.5, delay: destinations.length * 0.1 }}
-        >
-          <h2>Ready to explore Sri Lanka?</h2>
-          <p>Contact us to plan your perfect Sri Lankan adventure</p>
-          <CTAButton>Plan My Trip</CTAButton>
-        </CTASection>
       </MainContainer>
     </PageContainer>
   );
@@ -687,49 +719,5 @@ const ActivityIcon = styled.span`
   font-weight: bold;
 `;
 
-const CTASection = styled.section`
-  text-align: center;
-  padding: 3rem 0;
-  margin-top: 3rem;
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #2c5c2c;
-  }
-
-  p {
-    color: #555;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 768px) {
-    padding: 2rem 0;
-    
-    h2 {
-      font-size: 1.6rem;
-    }
-  }
-`;
-
-const CTAButton = styled.button`
-  padding: 1rem 2.5rem;
-  background-color: #4a8c4a;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    background-color: #3a6c3a;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-`;
 
 export default Destinations;

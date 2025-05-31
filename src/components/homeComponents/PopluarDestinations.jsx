@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 import sigiriya from "../../assets/homeAssets/sigiriya.jpg";
 import maligawa from "../../assets/homeAssets/maligawa.jpg";
@@ -24,35 +25,40 @@ const PopularDestinations = () => {
       image: sigiriya,
       title: "SIGIRIYA",
       description: "Climb the Lion Rock and witness the ancient marvel of Sigiriya, a fortress in the sky, rich with history and breathtaking views.",
-      reversed: false
+      reversed: false,
+      link:"https://en.wikipedia.org/wiki/Sigiriya"
     },
     {
       id: 2,
       image: maligawa,
-      title: "SRI DALADA MALIGAWA",
+      title: "TEMPLE OF THE TOOTH",
       description: "Home to the sacred tooth relic of Lord Buddha, Sri Dalada Maligawa is a symbol of peace and devotion. A timeless treasure nestled in the heart of Kandy.",
-      reversed: true
+      reversed: true,
+      link:"https://en.wikipedia.org/wiki/Temple_of_the_Tooth"
     },
     {
       id: 3,
       image: mirissa,
       title: "MIRISSA",
       description: "Mirissa, a tropical paradise on Sri Lanka's south coast, offers golden beaches and crystal-clear waters. It's the perfect spot for whale watching, surfing, and sunset dreams.",
-      reversed: false
+      reversed: false,
+      link:"https://en.wikipedia.org/wiki/Mirissa"
     },
     {
       id: 4,
       image: ella,
       title: "ELLA",
       description: "Ella is a charming mountain village in Sri Lanka, known for its lush tea plantations and breathtaking views. Hike to Ella Rock or stroll across the iconic Nine Arches Bridge for unforgettable adventures.",
-      reversed: true
+      reversed: true,
+      link:"https://en.wikipedia.org/wiki/Ella,_Sri_Lanka"
     },
     {
       id: 5,
       image: yala,
       title: "YALA",
       description: "Yala National Park is Sri Lanka's premier wildlife sanctuary, home to leopards, elephants, and exotic birds. Explore its rugged terrain and spot incredible wildlife on an unforgettable safari adventure.",
-      reversed: false
+      reversed: false,
+      link:"https://en.wikipedia.org/wiki/Yala_National_Park"
     }
   ];
 
@@ -111,7 +117,12 @@ const PopularDestinations = () => {
             <ContentWrapper>
               <h2>{destination.title}</h2>
               <p>{destination.description}</p>
-              <ExploreButton>
+              <ExploreButton 
+                as="a" 
+                href={destination.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
                 EXPLORE {destination.title.split(" ")[0]}
               </ExploreButton>
             </ContentWrapper>

@@ -20,7 +20,7 @@ const Footer = () => {
             <FooterLink to="/">Home</FooterLink>
             <FooterLink to="/about-us">About Us</FooterLink>
             <FooterLink to="/destinations">Destinations</FooterLink>
-            <FooterLink to="/kontakti">Current Packages</FooterLink>
+            <FooterLink to="/current-packages">Current Packages</FooterLink>
           </QuickLinks>
 
           <ContactInfo>
