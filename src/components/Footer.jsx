@@ -29,13 +29,13 @@ const Footer = () => {
               <ContactIcon>
                 <IoMail />
               </ContactIcon>
-              <ContactText>info@cocobudget.web.app</ContactText>
+              <ContactText>kasunliyanage90@gmail.com</ContactText>
             </ContactItem>
             <ContactItem>
               <ContactIcon>
                 <FaPhoneAlt />
               </ContactIcon>
-              <ContactText>+383 45 123 123</ContactText>
+              <ContactText>+358 44 245 8212</ContactText>
             </ContactItem>
             <SocialLinks>
               <SocialLink href="https://www.instagram.com/21_dite_paakne/" target="_blank" aria-label="Instagram">

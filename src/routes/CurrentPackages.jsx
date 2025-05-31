@@ -165,7 +165,7 @@ const CurrentPackages = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Discover Our Current Packages
+            Our Current Packages
           </HeroTitle>
         </HeroContent>
       </HeroSection>

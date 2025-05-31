@@ -180,7 +180,7 @@ const AboutUs = () => {
         <TeamGrid>
           {[
             {
-              name: "Sanjay Perera",
+              name: "Kasun Liyanage",
               role: "Founder & CEO",
               bio: "15+ years in Sri Lanka tourism"
             },
@@ -224,17 +224,17 @@ const AboutUs = () => {
             <ContactCard>
               <FaPhone className="icon" />
               <h3>Phone</h3>
-              <p>+94 76 123 4567</p>
+              <p>+358 44 245 8212</p>
             </ContactCard>
             <ContactCard>
               <FaEnvelope className="icon" />
               <h3>Email</h3>
-              <p>info@cocobudget.com</p>
+              <p>kasunliyanage90@gmail.com</p>
             </ContactCard>
             <ContactCard>
               <FaMapMarkerAlt className="icon" />
               <h3>Address</h3>
-              <p>123 Beach Road, Colombo 03, Sri Lanka</p>
+              <p>Kauppalankatu 14, A 14, 05800 Hyvinkaa, Finland</p>
             </ContactCard>
             <ContactCard>
               <FaClock className="icon" />
