@@ -11,7 +11,7 @@ const Footer = () => {
     <FooterContainer>
       <FooterTop>
         <LogoContainer>
-          <Logo src={logo} alt="Travelo Logo" />
+          <Logo src={logo} alt="CocoBudget Logo" />
         </LogoContainer>
 
         <FooterContent>
@@ -29,7 +29,7 @@ const Footer = () => {
               <ContactIcon>
                 <IoMail />
               </ContactIcon>
-              <ContactText>info@travelo.web.app</ContactText>
+              <ContactText>info@cocobudget.web.app</ContactText>
             </ContactItem>
             <ContactItem>
               <ContactIcon>
