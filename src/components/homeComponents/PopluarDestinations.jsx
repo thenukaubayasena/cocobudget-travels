@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 import sigiriya from "../../assets/homeAssets/sigiriya.jpg";
 import maligawa from "../../assets/homeAssets/maligawa.jpg";

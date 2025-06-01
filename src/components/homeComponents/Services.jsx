@@ -88,7 +88,6 @@ const Services = () => {
           >
             <h3>{service.title}</h3>
             <p>{service.description}</p>
-            <div className="icon">→</div>
           </ServiceCard>
         ))}
       </ServicesGrid>

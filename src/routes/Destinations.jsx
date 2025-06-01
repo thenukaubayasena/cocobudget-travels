@@ -15,5 +15,4 @@ const Container = styled.div`
   /* overflow-x: hidden; */
 `;
 
-
 export default AllDestinations;

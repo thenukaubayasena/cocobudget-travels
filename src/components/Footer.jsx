@@ -231,13 +231,6 @@ const FooterBottom = styled.div`
   text-align: center;
 `;
 
-const MissionStatement = styled.p`
-  color: #666;
-  font-weight: 300;
-  line-height: 1.6;
-  max-width: 700px;
-`;
-
 const Copyright = styled.p`
   color: #666;
   font-weight: 300;

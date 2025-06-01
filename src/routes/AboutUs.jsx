@@ -7,7 +7,9 @@ import { FaTiktok, FaFacebookF } from "react-icons/fa";
 import aboutUsImage from '../assets/homeAssets/aboutus.jpg'; 
 import missionImage from '../assets/homeAssets/mission.jpg';
 import valuesImage from '../assets/homeAssets/values.jpg';
-import memberImage from '../assets/homeAssets/member.png'; 
+import kasunImage from '../assets/homeAssets/member.png'; 
+import harshaniImage from '../assets/homeAssets/member1.png';
+
 const AboutUs = () => {
   return (
     <AboutContainer>
@@ -180,15 +182,17 @@ const AboutUs = () => {
         <TeamGrid>
           {[
             {
-              name: "Kasun Liyanage",
-              role: "Founder & CEO"
+              name: "Mr. Kasun Liyanage",
+              role: "Founder & CEO",
+              email: "(kasunliyanage90@gmail.com)",
+              image: kasunImage
             },
             {
-              name: "Kasun Liyanage",
-              role: "Founder & CEO"
-            },
-            
-
+              name: "Mrs. Harshani Athapaththu",  
+              role: "Sri Lankan Agent",
+              email: "(harshani93athapaththu@gmail.com)",
+              image: harshaniImage
+            }
           ].map((member, index) => (
             <TeamMember
               key={index}
@@ -197,10 +201,10 @@ const AboutUs = () => {
               transition={{ duration: 0.5, delay: 0.1 * index }}
               viewport={{ once: true }}
             >
-              <TeamImage />
+              <TeamImage $image={member.image} />
               <h3>{member.name}</h3>
               <p className="role">{member.role}</p>
-              <p>{member.bio}</p>
+              <p>{member.email}</p>
             </TeamMember>
           ))}
         </TeamGrid>
@@ -485,7 +489,7 @@ const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  max-width: 400px;
+  max-width: 1000px;
   margin: 0 auto;
 
   @media (max-width: 600px) {
@@ -536,7 +540,7 @@ const TeamImage = styled.div`
   object-fit: cover;
   border: 4px solid white;
   box-shadow: 0 1px 8px rgba(0,0,0,0.1);
-  background: url(${memberImage}) center/cover no-repeat; 
+  background: url(${props => props.$image}) center/cover no-repeat;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -550,7 +554,6 @@ const TeamImage = styled.div`
     height: 120px;
   }
 `;
-
 
 const ContactGrid = styled.div`
   display: grid;

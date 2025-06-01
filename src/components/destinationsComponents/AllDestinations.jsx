@@ -78,7 +78,6 @@ import trinco1 from "../../assets/destinationImages/trinco1.jpg";
 import trinco2 from "../../assets/destinationImages/trinco2.webp";
 import trinco3 from "../../assets/destinationImages/trinco3.jpg";
 import trinco4 from "../../assets/destinationImages/trinco4.jpg";
-
 import destinationsImg from "../../assets/destinationImages/destinations.avif";
 
 // Destination data
@@ -95,7 +94,7 @@ const destinations = [
       "Mirror Wall with ancient graffiti",
       "Extensive water gardens"
     ],
-    bestTime: "Year-round (best January-April)",
+    bestTime: "Best January-April",
     location: "Central Province"
   },
   {
@@ -110,7 +109,7 @@ const destinations = [
       "The golden canopy over the relic chamber",
       "Kandy Lake adjacent to the temple"
     ],
-    bestTime: "Year-round (July-August for Perahera)",
+    bestTime: "Best July-August",
     location: "Kandy"
   },
   {
