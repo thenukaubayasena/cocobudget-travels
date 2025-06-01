@@ -27,10 +27,6 @@ const FAQ = () => {
     {
       question: "What is the cancellation policy?",
       answer: "You can cancel up to 48 hours before departure for a full refund. Terms may vary by package."
-    },
-    {
-      question: "Do you offer travel insurance?",
-      answer: "Yes, we offer comprehensive travel insurance options to cover any unexpected events during your trip."
     }
   ];
 

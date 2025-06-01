@@ -42,6 +42,43 @@ import aru1 from "../../assets/destinationImages/aru1.webp";
 import aru2 from "../../assets/destinationImages/aru2.jpg";
 import aru3 from "../../assets/destinationImages/aru3.webp";
 import aru4 from "../../assets/destinationImages/aru4.jpg";
+import uda1 from "../../assets/destinationImages/uda1.jpg";
+import uda2 from "../../assets/destinationImages/uda2.jpg";
+import uda3 from "../../assets/destinationImages/uda3.jpg"; 
+import uda4 from "../../assets/destinationImages/uda4.jpg";
+import weligama1 from "../../assets/destinationImages/weligama1.jpg";
+import weligama2 from "../../assets/destinationImages/weligama2.jpg";
+import weligama3 from "../../assets/destinationImages/weligama3.jpg";
+import weligama4 from "../../assets/destinationImages/weligama4.jpg";
+import hik1 from "../../assets/destinationImages/hik1.jpg";
+import hik2 from "../../assets/destinationImages/hik2.jpg"; 
+import hik3 from "../../assets/destinationImages/hik3.jpg";
+import hik4 from "../../assets/destinationImages/hik4.jpg";
+import hapu1 from "../../assets/destinationImages/hapu1.jpg";
+import hapu2 from "../../assets/destinationImages/hapu2.jpg";
+import hapu3 from "../../assets/destinationImages/hapu3.jpg";
+import hapu4 from "../../assets/destinationImages/hapu4.jpg";
+import ambe1 from "../../assets/destinationImages/ambe1.jpg";
+import ambe2 from "../../assets/destinationImages/ambe2.jpg";
+import ambe3 from "../../assets/destinationImages/ambe3.jpg";
+import ambe4 from "../../assets/destinationImages/ambe4.jpg";
+import horton1 from "../../assets/destinationImages/horton1.jpg";
+import horton2 from "../../assets/destinationImages/horton2.jpg";
+import horton3 from "../../assets/destinationImages/horton3.jpg";
+import horton4 from "../../assets/destinationImages/horton4.webp";
+import hiri1 from "../../assets/destinationImages/hiri1.jpg";
+import hiri2 from "../../assets/destinationImages/hiri2.jpg";
+import hiri3 from "../../assets/destinationImages/hiri3.jpeg";
+import hiri4 from "../../assets/destinationImages/hiri4.jpeg";
+import ohiya1 from "../../assets/destinationImages/ohiya1.jpg";
+import ohiya2 from "../../assets/destinationImages/ohiya2.jpeg";
+import ohiya3 from "../../assets/destinationImages/ohiya3.JPG";
+import ohiya4 from "../../assets/destinationImages/ohiya4.jpg";
+import trinco1 from "../../assets/destinationImages/trinco1.jpg";
+import trinco2 from "../../assets/destinationImages/trinco2.webp";
+import trinco3 from "../../assets/destinationImages/trinco3.jpg";
+import trinco4 from "../../assets/destinationImages/trinco4.jpg";
+
 import destinationsImg from "../../assets/destinationImages/destinations.avif";
 
 // Destination data
@@ -50,12 +87,7 @@ const destinations = [
     id: 1,
     name: "Sigiriya Rock Fortress",
     type: "historical",
-    images: [
-      sigiriya1,
-      sigiriya2,
-      sigiriya3,
-      sigiriya4
-    ],
+    images: [sigiriya1, sigiriya2, sigiriya3, sigiriya4],
     description: "Sigiriya, the 'Lion Rock', is an ancient rock fortress and palace ruin located in central Sri Lanka. This UNESCO World Heritage Site features remarkable frescoes, mirror walls, and landscaped gardens. Built by King Kashyapa in the 5th century, it rises 200 meters above the surrounding jungle and offers breathtaking views.",
     highlights: [
       "Ancient frescoes of the 'Sigiriya Maidens'",
@@ -70,12 +102,7 @@ const destinations = [
     id: 2,
     name: "Temple of the Sacred Tooth Relic",
     type: "cultural",
-    images: [
-      maligawa1,
-      maligawa2,  
-      maligawa3,
-      maligawa4
-    ],
+    images: [maligawa1, maligawa2, maligawa3, maligawa4],
     description: "Sri Dalada Maligawa in Kandy is the most sacred Buddhist temple in Sri Lanka, housing the relic of the tooth of Buddha. This golden-roofed temple is part of the royal palace complex and plays a central role in the annual Esala Perahera festival featuring traditional dancers, drummers, and decorated elephants.",
     highlights: [
       "Daily rituals (pujas) at dawn, noon, and evening",
@@ -90,12 +117,7 @@ const destinations = [
     id: 3,
     name: "Mirissa",
     type: "beach",
-    images: [
-      mirissa1,
-      mirissa2,   
-      mirissa3,
-      mirissa4
-    ],
+    images: [mirissa1, mirissa2, mirissa3, mirissa4],
     description: "Mirissa is a small but picturesque beach town on Sri Lanka's south coast, famous for its golden sandy beaches, surfing spots, and whale watching opportunities. The laid-back atmosphere, beachfront restaurants serving fresh seafood, and stunning sunsets make it a favorite among travelers.",
     highlights: [
       "Whale watching tours",
@@ -111,12 +133,7 @@ const destinations = [
     id: 4,
     name: "Ella",
     type: "mountain",
-    images: [
-      ella1,
-      ella2,  
-      ella3,
-      ella4
-    ],
+    images: [ella1, ella2, ella3, ella4],
     description: "Nestled in Sri Lanka's misty hill country, Ella is a charming mountain town surrounded by lush tea plantations, waterfalls, and dramatic cliffs. Famous for its cool climate, scenic train rides, and hiking trails, Ella offers breathtaking views of the highlands.",
     highlights: [
       "Nine Arch Bridge",
@@ -132,12 +149,7 @@ const destinations = [
     id: 5,
     name: "Yala National Park",
     type: "wildlife",
-    images: [
-      yala1,
-      yala2,   
-      yala3,
-      yala4
-    ],
+    images: [yala1, yala2, yala3, yala4],
     description: "Yala National Park is Sri Lanka's most visited wildlife sanctuary, boasting the highest leopard density in the world. The park's diverse ecosystems range from moist monsoon forests to freshwater wetlands, providing habitats for elephants, crocodiles, and hundreds of bird species.",
     highlights: [
       "Leopard sightings (best in early morning)",
@@ -152,12 +164,7 @@ const destinations = [
     id: 6,
     name: "Nuwara Eliya",
     type: "hill-country",
-    images: [
-      eliya1,
-      eliya2, 
-      eliya3,
-      eliya4
-    ],
+    images: [eliya1, eliya2, eliya3, eliya4],
     description: "Nuwara Eliya, known as 'Little England', is a picturesque hill station surrounded by tea plantations in Sri Lanka's central highlands. With its colonial-era bungalows, temperate climate, and stunning landscapes, it offers a cool retreat from the tropical heat.",
     highlights: [
       "Tea plantation tours and tastings",
@@ -172,12 +179,7 @@ const destinations = [
     id: 7,
     name: "Galle Fort",
     type: "cultural",
-    images: [
-      galle1,
-      galle2,
-      galle3,
-      galle4
-    ],
+    images: [galle1, galle2, galle3, galle4],
     description: "Galle Fort is a UNESCO World Heritage Site, originally built by the Portuguese in the 16th century and later fortified by the Dutch. This atmospheric walled city features colonial architecture, boutique shops, art galleries, and charming cafes within its ramparts.",
     highlights: [
       "Walk along the fort walls at sunset",
@@ -190,14 +192,159 @@ const destinations = [
   },
   {
     id: 8,
+    name: "Udawalawe National Park",
+    type: "wildlife",
+    images: [uda1, uda2, uda3, uda4],
+    description: "Udawalawe National Park is one of the best places in Sri Lanka to see wild elephants. Located on the boundary of Sabaragamuwa and Uva Provinces, it is home to hundreds of elephants, water buffalo, and bird species.",
+    highlights: [
+      "Large herds of wild elephants",
+      "Udawalawe Reservoir",
+      "Elephant Transit Home",
+      "Scenic safari drives"
+    ],
+    bestTime: "May-September",
+    location: "Sabaragamuwa / Uva Province"
+  },
+  {
+    id: 9,
+    name: "Weligama",
+    type: "beach",
+    images: [weligama1, weligama2, weligama3, weligama4],
+    description: "Weligama is a popular beach town on the southern coast of Sri Lanka, known for its gentle waves ideal for beginner surfers. The relaxed vibe, sandy shores, and stilt fishermen define its charm.",
+    highlights: [
+      "Beginner-friendly surfing",
+      "Stilt fishermen",
+      "Weligama Bay Beach",
+      "Nearby island temples"
+    ],
+    bestTime: "November-April",
+    location: "Southern Province"
+  },
+  {
+    id: 10,
+    name: "Hikkaduwa",
+    type: "beach",
+    images: [hik1, hik2, hik3, hik4],
+    description: "Hikkaduwa is a vibrant beach destination famous for its coral reefs, beachside nightlife, and turtle sightings. It’s ideal for snorkeling and diving adventures.",
+    highlights: [
+      "Colorful coral reefs",
+      "Sea turtle hatchery",
+      "Snorkeling and scuba diving",
+      "Beach parties and nightlife"
+    ],
+    bestTime: "November-April",
+    location: "Southern Province"
+  },
+  {
+    id: 11,
+    name: "Haputale",
+    type: "mountain",
+    images: [hapu1, hapu2, hapu3, hapu4],
+    description: "Haputale is a serene hill town in the Badulla District, offering sweeping views over tea plantations and valleys. It's a great place for hikes and cool-weather relaxation.",
+    highlights: [
+      "Lipton’s Seat viewpoint",
+      "Tea estate tours",
+      "Idalgashinna Railway Hike",
+      "Breathtaking mountain views"
+    ],
+    bestTime: "March to May & December to February",
+    location: "Uva Province"
+  },
+  {
+    id: 12,
+    name: "Ambewela",
+    type: "mountain",
+    images: [ambe1, ambe2, ambe3, ambe4],
+    description: "Ambewela, known as 'Little New Zealand' in Sri Lanka, is a highland area famous for its lush grasslands, dairy farms, and chilly climate. It’s ideal for scenic relaxation and family visits.",
+    highlights: [
+      "Ambewela Dairy Farm",
+      "Rolling green pastures",
+      "Cool and misty weather",
+      "Near Horton Plains"
+    ],
+    bestTime: "January-April",
+    location: "Central Province"
+  },
+  {
+    id: 13,
+    name: "Horton Plains National Park",
+    type: "nature",
+    images: [horton1, horton2, horton3, horton4],
+    description: "Horton Plains is a plateau at an altitude of 2,100–2,300 meters with grasslands and cloud forests. It’s home to the famous World’s End cliff and Baker’s Falls.",
+    highlights: [
+      "World’s End viewpoint",
+      "Baker’s Falls",
+      "Cloud forest hiking",
+      "Unique flora and fauna"
+    ],
+    bestTime: "January-March",
+    location: "Central Province"
+  },
+  {
+    id: 14,
+    name: "Arugam Bay",
+    type: "beach",
+    images: [aru1, aru2, aru3, aru4],
+    description: "Arugam Bay on Sri Lanka's east coast is a world-renowned surfing destination with a laid-back vibe. The long, curling right-hand point break attracts surfers from around the globe, while the area also offers wildlife safaris and pristine beaches.",
+    highlights: [
+      "Surfing at Main Point",
+      "Kumana National Park safaris",
+      "Pottuvil Lagoon boat rides",
+      "Local fishing village visits"
+    ],
+    bestTime: "May-October",
+    location: "Eastern Province"
+  },
+  {
+    id: 15,
+    name: "Hiriketiya Beach",
+    type: "beach",
+    images: [hiri1, hiri2, hiri3, hiri4],
+    description: "Hiriketiya is a crescent-shaped hidden beach paradise popular with surfers and digital nomads. It combines natural beauty with a boho, laid-back vibe.",
+    highlights: [
+      "Crescent-shaped bay",
+      "Great for surfing and swimming",
+      "Hip cafés and chill spots",
+      "Secluded and scenic"
+    ],
+    bestTime: "November-April",
+    location: "Southern Province"
+  },
+  {
+    id: 16,
+    name: "Ohiya",
+    type: "mountain",
+    images: [ohiya1, ohiya2, ohiya3, ohiya4],
+    description: "Ohiya is a peaceful hill village close to Horton Plains. It offers one of the most scenic train journeys in Sri Lanka and is perfect for nature lovers and hikers.",
+    highlights: [
+      "Scenic train rides",
+      "Access to Horton Plains",
+      "Cool climate and misty forests",
+      "Idalgashinna hiking trail"
+    ],
+    bestTime: "January-April",
+    location: "Uva Province"
+  },
+  {
+    id: 17,
+    name: "Trincomalee",
+    type: "beach",
+    images: [trinco1, trinco2, trinco3, trinco4],
+    description: "Trincomalee, located on the northeast coast, boasts beautiful beaches like Nilaveli and Uppuveli, plus rich cultural sites and dolphin-watching opportunities.",
+    highlights: [
+      "Nilaveli and Uppuveli beaches",
+      "Koneswaram Temple",
+      "Whale and dolphin watching",
+      "Snorkeling at Pigeon Island"
+    ],
+    bestTime: "May-September",
+    location: "Eastern Province"
+  },
+  {
+    id: 18,
     name: "Adam's Peak",
     type: "mountain",
-    images: [
-      adam1,
-      adam2,
-      adam3,
-      adam4
-    ],
+    images: [adam1, adam2, adam3, adam4],
     description: "Adam's Peak (Sri Pada) is a 2,243m tall mountain sacred to multiple religions. The pilgrimage season sees thousands climbing the 5,000+ steps to witness the breathtaking sunrise and the mysterious 'shadow of the peak' phenomenon.",
     highlights: [
       "Sunrise views from the summit",
@@ -209,15 +356,10 @@ const destinations = [
     location: "Sabaragamuwa Province"
   },
   {
-    id: 9,
+    id: 19,
     name: "Polonnaruwa",
     type: "historical",
-    images: [
-      polo1,
-      polo2,
-      polo3,
-      polo4
-    ],
+    images: [polo1, polo2, polo3, polo4],
     description: "Polonnaruwa was the second capital of Sri Lanka after the destruction of Anuradhapura in 993. This UNESCO World Heritage Site features impressive ruins including the Royal Palace complex, Gal Vihara's massive Buddha statues, and the ancient Parakrama Samudra reservoir.",
     highlights: [
       "Gal Vihara's rock carvings",
@@ -228,26 +370,6 @@ const destinations = [
     bestTime: "Year-round",
     location: "North Central Province"
   },
-  {
-    id: 10,
-    name: "Arugam Bay",
-    type: "beach",
-    images: [
-      aru1,
-      aru2,
-      aru3,
-      aru4
-    ],
-    description: "Arugam Bay on Sri Lanka's east coast is a world-renowned surfing destination with a laid-back vibe. The long, curling right-hand point break attracts surfers from around the globe, while the area also offers wildlife safaris and pristine beaches.",
-    highlights: [
-      "Surfing at Main Point",
-      "Kumana National Park safaris",
-      "Pottuvil Lagoon boat rides",
-      "Local fishing village visits"
-    ],
-    bestTime: "May-October",
-    location: "Eastern Province"
-  }
 ];
 
 const Destinations = () => {
@@ -283,7 +405,7 @@ const Destinations = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Discover Sri Lanka
+            Top Destinations
           </HeroTitle>
         </HeroContent>
       </HeroSection>
@@ -291,17 +413,6 @@ const Destinations = () => {
       {/* Main Content */}
       <MainContainer ref={ref}>
         <IntroSection>
-          <motion.h2
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            initial="hidden"
-            animate={animation}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            Sri Lanka's Top Destinations
-          </motion.h2>
           <motion.p
             variants={{
               hidden: { opacity: 0, y: 50 },
@@ -377,7 +488,6 @@ const Destinations = () => {
               initial="hidden"
               animate={animation}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
             >
               <DestinationHeader>
                 <DestinationName>{destination.name}</DestinationName>
@@ -502,27 +612,6 @@ const HeroTitle = styled(motion.h1)`
   }
 `;
 
-const HeroSubtitle = styled.p`
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: 300;
-  margin: 0 auto 2rem;
-  max-width: 700px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-`;
-
-const ScrollIndicator = styled.div`
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-
-  @media (max-width: 768px) {
-    bottom: 20px;
-  }
-`;
-
 const MainContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -566,8 +655,8 @@ const IntroSection = styled.section`
 const DestinationsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2.5rem;
-  margin: 3rem 0;
+  gap: 1.5rem;
+  margin: 2rem 0;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;

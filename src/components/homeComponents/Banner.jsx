@@ -60,7 +60,7 @@ const Banner = () => {
             <p>Destinations</p>
           </StatItem>
           <StatItem>
-            <span>10+</span>
+            <span>5+</span>
             <p>Packages</p>
           </StatItem>
         </StatsWrapper>

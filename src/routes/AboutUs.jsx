@@ -7,7 +7,7 @@ import { FaTiktok, FaFacebookF } from "react-icons/fa";
 import aboutUsImage from '../assets/homeAssets/aboutus.jpg'; 
 import missionImage from '../assets/homeAssets/mission.jpg';
 import valuesImage from '../assets/homeAssets/values.jpg';
-
+import memberImage from '../assets/homeAssets/member.png'; 
 const AboutUs = () => {
   return (
     <AboutContainer>
@@ -181,23 +181,7 @@ const AboutUs = () => {
           {[
             {
               name: "Kasun Liyanage",
-              role: "Founder & CEO",
-              bio: "15+ years in Sri Lanka tourism"
-            },
-            {
-              name: "Nimali Fernando",
-              role: "Head of Operations",
-              bio: "Expert in cultural tours"
-            },
-            {
-              name: "Rajiv Bandara",
-              role: "Adventure Specialist",
-              bio: "Certified hiking and safari guide"
-            },
-            {
-              name: "Priyanka Silva",
-              role: "Customer Experience",
-              bio: "Your personal travel consultant"
+              role: "Founder & CEO"
             }
           ].map((member, index) => (
             <TeamMember
@@ -495,7 +479,7 @@ const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 400px;
   margin: 0 auto;
 
   @media (max-width: 600px) {
@@ -542,8 +526,7 @@ const TeamMember = styled(motion.div)`
 const TeamImage = styled.div`
   width: 150px;
   height: 150px;
-  border-radius: 50%;
-  background: #f0f0f0;
+  background: url(${memberImage}) center/cover no-repeat; 
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -557,6 +540,7 @@ const TeamImage = styled.div`
     height: 120px;
   }
 `;
+
 
 const ContactGrid = styled.div`
   display: grid;

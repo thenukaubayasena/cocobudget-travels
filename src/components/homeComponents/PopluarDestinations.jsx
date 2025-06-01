@@ -201,7 +201,7 @@ const DestinationItem = styled(motion.div)`
 
 const ImageWrapper = styled.div`
   flex: 1;
-  min-height: 400px;
+  min-height: 350px;
   position: relative;
   overflow: hidden;
   height: auto;

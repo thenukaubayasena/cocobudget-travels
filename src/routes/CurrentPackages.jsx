@@ -1,14 +1,38 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FaStar, FaMapMarkerAlt, FaCalendarAlt, FaUsers, FaSearch, FaCampground, FaHiking, FaUmbrellaBeach, FaMountain, FaSpa, FaUtensils, FaCar, FaHotel, FaPlane } from "react-icons/fa";
+import { FaStar, FaMapMarkerAlt, FaCalendarAlt, FaUsers, FaSearch, FaCampground, FaHiking, FaUmbrellaBeach, FaMountain, FaSpa, FaUtensils, FaCar, FaHotel, FaPlane, FaMoneyBillWave } from "react-icons/fa";
 import { motion } from "framer-motion";
 import packagesImage from '../assets/homeAssets/packages.jpg';
+import trinco from '../assets/homeAssets/trinco1.jpg'; 
+import ohiya from '../assets/homeAssets/ohiya2.jpeg'; 
+import hikkaduwa from '../assets/homeAssets/hik3.jpg'; 
+import ella from '../assets/homeAssets/ella1.jpg'; 
+import udawalawa from '../assets/homeAssets/uda1.jpg'; 
+import nilaweli from '../assets/homeAssets/nilaweli.webp';
+import arugam from '../assets/homeAssets/aru3.webp';
+import night from '../assets/homeAssets/night.jpg'; 
+import fire from '../assets/homeAssets/fire.jpg'; 
+import hakgala from '../assets/homeAssets/hakgala.webp'; 
+import tea from '../assets/homeAssets/tea.jpg'; 
+import adisham from '../assets/homeAssets/adisham.jpg';
+import calipso from '../assets/homeAssets/calipso.jpg';
+import turtle from '../assets/homeAssets/turtle.jpg'; 
+import whale from '../assets/homeAssets/whale.jpg'; 
+import surfing from '../assets/homeAssets/surfing.webp';
+import parties from '../assets/homeAssets/parties.jpg';
+import train from '../assets/homeAssets/train.jpg'; 
+import ambe from '../assets/homeAssets/ambe.jpg'; 
+import madolsima from '../assets/homeAssets/madolsima.jpeg';
+import lipton from '../assets/homeAssets/lipton.webp';
+import uda from '../assets/homeAssets/uda.webp';
+import yala from '../assets/homeAssets/yala.webp';
+import weligama from '../assets/homeAssets/weligama.jpg';
 
 // Package data with 5 packages
 const packagesData = [
   {
     id: 1,
-    title: "Cultural Triangle & East Coast Adventure",
+    title: "Cultural Triangle & East Coast Adventure (Package 1)",
     duration: "7 Days",
     destinations: ["Colombo", "Kandy", "Sigiriya", "Trincomalee", "Ella"],
     itinerary: [
@@ -21,7 +45,7 @@ const packagesData = [
     price: 500, // Price per person in EUR
     rating: 4.9,
     reviews: 132,
-    image: "https://images.unsplash.com/photo-1582972236019-ea9e5d8379a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    images: [trinco, nilaweli, arugam, night, fire],
     category: "cultural",
     featured: true,
     highlights: [
@@ -38,13 +62,13 @@ const packagesData = [
   },
   {
     id: 2,
-    title: "Hill Country & Coastal Explorer",
+    title: "Hill Country & Coastal Explorer (Package 2)",
     duration: "10 Days",
     destinations: ["Colombo", "Kandy", "Nuwara Eliya", "Haputale", "Ohiya", "Horton Plains", "Hikkaduwa"],
     itinerary: [
       "Day 1: Arrive in Colombo, travel to Kandy (overnight)",
       "Day 2-3: Nuwara Eliya (visit Hakgala Gardens & tea plantations)",
-      "Day 4: Haputale (visit Edison Bungalow & Calipso)",
+      "Day 4: Haputale (visit Adisham Bungalow & Calipso)",
       "Day 5: Ohiya (overnight)",
       "Day 6-7: Horton Plains (hike to World's End)",
       "Day 8-9: Hikkaduwa/Waskaduwa beach stay with beach party",
@@ -53,7 +77,7 @@ const packagesData = [
     price: 500, // Price per person in EUR
     rating: 4.8,
     reviews: 98,
-    image: "https://images.unsplash.com/photo-1564501049415-61a6a4b5d14a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    images: [ohiya, hakgala, tea, adisham, calipso],
     category: "adventure",
     featured: true,
     highlights: [
@@ -70,94 +94,98 @@ const packagesData = [
   },
   {
     id: 3,
-    title: "Wildlife & Beach Combo",
-    duration: "6 Days",
-    destinations: ["Colombo", "Yala", "Mirissa", "Galle"],
+    title: "Southern Coast Beach Break (Package 3)",
+    duration: "5 Days",
+    destinations: ["Colombo", "Hikkaduwa", "Weligama", "Hiriketiya", "Colombo"],
     itinerary: [
-      "Day 1: Arrive in Colombo, travel to Yala (overnight)",
-      "Day 2: Morning and evening safaris in Yala",
-      "Day 3: Travel to Mirissa (overnight)",
-      "Day 4: Whale watching & beach time with beach party",
-      "Day 5: Galle Fort exploration",
-      "Day 6: Return to Colombo"
+      "Day 1: Arrive in Colombo, travel to Hikkaduwa (overnight)",
+      "Day 2: Hikkaduwa (turtle watching, whale watching)",
+      "Day 3: Weligama (surfing experience)",
+      "Day 4: Hiriketiya (surf & beach leisure)",
+      "Day 5: Return to Colombo"
     ],
     price: 500, // Price per person in EUR
     rating: 4.7,
     reviews: 115,
-    image: "https://images.unsplash.com/photo-1501534131-95d4e830200e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "adventure",
+    images: [hikkaduwa, turtle, whale, surfing, parties],
+    category: "beach",
     featured: true,
     highlights: [
-      "Yala National Park safari with leopard spotting",
-      "Whale watching tour in Mirissa",
-      "Galle Fort UNESCO World Heritage Site",
-      "Beach relaxation time with beach party",
-      "Wildlife photography opportunities"
+      "Turtle watching in Hikkaduwa",
+      "Whale watching excursions",
+      "Surfing lessons in Weligama and Hiriketiya",
+      "Chill beach vibes and scenic coastal drives"
     ],
     specialDinners: [
-      "Day 2: Jungle BBQ dinner near Yala",
-      "Day 4: Seafood dinner in Mirissa"
+      "Day 2: Beach BBQ night in Hikkaduwa",
+      "Day 4: Seafood dinner by the bay in Hiriketiya"
+    ],
+    extras: [
+      "Free beach party tickets included"
     ]
   },
   {
     id: 4,
-    title: "Wellness & Ayurveda Retreat",
-    duration: "5 Days",
-    destinations: ["Colombo", "Bentota", "Ambalangoda"],
+    title: "Hill Country & Highlands Escape (Package 4)",
+    duration: "7 Days",
+    destinations: ["Colombo", "Ella", "Haputale", "Ambewela", "Horton Plains", "Bandarawela", "Colombo"],
     itinerary: [
-      "Day 1: Arrive in Colombo, transfer to Bentota (overnight)",
-      "Day 2-4: Daily Ayurveda treatments & yoga sessions",
-      "Day 5: Visit mask museum in Ambalangoda, return to Colombo"
+      "Day 1: Arrive in Colombo, travel to Ella (overnight)",
+      "Day 2: Ella (scenic train ride from Kandy to Ella)",
+      "Day 3: Haputale (explore viewpoints & tea estates)",
+      "Day 4-5: Horton Plains (World's End hike, nature trails)",
+      "Day 6: Bandarawela (visit Madolsima & Lipton's Seat)",
+      "Day 7: Return to Colombo"
     ],
-    price: 500, // Price per person in EUR
-    rating: 4.9,
-    reviews: 87,
-    image: "https://images.unsplash.com/photo-1606825004533-dbfb13be4cb5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "wellness",
+    price: 500,
+    rating: 4.8,
+    reviews: 105,
+    images: [ella, train, ambe, madolsima, lipton, calipso],
+    category: "highlands",
     featured: true,
     highlights: [
-      "Daily yoga sessions at sunrise",
-      "Personalized Ayurvedic treatments",
-      "Meditation sessions by the beach",
-      "Healthy organic meals tailored to your dosha",
-      "Traditional mask museum visit"
+      "Scenic train journey to Ella",
+      "Tea estate visits and cool climate escapes",
+      "World's End viewpoint hike in Horton Plains",
+      "Visit to Madolsima and Lipton's Seat"
     ],
     specialDinners: [
-      "Day 2: Healthy gourmet dinner",
-      "Day 4: Ayurvedic special dinner"
+      "Day 2: Traditional hill country dinner",
+      "Day 5: Calypso night event with live music"
     ]
   },
   {
     id: 5,
-    title: "Ancient Cities & Cultural Experience",
-    duration: "8 Days",
-    destinations: ["Colombo", "Anuradhapura", "Polonnaruwa", "Sigiriya", "Kandy"],
+    title: "Wildlife & Waves Explorer (Package 5)",
+    duration: "7 Days",
+    destinations: ["Colombo", "Udawalawa", "Yala", "Hiriketiya", "Weligama", "Hikkaduwa", "Colombo"],
     itinerary: [
-      "Day 1: Arrive in Colombo, travel to Anuradhapura (overnight)",
-      "Day 2: Ancient city tour with cultural show at night",
-      "Day 3: Travel to Polonnaruwa (overnight)",
-      "Day 4: Ancient city exploration",
-      "Day 5: Travel to Sigiriya (overnight with night function)",
-      "Day 6: Climb Sigiriya Rock, travel to Kandy",
-      "Day 7: Kandy cultural tour with temple visit",
-      "Day 8: Return to Colombo"
+      "Day 1: Arrive in Colombo, travel to Udawalawa (overnight)",
+      "Day 2: Udawalawa (zoo visit, elephant safari)",
+      "Day 3: Yala (full-day wildlife safari)",
+      "Day 4: Hiriketiya (relaxation and beach time)",
+      "Day 5: Weligama (surfing lessons & chill)",
+      "Day 6: Hikkaduwa (whale watching, turtle experience)",
+      "Day 7: Return to Colombo"
     ],
-    price: 500, // Price per person in EUR
-    rating: 4.6,
-    reviews: 142,
-    image: "https://images.unsplash.com/photo-1612862862126-865765df2ded?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "cultural",
+    price: 500,
+    rating: 4.9,
+    reviews: 120,
+    images: [udawalawa, uda, yala, weligama, turtle, whale],
+    category: "wildlife",
     featured: true,
     highlights: [
-      "Ancient city exploration",
-      "Cultural shows and night functions",
-      "Sigiriya Rock climb",
-      "Temple of the Tooth relic in Kandy",
-      "Traditional dance performances"
+      "Elephant and wildlife safaris in Udawalawa and Yala",
+      "Surfing and beach vibes in Weligama & Hiriketiya",
+      "Whale and turtle watching in Hikkaduwa",
+      "Balanced adventure with relaxation"
     ],
     specialDinners: [
-      "Day 2: Traditional Sri Lankan feast in Anuradhapura",
-      "Day 5: Sigiriya special BBQ dinner"
+      "Day 2: Nature BBQ night in Udawalawa",
+      "Day 6: Beachside seafood feast in Hikkaduwa"
+    ],
+    extras: [
+      "Beach parties included"
     ]
   }
 ];
@@ -177,21 +205,25 @@ const CurrentPackages = () => {
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
-  const categories = ["all", "cultural", "adventure", "wellness"];
+  const categories = ["all", "cultural", "adventure", "beach", "highlands", "wildlife"];
 
   const openPackageDetails = (pkg) => {
     setSelectedPackage(pkg);
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
   };
 
   const closePackageDetails = () => {
     setSelectedPackage(null);
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
   };
 
   const getCategoryIcon = (category) => {
     switch(category) {
       case 'adventure': return <FaHiking />;
       case 'cultural': return <FaMapMarkerAlt />;
-      case 'wellness': return <FaSpa />;
+      case 'beach': return <FaUmbrellaBeach />;
+      case 'highlands': return <FaMountain />;
+      case 'wildlife': return <FaCampground />;
       default: return <FaStar />;
     }
   };
@@ -205,11 +237,8 @@ const CurrentPackages = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Discover Sri Lanka
+            Our Current Packages
           </HeroTitle>
-          <HeroSubtitle>
-            Explore our carefully curated travel packages
-          </HeroSubtitle>
         </HeroContent>
       </HeroSection>
 
@@ -234,8 +263,8 @@ const CurrentPackages = () => {
           </InclusionCard>
           <InclusionCard>
             <FaCampground size={40} color="var(--primaryColor)" />
-            <InclusionTitle>Special Dinners</InclusionTitle>
-            <InclusionText>2 special dinners per package (BBQ or seafood depending on location)</InclusionText>
+            <InclusionTitle>Dinners</InclusionTitle>
+            <InclusionText>Only 2 special dinners per package (BBQ or seafood depending on location)</InclusionText>
           </InclusionCard>
           <InclusionCard>
             <FaUsers size={40} color="var(--primaryColor)" />
@@ -248,6 +277,26 @@ const CurrentPackages = () => {
             <InclusionText>Flights to be arranged separately by travelers</InclusionText>
           </InclusionCard>
         </InclusionsGrid>
+
+        <PaymentPlanSection>
+          <PaymentPlanCard>
+            <PaymentPlanHeader>
+              <FaMoneyBillWave size={30} color="var(--primaryColor)" />
+              <PaymentPlanTitle>Payment Plan</PaymentPlanTitle>
+            </PaymentPlanHeader>
+            <PaymentPlanDetails>
+              <PaymentPlanItem>
+                <strong>Registration Fee:</strong> €150 per person (non-refundable)
+              </PaymentPlanItem>
+              <PaymentPlanItem>
+                <strong>Balance Payment:</strong> €350 per person to be paid upon arrival in Sri Lanka
+              </PaymentPlanItem>
+              <PaymentPlanItem>
+                <strong>Total Package Price:</strong> €500 per person
+              </PaymentPlanItem>
+            </PaymentPlanDetails>
+          </PaymentPlanCard>
+        </PaymentPlanSection>
 
         <FlexibilityNote>
           <NoteIcon>!</NoteIcon>
@@ -287,22 +336,6 @@ const CurrentPackages = () => {
               ))}
             </CategoryButtons>
           </CategoryFilter>
-
-          <PriceFilter>
-            <FilterLabel>Max Price: €{priceRange}</FilterLabel>
-            <PriceSlider
-              type="range"
-              min="100"
-              max="1000"
-              step="50"
-              value={priceRange}
-              onChange={(e) => setPriceRange(parseInt(e.target.value))}
-            />
-            <PriceRange>
-              <span>€100</span>
-              <span>€1000</span>
-            </PriceRange>
-          </PriceFilter>
         </FilterControls>
       </FilterSection>
 
@@ -319,11 +352,10 @@ const CurrentPackages = () => {
                 featured={pkg.featured}
               >
                 {pkg.featured && <FeaturedBadge>Featured</FeaturedBadge>}
-                <PackageImage src={pkg.image} alt={pkg.title} />
+                <PackageImage src={pkg.images[0]} alt={pkg.title} />
                 <PackageContent>
                   <PackageHeader>
                     <PackageTitle>{pkg.title}</PackageTitle>
-                    <PackagePrice>€{pkg.price}<span>/person</span></PackagePrice>
                   </PackageHeader>
                   
                   <PackageDetails>
@@ -335,16 +367,11 @@ const CurrentPackages = () => {
                       <FaCalendarAlt />
                       <span>{pkg.duration}</span>
                     </DetailItem>
+                    <DetailItem>
+                      <FaMoneyBillWave />
+                      <span>€{pkg.price} per person</span>
+                    </DetailItem>
                   </PackageDetails>
-                  
-                  <PackageRating>
-                    <Stars>
-                      {[...Array(5)].map((_, i) => (
-                        <FaStar key={i} color={i < Math.floor(pkg.rating) ? "#FFD700" : "#ddd"} />
-                      ))}
-                    </Stars>
-                    <RatingText>{pkg.rating} ({pkg.reviews} reviews)</RatingText>
-                  </PackageRating>
                   
                   <PackageButton onClick={() => openPackageDetails(pkg)}>View Details</PackageButton>
                 </PackageContent>
@@ -377,7 +404,7 @@ const CurrentPackages = () => {
           >
             <CloseButton onClick={closePackageDetails}>×</CloseButton>
             
-            <ModalImage src={selectedPackage.image} alt={selectedPackage.title} />
+            <ModalImage src={selectedPackage.images[0]} alt={selectedPackage.title} />
             
             <ModalHeader>
               <ModalTitle>{selectedPackage.title}</ModalTitle>
@@ -396,6 +423,10 @@ const CurrentPackages = () => {
               <DetailItem>
                 <FaUsers />
                 <span><strong>Group Size:</strong> Minimum 4 persons required</span>
+              </DetailItem>
+              <DetailItem>
+                <FaMoneyBillWave />
+                <span><strong>Payment Plan:</strong> €150 registration, €350 upon arrival</span>
               </DetailItem>
             </ModalDetails>
             
@@ -421,6 +452,17 @@ const CurrentPackages = () => {
                 ))}
               </ul>
 
+              {selectedPackage.extras && (
+                <>
+                  <h4>Extra Inclusions</h4>
+                  <ul>
+                    {selectedPackage.extras.map((extra, index) => (
+                      <li key={index}>{extra}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+
               <h4>What's Included</h4>
               <ul>
                 <li>All hotel accommodations (3-4 star)</li>
@@ -442,12 +484,20 @@ const CurrentPackages = () => {
 
               <ImportantNote>
                 <strong>Note:</strong> Itinerary can be customized according to your preferences. 
-                Minimum 4 persons required for booking at €500 per person.
+                Minimum 4 persons required for booking at €500 per person (€150 registration fee, €350 balance upon arrival).
               </ImportantNote>
+
+              <GallerySection>
+                <h4>Gallery</h4>
+                <GalleryGrid>
+                  {selectedPackage.images.map((image, index) => (
+                    <GalleryImage key={index} src={image} alt={`${selectedPackage.title} - ${index + 1}`} />
+                  ))}
+                </GalleryGrid>
+              </GallerySection>
             </ModalDescription>
             
             <ModalActions>
-              <ModalButton primary>Book Now</ModalButton>
               <ModalButton onClick={closePackageDetails}>Close</ModalButton>
             </ModalActions>
           </ModalContent>
@@ -473,22 +523,22 @@ const Container = styled.div`
   padding: 0;
   font-family: 'Montserrat', sans-serif;
   color: #333;
+  overflow-x: hidden;
 `;
 
 const HeroSection = styled.section`
   position: relative;
   height: 55vh;
-  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
-  margin-bottom: 3rem;
+  padding: 0 5%;
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -500,11 +550,18 @@ const HeroSection = styled.section`
     background-position: center;
     filter: blur(4px) brightness(0.9);
     z-index: 1;
+    opacity: 0.9;
   }
 
   @media (max-width: 768px) {
-    height: 60vh;
+    height: 50vh;
+    min-height: 350px;
     padding: 0 2rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 40vh;
+    min-height: 300px;
   }
 
   > * {
@@ -527,7 +584,7 @@ const HeroTitle = styled(motion.h1)`
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 
   @media (min-width: 768px) {
-    font-size: 5rem;
+    font-size: 4.5rem;
   }
 
   @media (max-width: 767px) {
@@ -539,18 +596,10 @@ const HeroTitle = styled(motion.h1)`
   }
 `;
 
-const HeroSubtitle = styled.p`
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  font-weight: 300;
-  max-width: 700px;
-  margin: 1rem auto 0;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-`;
-
 const PackageDetailsSection = styled.section`
   max-width: 1200px;
   margin: 0 auto 3rem;
-  padding: 0 2rem;
+  padding: 3rem 2rem 0;
 
   @media (max-width: 768px) {
     padding: 0 1rem;
@@ -558,12 +607,15 @@ const PackageDetailsSection = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 2rem;
+  font-family: "The Seasons", serif;
+  font-size: clamp(2rem, 2.5vw, 3rem);
+  font-weight: 300;
   text-align: center;
   margin-bottom: 2rem;
   color: #333;
   position: relative;
   padding-bottom: 1rem;
+  letter-spacing: 2px;
 
   &::after {
     content: '';
@@ -585,6 +637,7 @@ const InclusionsGrid = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
 
@@ -594,14 +647,20 @@ const InclusionCard = styled.div`
   padding: 2rem;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eee;
 
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   }
 
   svg {
     margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
   }
 `;
 
@@ -615,6 +674,54 @@ const InclusionText = styled.p`
   color: #666;
   line-height: 1.6;
   margin: 0;
+  font-size: 0.95rem;
+`;
+
+const PaymentPlanSection = styled.div`
+  max-width: 1000px;
+  margin: 0 auto 3rem;
+`;
+
+const PaymentPlanCard = styled.div`
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+`;
+
+const PaymentPlanHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--primaryColor);
+`;
+
+const PaymentPlanTitle = styled.h3`
+  font-size: 1.5rem;
+  margin: 0;
+`;
+
+const PaymentPlanDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+`;
+
+const PaymentPlanItem = styled.p`
+  margin: 0;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+
+  strong {
+    color: #333;
+  }
 `;
 
 const FlexibilityNote = styled.div`
@@ -627,6 +734,13 @@ const FlexibilityNote = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   border-radius: 0 5px 5px 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
 `;
 
 const NoteIcon = styled.div`
@@ -640,11 +754,18 @@ const NoteIcon = styled.div`
   justify-content: center;
   font-weight: bold;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+  }
 `;
 
 const NoteText = styled.p`
   margin: 0;
   color: #555;
+  font-size: 0.95rem;
 `;
 
 const ImportantNote = styled.p`
@@ -653,12 +774,8 @@ const ImportantNote = styled.p`
   border-left: 4px solid #ffc107;
   margin: 1.5rem 0 0;
   color: #5d4037;
+  font-size: 0.95rem;
 `;
-
-// ... (keep all your existing styled components from previous code)
-
-
-
 
 const FilterSection = styled.div`
   max-width: 1200px;
@@ -674,6 +791,10 @@ const SearchContainer = styled.div`
   position: relative;
   max-width: 600px;
   margin: 0 auto 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -690,6 +811,11 @@ const SearchInput = styled.input`
     border-color: var(--primaryColor);
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
   }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const SearchIcon = styled.div`
@@ -698,6 +824,10 @@ const SearchIcon = styled.div`
   top: 50%;
   transform: translateY(-50%);
   color: #777;
+
+  @media (max-width: 480px) {
+    left: 1rem;
+  }
 `;
 
 const FilterControls = styled.div`
@@ -719,16 +849,12 @@ const CategoryFilter = styled.div`
   min-width: 300px;
 `;
 
-const PriceFilter = styled.div`
-  flex: 1;
-  min-width: 300px;
-`;
-
 const FilterLabel = styled.label`
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
   color: #444;
+  font-size: 0.95rem;
 `;
 
 const CategoryButtons = styled.div`
@@ -749,6 +875,7 @@ const CategoryButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
 
   &:hover {
     background-color: ${props => props.active ? 'var(--primaryColor)' : '#e0e0e0'};
@@ -757,32 +884,11 @@ const CategoryButton = styled.button`
   svg {
     font-size: 0.9rem;
   }
-`;
 
-const PriceSlider = styled.input`
-  width: 100%;
-  height: 8px;
-  -webkit-appearance: none;
-  background: #ddd;
-  border-radius: 5px;
-  outline: none;
-  margin: 1rem 0 0.5rem;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: var(--primaryColor);
-    border-radius: 50%;
-    cursor: pointer;
+  @media (max-width: 480px) {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
   }
-`;
-
-const PriceRange = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: #777;
 `;
 
 const PackagesContainer = styled.div`
@@ -792,6 +898,7 @@ const PackagesContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 0 1rem;
+    margin-bottom: 3rem;
   }
 `;
 
@@ -802,6 +909,7 @@ const PackageGrid = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
 
@@ -820,6 +928,12 @@ const PackageCard = styled.div`
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
+
+  @media (max-width: 480px) {
+    &:hover {
+      transform: none;
+    }
+  }
 `;
 
 const FeaturedBadge = styled.div`
@@ -837,8 +951,17 @@ const FeaturedBadge = styled.div`
 
 const PackageImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
+  transition: transform 0.5s ease;
+
+  ${PackageCard}:hover & {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 480px) {
+    height: 200px;
+  }
 `;
 
 const PackageContent = styled.div`
@@ -846,6 +969,10 @@ const PackageContent = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+  }
 `;
 
 const PackageHeader = styled.div`
@@ -860,18 +987,10 @@ const PackageTitle = styled.h3`
   margin: 0;
   color: #333;
   flex: 1;
-`;
+  line-height: 1.4;
 
-const PackagePrice = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primaryColor);
-  margin-left: 1rem;
-
-  span {
-    font-size: 0.8rem;
-    color: #777;
-    font-weight: 400;
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
   }
 `;
 
@@ -885,28 +1004,21 @@ const DetailItem = styled.div`
   margin-bottom: 0.5rem;
   color: #555;
   font-size: 0.9rem;
+  line-height: 1.4;
 
   svg {
     margin-right: 0.5rem;
     color: var(--primaryColor);
     flex-shrink: 0;
   }
-`;
 
-const PackageRating = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-`;
+  span {
+    flex: 1;
+  }
 
-const Stars = styled.div`
-  margin-right: 0.5rem;
-  display: flex;
-`;
-
-const RatingText = styled.span`
-  font-size: 0.9rem;
-  color: #777;
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const PackageButton = styled.button`
@@ -915,14 +1027,20 @@ const PackageButton = styled.button`
   background-color: var(--primaryColor);
   color: white;
   border: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 5px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: auto;
+  font-size: 0.95rem;
 
   &:hover {
     background-color: #333;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.7rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -946,6 +1064,11 @@ const NewsletterSection = styled.section`
   background-color: #f8f9fa;
   padding: 4rem 2rem;
   text-align: center;
+  border-top: 1px solid #eee;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1rem;
+  }
 `;
 
 const NewsletterContent = styled.div`
@@ -957,11 +1080,20 @@ const NewsletterTitle = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 1rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const NewsletterText = styled.p`
   color: #666;
   margin-bottom: 2rem;
+  font-size: 0.95rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const NewsletterForm = styled.div`
@@ -984,6 +1116,11 @@ const NewsletterInput = styled.input`
     outline: none;
     border-color: var(--primaryColor);
   }
+
+  @media (max-width: 480px) {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const NewsletterButton = styled.button`
@@ -1003,6 +1140,10 @@ const NewsletterButton = styled.button`
   @media (max-width: 576px) {
     width: 100%;
   }
+
+  @media (max-width: 480px) {
+    padding: 0.7rem 1.5rem;
+  }
 `;
 
 const ModalOverlay = styled.div`
@@ -1017,6 +1158,7 @@ const ModalOverlay = styled.div`
   align-items: center;
   z-index: 1000;
   padding: 1rem;
+  overflow-y: auto;
 `;
 
 const ModalContent = styled.div`
@@ -1027,6 +1169,11 @@ const ModalContent = styled.div`
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    max-height: 85vh;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -1035,20 +1182,44 @@ const CloseButton = styled.button`
   right: 15px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
   color: #777;
   z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 
   &:hover {
     color: #333;
+    background-color: #f5f5f5;
+  }
+
+  @media (max-width: 480px) {
+    width: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+    top: 10px;
+    right: 10px;
   }
 `;
 
 const ModalImage = styled.img`
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    height: 250px;
+  }
+
+  @media (max-width: 480px) {
+    height: 200px;
+  }
 `;
 
 const ModalHeader = styled.div`
@@ -1056,6 +1227,11 @@ const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1.2rem 1.2rem 0;
+  }
 `;
 
 const ModalTitle = styled.h3`
@@ -1063,6 +1239,16 @@ const ModalTitle = styled.h3`
   margin: 0;
   color: #333;
   flex: 1;
+  line-height: 1.4;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const ModalPrice = styled.div`
@@ -1070,17 +1256,28 @@ const ModalPrice = styled.div`
   font-weight: 700;
   color: var(--primaryColor);
   margin-left: 1rem;
+  white-space: nowrap;
 
   span {
     font-size: 1rem;
     color: #777;
     font-weight: 400;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
 `;
 
 const ModalDetails = styled.div`
   padding: 0 1.5rem;
   margin: 1rem 0;
+
+  @media (max-width: 768px) {
+    padding: 0 1.2rem;
+  }
 `;
 
 const ModalDescription = styled.div`
@@ -1117,6 +1314,46 @@ const ModalDescription = styled.div`
       font-weight: bold;
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 0 1.2rem 1.2rem;
+
+    h4 {
+      font-size: 1.1rem;
+    }
+  }
+`;
+
+const GallerySection = styled.div`
+  margin-top: 2rem;
+
+  h4 {
+    margin-bottom: 1rem;
+  }
+`;
+
+const GalleryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const GalleryImage = styled.img`
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 
 const ModalActions = styled.div`
@@ -1124,6 +1361,16 @@ const ModalActions = styled.div`
   gap: 1rem;
   padding: 0 1.5rem 1.5rem;
   justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    padding: 0 1.2rem 1.2rem;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 `;
 
 const ModalButton = styled.button`
@@ -1135,10 +1382,16 @@ const ModalButton = styled.button`
   border: 1px solid ${props => props.primary ? 'var(--primaryColor)' : '#ddd'};
   background-color: ${props => props.primary ? 'var(--primaryColor)' : 'white'};
   color: ${props => props.primary ? 'white' : '#555'};
+  font-size: 0.95rem;
 
   &:hover {
     background-color: ${props => props.primary ? '#333' : '#f5f5f5'};
     border-color: ${props => props.primary ? '#333' : '#ccc'};
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 0.7rem;
   }
 `;
 
