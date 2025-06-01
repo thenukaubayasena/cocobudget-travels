@@ -554,14 +554,8 @@ const HeroSection = styled.section`
   }
 
   @media (max-width: 768px) {
-    height: 50vh;
-    min-height: 350px;
+    height: 60vh;
     padding: 0 2rem;
-  }
-
-  @media (max-width: 480px) {
-    height: 40vh;
-    min-height: 300px;
   }
 
   > * {
@@ -602,7 +596,7 @@ const PackageDetailsSection = styled.section`
   padding: 3rem 2rem 0;
 
   @media (max-width: 768px) {
-    padding: 0 1rem;
+    padding: 2rem 1rem;
   }
 `;
 
