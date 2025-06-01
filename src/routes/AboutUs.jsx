@@ -524,8 +524,12 @@ const TeamMember = styled(motion.div)`
 `;
 
 const TeamImage = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.1);
   background: url(${memberImage}) center/cover no-repeat; 
   margin: 0 auto;
   display: flex;
