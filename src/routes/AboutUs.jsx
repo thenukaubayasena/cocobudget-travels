@@ -182,7 +182,13 @@ const AboutUs = () => {
             {
               name: "Kasun Liyanage",
               role: "Founder & CEO"
-            }
+            },
+            {
+              name: "Kasun Liyanage",
+              role: "Founder & CEO"
+            },
+            
+
           ].map((member, index) => (
             <TeamMember
               key={index}

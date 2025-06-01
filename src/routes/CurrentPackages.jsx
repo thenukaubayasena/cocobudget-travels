@@ -33,14 +33,14 @@ const packagesData = [
   {
     id: 1,
     title: "Cultural Triangle & East Coast Adventure (Package 1)",
-    duration: "7 Days",
+    duration: "7 - 10 days",
     destinations: ["Colombo", "Kandy", "Sigiriya", "Trincomalee", "Ella"],
     itinerary: [
       "Day 1: Arrive in Colombo, travel to Kandy (overnight)",
       "Day 2-3: Sigiriya (includes fire camping and night function)",
       "Day 4-5: Trincomalee (visit Munneshwaram, Nilaveli, Arugam Bay)",
-      "Day 6: Ella (overnight)",
-      "Day 7: Return to Colombo"
+      "Day 6-7: Ella (overnight)",
+      "Day 8: Return to Colombo"
     ],
     price: 500, // Price per person in EUR
     rating: 4.9,
@@ -63,7 +63,7 @@ const packagesData = [
   {
     id: 2,
     title: "Hill Country & Coastal Explorer (Package 2)",
-    duration: "10 Days",
+    duration: "7 -10 Days",
     destinations: ["Colombo", "Kandy", "Nuwara Eliya", "Haputale", "Ohiya", "Horton Plains", "Hikkaduwa"],
     itinerary: [
       "Day 1: Arrive in Colombo, travel to Kandy (overnight)",
@@ -95,14 +95,14 @@ const packagesData = [
   {
     id: 3,
     title: "Southern Coast Beach Break (Package 3)",
-    duration: "5 Days",
+    duration: "7 - 10 Days",
     destinations: ["Colombo", "Hikkaduwa", "Weligama", "Hiriketiya", "Colombo"],
     itinerary: [
       "Day 1: Arrive in Colombo, travel to Hikkaduwa (overnight)",
-      "Day 2: Hikkaduwa (turtle watching, whale watching)",
-      "Day 3: Weligama (surfing experience)",
-      "Day 4: Hiriketiya (surf & beach leisure)",
-      "Day 5: Return to Colombo"
+      "Day 2-3: Hikkaduwa (turtle watching, whale watching)",
+      "Day 4-5: Weligama (surfing experience)",
+      "Day 6-7: Hiriketiya (surf & beach leisure)",
+      "Day 8: Return to Colombo"
     ],
     price: 500, // Price per person in EUR
     rating: 4.7,
@@ -127,7 +127,7 @@ const packagesData = [
   {
     id: 4,
     title: "Hill Country & Highlands Escape (Package 4)",
-    duration: "7 Days",
+    duration: "7 - 10 Days",
     destinations: ["Colombo", "Ella", "Haputale", "Ambewela", "Horton Plains", "Bandarawela", "Colombo"],
     itinerary: [
       "Day 1: Arrive in Colombo, travel to Ella (overnight)",
@@ -157,16 +157,16 @@ const packagesData = [
   {
     id: 5,
     title: "Wildlife & Waves Explorer (Package 5)",
-    duration: "7 Days",
+    duration: "7 - 10 Days",
     destinations: ["Colombo", "Udawalawa", "Yala", "Hiriketiya", "Weligama", "Hikkaduwa", "Colombo"],
     itinerary: [
       "Day 1: Arrive in Colombo, travel to Udawalawa (overnight)",
       "Day 2: Udawalawa (zoo visit, elephant safari)",
-      "Day 3: Yala (full-day wildlife safari)",
-      "Day 4: Hiriketiya (relaxation and beach time)",
-      "Day 5: Weligama (surfing lessons & chill)",
-      "Day 6: Hikkaduwa (whale watching, turtle experience)",
-      "Day 7: Return to Colombo"
+      "Day 3-4: Yala (full-day wildlife safari)",
+      "Day 5: Hiriketiya (relaxation and beach time)",
+      "Day 6: Weligama (surfing lessons & chill)",
+      "Day 7-8: Hikkaduwa (whale watching, turtle experience)",
+      "Day 9: Return to Colombo"
     ],
     price: 500,
     rating: 4.9,
@@ -182,7 +182,7 @@ const packagesData = [
     ],
     specialDinners: [
       "Day 2: Nature BBQ night in Udawalawa",
-      "Day 6: Beachside seafood feast in Hikkaduwa"
+      "Day 7: Beachside seafood feast in Hikkaduwa"
     ],
     extras: [
       "Beach parties included"
