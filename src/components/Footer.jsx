@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
-import { FaPhoneAlt, FaFacebook, FaTiktok } from "react-icons/fa";
+import { FaPhoneAlt, FaFacebook, FaYoutube } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -41,8 +41,8 @@ const Footer = () => {
               <SocialLink href="https://www.instagram.com/21_dite_paakne/" target="_blank" aria-label="Instagram">
                 <RiInstagramFill />
               </SocialLink>
-              <SocialLink href="https://www.tiktok.com/@21ditepaakne" target="_blank" aria-label="TikTok">
-                <FaTiktok />
+              <SocialLink href="https://www.tiktok.com/@21ditepaakne" target="_blank" aria-label="YouTube">
+                <FaYoutube />
               </SocialLink>
               <SocialLink href="https://www.facebook.com/21ditepaakne" target="_blank" aria-label="Facebook">
                 <FaFacebook />
