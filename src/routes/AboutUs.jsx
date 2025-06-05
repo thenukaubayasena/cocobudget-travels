@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
-import { FaTiktok, FaFacebookF } from "react-icons/fa";
+import { FaYoutube, FaFacebookF } from "react-icons/fa";
 import aboutUsImage from '../assets/homeAssets/aboutus.jpg'; 
 import missionImage from '../assets/homeAssets/mission.jpg';
 import valuesImage from '../assets/homeAssets/values.jpg';
 import kasunImage from '../assets/homeAssets/member.png'; 
 import harshaniImage from '../assets/homeAssets/member1.png';
+import harendraImage from '../assets/homeAssets/member2.png';
 
 
 const AboutUs = () => {
@@ -193,6 +194,12 @@ const AboutUs = () => {
               role: "Sri Lankan Agent",
               email: "(harshani93athapaththu@gmail.com)",
               image: harshaniImage
+            },
+            {
+              name: "Mr. Harendra Gunawardane",  
+              role: "Event Organizer",
+              email: "(+94 77 613 4822)",
+              image: harendraImage
             }
           ].map((member, index) => (
             <TeamMember
@@ -246,7 +253,7 @@ const AboutUs = () => {
                 <RiInstagramFill />
               </a>
               <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
-                <FaTiktok />
+                <FaYoutube />
               </a>
               <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
@@ -490,7 +497,7 @@ const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 
   @media (max-width: 600px) {

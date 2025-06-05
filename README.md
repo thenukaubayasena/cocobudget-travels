@@ -1,6 +1,6 @@
 # 🌴 CocoBudget Travels
 
-**CocoBudget Travels** is a modern travel assistant web application that helps users discover curated travel packages — all in a user-friendly, multilingual experience.
+**CocoBudget Travels** is a modern travel assistant web application that helps users discover curated travel packages - all in a user-friendly, multilingual experience.
 
 ## ✨ Features
 
