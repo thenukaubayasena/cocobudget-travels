@@ -504,16 +504,20 @@ const CurrentPackages = () => {
         </ModalOverlay>
       )}
 
-      <NewsletterSection>
-        <NewsletterContent>
-          <NewsletterTitle>Ready for Your Sri Lankan Adventure?</NewsletterTitle>
-          <NewsletterText>Contact us to customize your perfect itinerary</NewsletterText>
-          <NewsletterForm>
-            <NewsletterInput type="email" placeholder="Your email address" />
-            <NewsletterButton>Get a Quote</NewsletterButton>
-          </NewsletterForm>
-        </NewsletterContent>
-      </NewsletterSection>
+      
+  
+  {/* <NewsletterSection>
+    <NewsletterContent>
+      <NewsletterTitle>Ready for Your Sri Lankan Adventure?</NewsletterTitle>
+      <NewsletterText>Contact us to customize your perfect itinerary</NewsletterText>
+      <NewsletterForm>
+        <NewsletterInput type="email" placeholder="Your email address" />
+        <NewsletterButton>Get a Quote</NewsletterButton>
+      </NewsletterForm>
+    </NewsletterContent>
+  </NewsletterSection> 
+   */}
+
     </Container>
   );
 };

@@ -10,6 +10,7 @@ import valuesImage from '../assets/homeAssets/values.jpg';
 import kasunImage from '../assets/homeAssets/member.png'; 
 import harshaniImage from '../assets/homeAssets/member1.png';
 
+
 const AboutUs = () => {
   return (
     <AboutContainer>
