@@ -226,7 +226,8 @@ const AboutUs = () => {
             <ContactCard>
               <FaPhone className="icon" />
               <h3>Phone</h3>
-              <p>+358 44 245 8212 / +94 70 552 8650</p>
+              <p>+358 44 245 8212</p>
+              <p>+94 70 552 8650</p>
             </ContactCard>
             <ContactCard>
               <FaEnvelope className="icon" />
