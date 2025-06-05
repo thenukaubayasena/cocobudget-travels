@@ -185,7 +185,7 @@ const AboutUs = () => {
           {[
             {
               name: "Mr. Kasun Liyanage",
-              role: "Founder & CEO",
+              role: "Founder & CEO - Marketing and Operations in Finland ",
               email: "(kasunliyanage90@gmail.com)",
               image: kasunImage
             },
@@ -226,7 +226,7 @@ const AboutUs = () => {
             <ContactCard>
               <FaPhone className="icon" />
               <h3>Phone</h3>
-              <p>+358 44 245 8212</p>
+              <p>+358 44 245 8212 / +94 70 552 8650</p>
             </ContactCard>
             <ContactCard>
               <FaEnvelope className="icon" />

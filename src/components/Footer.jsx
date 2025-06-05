@@ -35,7 +35,7 @@ const Footer = () => {
               <ContactIcon>
                 <FaPhoneAlt />
               </ContactIcon>
-              <ContactText>+358 44 245 8212</ContactText>
+              <ContactText>+358 44 245 8212 / +94 70 552 8650</ContactText>
             </ContactItem>
             <SocialLinks>
               <SocialLink href="https://www.instagram.com/21_dite_paakne/" target="_blank" aria-label="Instagram">
