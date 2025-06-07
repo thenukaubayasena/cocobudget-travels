@@ -43,6 +43,9 @@ const Navbar = () => {
         <NavItem to="/current-packages" $isActive={activeTab === "current-packages"}>
           Current Packages
         </NavItem>
+        <NavItem to="/form" $isActive={activeTab === "form"}>
+          Enquire
+        </NavItem>
       </NavMenu>
 
       <Overlay isOpen={isOpen} onClick={toggleMenu} />
