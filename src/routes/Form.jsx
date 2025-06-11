@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { FaUser, FaCalendarAlt, FaUsers, FaPhone, FaEnvelope, FaChild, FaInfoCircle, FaPlus, FaMinus } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { FaUser, FaCalendarAlt, FaUsers, FaPhone, FaEnvelope, FaInfoCircle, FaPlus, FaMinus } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import formImage from '../assets/homeAssets/form.jpg';
 
@@ -18,6 +18,8 @@ const Form = () => {
     interests: [],
     travelers: [{ name: "", age: "" }],
   });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const packages = [
     "Cultural Triangle & East Coast Adventure (Package 1)",
@@ -28,27 +30,51 @@ const Form = () => {
   ];
 
   const interests = [
-    "Beaches",
-    "Wildlife",
-    "History",
-    "Culture",
-    "Adventure",
-    "Wellness",
-    "Photography",
-    "Food",
+    { name: "Beaches", description: "Relax on pristine sandy shores" },
+    { name: "Wildlife", description: "Explore national parks and safaris" },
+    { name: "History", description: "Discover ancient ruins and temples" },
+    { name: "Culture", description: "Immerse in local traditions" },
+    { name: "Adventure", description: "Hiking, surfing, and more" },
+    { name: "Wellness", description: "Ayurveda and spa retreats" },
+    { name: "Photography", description: "Capture stunning landscapes" },
+    { name: "Food", description: "Savor authentic Sri Lankan cuisine" },
   ];
+
+  const validateField = (name, value, index = null) => {
+    let error = "";
+    if (name === "name" && !value.trim()) error = "Full name is required";
+    if (name === "age" && (!value || value < 18)) error = "Age must be 18 or older";
+    if (name === "mobile" && !/^\+\d{1,3}\s\d{1,14}$/.test(value)) error = "Enter a valid phone number (e.g., +358 77 123 4567)";
+    if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Enter a valid email address";
+    if (name === "package" && !value) error = "Please select a package";
+    if (name === "tripDate" && !value) error = "Please select a trip date";
+    if (name === `traveler_name_${index}` && !value.trim()) error = "Traveler name is required";
+    if (name === `traveler_age_${index}` && (!value || value < 0)) error = "Age must be 0 or older";
+    return error;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
   const handleTravelerChange = (index, e) => {
     const { name, value } = e.target;
-    const field = name.split("_")[1]; // Use underscore to extract 'name' or 'age'
+    const field = name.includes("name") ? "name" : "age";
     const updatedTravelers = [...formData.travelers];
     updatedTravelers[index] = { ...updatedTravelers[index], [field]: value };
     setFormData((prev) => ({ ...prev, travelers: updatedTravelers }));
+    setErrors((prev) => ({ ...prev, [`${field}_${index}`]: validateField(name, value, index) }));
+  };
+
+  const handleInterestChange = (interest) => {
+    setFormData((prev) => {
+      const updatedInterests = prev.interests.includes(interest)
+        ? prev.interests.filter((i) => i !== interest)
+        : [...prev.interests, interest];
+      return { ...prev, interests: updatedInterests };
+    });
   };
 
   const addTraveler = () => {
@@ -62,40 +88,41 @@ const Form = () => {
     if (formData.travelers.length > 1) {
       const updatedTravelers = formData.travelers.filter((_, i) => i !== index);
       setFormData((prev) => ({ ...prev, travelers: updatedTravelers }));
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[`name_${index}`];
+        delete newErrors[`age_${index}`];
+        return newErrors;
+      });
     }
   };
 
-  const handleInterestChange = (interest) => {
-    setFormData((prev) => {
-      if (prev.interests.includes(interest)) {
-        return {
-          ...prev,
-          interests: prev.interests.filter((i) => i !== interest),
-        };
-      } else {
-        return {
-          ...prev,
-          interests: [...prev.interests, interest],
-        };
+  const validateForm = () => {
+    const newErrors = {};
+    Object.keys(formData).forEach((key) => {
+      if (key !== "travelers" && key !== "interests" && key !== "message") {
+        newErrors[key] = validateField(key, formData[key]);
       }
     });
+    formData.travelers.forEach((traveler, index) => {
+      newErrors[`name_${index}`] = validateField(`traveler_name_${index}`, traveler.name, index);
+      newErrors[`age_${index}`] = validateField(`traveler_age_${index}`, traveler.age, index);
+    });
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => !error);
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      alert("Please fix the errors in the form before submitting.");
+      return;
+    }
 
-    // Add date, time, and travelers_data to form
+    setIsSubmitting(true);
     const currentDate = new Date();
-    const date = currentDate.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    const time = currentDate.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+    const date = currentDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    const time = currentDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 
     const formElement = form.current;
     const dateInput = document.createElement("input");
@@ -139,7 +166,7 @@ const Form = () => {
             interests: [],
             travelers: [{ name: "", age: "" }],
           });
-          // Clean up hidden inputs
+          setErrors({});
           formElement.removeChild(dateInput);
           formElement.removeChild(timeInput);
           formElement.removeChild(interestsInput);
@@ -148,13 +175,13 @@ const Form = () => {
         (error) => {
           console.log(error.text);
           alert("There was an error submitting your booking. Please try again.");
-          // Clean up hidden inputs on error
           formElement.removeChild(dateInput);
           formElement.removeChild(timeInput);
           formElement.removeChild(interestsInput);
           formElement.removeChild(travelersInput);
         }
-      );
+      )
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -166,14 +193,14 @@ const Form = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Book Your Dream Trip
+            Book Your Sri Lankan Adventure
           </HeroTitle>
         </HeroContent>
       </HeroSection>
-      
+
       <FormContainer ref={form} onSubmit={sendEmail}>
         <FormIntro>
-          <p>Fill out this form to reserve your spot on an unforgettable journey through Sri Lanka. Our team will contact you within 24 hours to confirm your booking.</p>
+          <p>Reserve your spot for an unforgettable journey through Sri Lanka. Our team will contact you within 24 hours to confirm your booking.</p>
         </FormIntro>
 
         <FormSection>
@@ -187,20 +214,25 @@ const Form = () => {
             </div>
           </SectionHeader>
           <FormRow>
-            <InputGroup style={{flex: 2}}>
-              <label>Full Name*</label>
+            <InputGroup style={{ flex: 2 }}>
+              <label htmlFor="name">Full Name*</label>
               <Input
+                id="name"
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Smith"
                 required
+                aria-label="Lead traveler full name"
+                hasError={!!errors.name}
               />
+              {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
             </InputGroup>
             <InputGroup>
-              <label>Age*</label>
+              <label htmlFor="age">Age*</label>
               <Input
+                id="age"
                 type="number"
                 name="age"
                 value={formData.age}
@@ -208,31 +240,42 @@ const Form = () => {
                 placeholder="30"
                 min="18"
                 required
+                aria-label="Lead traveler age"
+                hasError={!!errors.age}
               />
+              {errors.age && <ErrorMessage>{errors.age}</ErrorMessage>}
             </InputGroup>
           </FormRow>
           <FormRow>
             <InputGroup>
-              <label>Mobile Number*</label>
+              <label htmlFor="mobile">Mobile Number*</label>
               <Input
+                id="mobile"
                 type="tel"
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleChange}
                 placeholder="+358 77 123 4567"
                 required
+                aria-label="Lead traveler mobile number"
+                hasError={!!errors.mobile}
               />
+              {errors.mobile && <ErrorMessage>{errors.mobile}</ErrorMessage>}
             </InputGroup>
             <InputGroup>
-              <label>Email*</label>
+              <label htmlFor="email">Email*</label>
               <Input
+                id="email"
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="your@email.com"
                 required
+                aria-label="Lead traveler email"
+                hasError={!!errors.email}
               />
+              {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
             </InputGroup>
           </FormRow>
         </FormSection>
@@ -248,12 +291,15 @@ const Form = () => {
             </div>
           </SectionHeader>
           <InputGroup>
-            <label>Select Package*</label>
+            <label htmlFor="package">Select Package*</label>
             <Select
+              id="package"
               name="package"
               value={formData.package}
               onChange={handleChange}
               required
+              aria-label="Select travel package"
+              hasError={!!errors.package}
             >
               <option value="">-- Select a Package --</option>
               {packages.map((pkg, i) => (
@@ -262,42 +308,52 @@ const Form = () => {
                 </option>
               ))}
             </Select>
+            {errors.package && <ErrorMessage>{errors.package}</ErrorMessage>}
           </InputGroup>
           <FormRow>
             <InputGroup>
-              <label>Planned Trip Date*</label>
+              <label htmlFor="tripDate">Planned Trip Date*</label>
               <Input
+                id="tripDate"
                 type="date"
                 name="tripDate"
                 value={formData.tripDate}
                 onChange={handleChange}
                 min={new Date().toISOString().split('T')[0]}
                 required
+                aria-label="Planned trip date"
+                hasError={!!errors.tripDate}
               />
+              {errors.tripDate && <ErrorMessage>{errors.tripDate}</ErrorMessage>}
             </InputGroup>
             <InputGroup>
               <label>Your Interests</label>
               <InterestContainer>
                 {interests.map((interest, i) => (
-                  <InterestOption
-                    key={i}
-                    selected={formData.interests.includes(interest)}
-                    onClick={() => handleInterestChange(interest)}
-                  >
-                    {interest}
-                  </InterestOption>
+                  <Tooltip key={i} title={interest.description}>
+                    <InterestOption
+                      selected={formData.interests.includes(interest.name)}
+                      onClick={() => handleInterestChange(interest.name)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {interest.name}
+                    </InterestOption>
+                  </Tooltip>
                 ))}
               </InterestContainer>
             </InputGroup>
           </FormRow>
           <InputGroup>
-            <label>Special Requests/Message</label>
+            <label htmlFor="message">Special Requests/Message</label>
             <TextArea
+              id="message"
               name="message"
               value={formData.message}
               onChange={handleChange}
               placeholder="Dietary restrictions, accessibility needs, etc."
               rows="4"
+              aria-label="Special requests or message"
             />
           </InputGroup>
         </FormSection>
@@ -308,51 +364,74 @@ const Form = () => {
               <FaUsers />
             </IconWrapper>
             <div>
-              <h3>Travel Companions</h3>
+              <h3>Travel Companions ({formData.travelers.length})</h3>
               <p>Add information for other travelers in your group</p>
             </div>
           </SectionHeader>
-          {formData.travelers.map((traveler, index) => (
-            <TravelerGroup key={index}>
-              <TravelerHeader>
-                <h4>Person {index + 1}</h4>
-                {formData.travelers.length > 1 && (
-                  <RemoveButton
-                    type="button"
-                    onClick={() => removeTraveler(index)}
-                  >
-                    <FaMinus /> Remove
-                  </RemoveButton>
-                )}
-              </TravelerHeader>
-              <FormRow>
-                <InputGroup style={{flex: 2}}>
-                  <label>Full Name*</label>
-                  <Input
-                    type="text"
-                    name={`traveler_name_${index}`}
-                    value={traveler.name}
-                    onChange={(e) => handleTravelerChange(index, e)}
-                    placeholder="Traveler name"
-                    required
-                  />
-                </InputGroup>
-                <InputGroup>
-                  <label>Age*</label>
-                  <Input
-                    type="number"
-                    name={`traveler_age_${index}`}
-                    value={traveler.age}
-                    onChange={(e) => handleTravelerChange(index, e)}
-                    placeholder="Age"
-                    min="0"
-                    required
-                  />
-                </InputGroup>
-              </FormRow>
-            </TravelerGroup>
-          ))}
-          <AddButton type="button" onClick={addTraveler}>
+          <AnimatePresence>
+            {formData.travelers.map((traveler, index) => (
+              <TravelerGroup
+                key={index}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <TravelerHeader>
+                  <h4>Person {index + 1}</h4>
+                  {formData.travelers.length > 1 && (
+                    <RemoveButton
+                      type="button"
+                      onClick={() => removeTraveler(index)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaMinus /> Remove
+                    </RemoveButton>
+                  )}
+                </TravelerHeader>
+                <FormRow>
+                  <InputGroup style={{ flex: 2 }}>
+                    <label htmlFor={`traveler_name_${index}`}>Full Name*</label>
+                    <Input
+                      id={`traveler_name_${index}`}
+                      type="text"
+                      name={`traveler_name_${index}`}
+                      value={traveler.name}
+                      onChange={(e) => handleTravelerChange(index, e)}
+                      placeholder="Traveler name"
+                      required
+                      aria-label={`Traveler ${index + 1} full name`}
+                      hasError={!!errors[`name_${index}`]}
+                    />
+                    {errors[`name_${index}`] && <ErrorMessage>{errors[`name_${index}`]}</ErrorMessage>}
+                  </InputGroup>
+                  <InputGroup>
+                    <label htmlFor={`traveler_age_${index}`}>Age*</label>
+                    <Input
+                      id={`traveler_age_${index}`}
+                      type="number"
+                      name={`traveler_age_${index}`}
+                      value={traveler.age}
+                      onChange={(e) => handleTravelerChange(index, e)}
+                      placeholder="Age"
+                      min="0"
+                      required
+                      aria-label={`Traveler ${index + 1} age`}
+                      hasError={!!errors[`age_${index}`]}
+                    />
+                    {errors[`age_${index}`] && <ErrorMessage>{errors[`age_${index}`]}</ErrorMessage>}
+                  </InputGroup>
+                </FormRow>
+              </TravelerGroup>
+            ))}
+          </AnimatePresence>
+          <AddButton
+            type="button"
+            onClick={addTraveler}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <FaPlus /> Add Another Traveler
           </AddButton>
         </FormSection>
@@ -398,9 +477,16 @@ const Form = () => {
         </PaymentSection>
 
         <SubmitContainer>
-          <SubmitButton type="submit">Submit Booking Request</SubmitButton>
+          <SubmitButton
+            type="submit"
+            disabled={isSubmitting}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Booking Request"}
+          </SubmitButton>
           <FormFooter>
-            By submitting this form, you agree to our Terms of Service and Privacy Policy.
+            By submitting this form, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.
           </FormFooter>
         </SubmitContainer>
       </FormContainer>
@@ -413,12 +499,13 @@ const Container = styled.div`
   padding: 0;
   font-family: 'Montserrat', sans-serif;
   color: #333;
+  background: linear-gradient(180deg, #f0f8ff 0%, #ffffff 100%);
   overflow-x: hidden;
 `;
 
 const HeroSection = styled.section`
   position: relative;
-  height: 40vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -434,17 +521,17 @@ const HeroSection = styled.section`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
                 url(${formImage});
     background-size: cover;
     background-position: center;
-    filter: blur(4px) brightness(0.9);
+    filter: blur(6px) brightness(0.9);
     z-index: 1;
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
   @media (max-width: 768px) {
-    height: 60vh;
+    height: 40vh;
     padding: 0 2rem;
   }
 
@@ -455,7 +542,7 @@ const HeroSection = styled.section`
 `;
 
 const HeroContent = styled.div`
-  max-width: 800px;
+  max-width: 900px;
   padding: 0 2rem;
 `;
 
@@ -464,53 +551,53 @@ const HeroTitle = styled(motion.h1)`
   font-weight: 300;
   margin: 0;
   line-height: 1.2;
-  color: rgb(255, 255, 255);
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 
   @media (min-width: 768px) {
-    font-size: 4.5rem;
+    font-size: 4rem;
   }
 
   @media (max-width: 767px) {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 `;
 
 const FormContainer = styled.form`
-  max-width: 900px;
-  margin: 2rem auto 2rem; /* Increased top margin to create gap */
+  max-width: 1000px;
+  margin: 3rem auto;
   background: white;
-  padding: 3rem 2rem 3rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-`;
+  padding: 3.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+    margin: 2rem 1rem;
+  }
+`;
 
 const FormIntro = styled.div`
   text-align: center;
-  margin-bottom: 2rem;
-  color: #555;
-  font-size: 1.05rem;
-  line-height: 1.6;
-`;
-
-const SectionTitle = styled.h2`
-  text-align: center;
-  color: #2a6b46;
-  margin-bottom: 1rem;
-  font-size: 2.2rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  margin-bottom: 2.5rem;
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.7;
 `;
 
 const FormSection = styled.div`
-  margin-bottom: 2.5rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #eaeff2;
+  margin-bottom: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #e6effa;
 
   &:last-child {
     border-bottom: none;
@@ -520,149 +607,177 @@ const FormSection = styled.div`
 const SectionHeader = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
 
   h3 {
-    margin: 0 0 0.25rem 0;
-    font-size: 1.4rem;
-    color: #2a6b46;
+    margin: 0 0 0.3rem 0;
+    font-size: 1.6rem;
+    color: #1a4971;
   }
 
   p {
     margin: 0;
-    color: #6c757d;
+    color: #718096;
     font-size: 0.95rem;
   }
 `;
 
 const IconWrapper = styled.div`
-  background: #e8f4ec;
-  width: 40px;
-  height: 40px;
+  background: #e6f0fa;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2a6b46;
+  color: #1a4971;
   flex-shrink: 0;
+  font-size: 1.2rem;
 `;
 
 const FormRow = styled.div`
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   margin-bottom: 1.5rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 `;
 
 const InputGroup = styled.div`
   flex: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
     font-weight: 600;
-    color: #495057;
-    font-size: 0.95rem;
+    color: #2d3748;
+    font-size: 1rem;
   }
 `;
 
-const Input = styled.input`
+const Input = styled(motion.input)`
   width: 100%;
-  padding: 0.9rem 1rem;
-  border: 1px solid #d1d7dc;
-  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid ${(props) => (props.hasError ? "#e53e3e" : "#cbd5e0")};
+  border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s;
-  background-color: #fbfdfe;
+  background-color: #f7fafc;
 
   &:focus {
     outline: none;
-    border-color: #2a6b46;
-    box-shadow: 0 0 0 3px rgba(42, 107, 70, 0.1);
+    border-color: #1a4971;
+    box-shadow: 0 0 0 3px rgba(26, 73, 113, 0.1);
   }
 
   &::placeholder {
-    color: #adb5bd;
+    color: #a0aec0;
+  }
+
+  &[type="number"] {
+    appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: 0.9rem 1rem;
-  border: 1px solid #d1d7dc;
-  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid ${(props) => (props.hasError ? "#e53e3e" : "#cbd5e0")};
+  border-radius: 8px;
   font-size: 1rem;
-  background-color: #fbfdfe;
+  background-color: #f7fafc;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
-  background-size: 1em;
+  background-size: 1.2em;
 
   &:focus {
     outline: none;
-    border-color: #2a6b46;
-    box-shadow: 0 0 0 3px rgba(42, 107, 70, 0.1);
+    border-color: #1a4971;
+    box-shadow: 0 0 0 3px rgba(26, 73, 113, 0.1);
   }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  padding: 0.9rem 1rem;
-  border: 1px solid #d1d7dc;
-  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
   font-size: 1rem;
   resize: vertical;
-  min-height: 120px;
-  background-color: #fbfdfe;
+  min-height: 140px;
+  background-color: #f7fafc;
 
   &:focus {
     outline: none;
-    border-color: #2a6b46;
-    box-shadow: 0 0 0 3px rgba(42, 107, 70, 0.1);
+    border-color: #1a4971;
+    box-shadow: 0 0 0 3px rgba(26, 73, 113, 0.1);
   }
 
   &::placeholder {
-    color: #adb5bd;
+    color: #a0aec0;
+  }
+`;
+
+const Tooltip = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover::after {
+    content: "${(props) => props.title}";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2d3748;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 0.5rem;
   }
 `;
 
 const InterestContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
 `;
 
-const InterestOption = styled.div`
-  padding: 0.5rem 1.2rem;
-  background-color: ${(props) =>
-    props.selected ? "#2a6b46" : "#f1f3f5"};
-  color: ${(props) => (props.selected ? "white" : "#495057")};
-  border-radius: 20px;
+const InterestOption = styled(motion.div)`
+  padding: 0.6rem 1.4rem;
+  background-color: ${(props) => (props.selected ? "#1a4971" : "#edf2f7")};
+  color: ${(props) => (props.selected ? "white" : "#4a5568")};
+  border-radius: 25px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   transition: all 0.2s;
-  border: 1px solid ${(props) =>
-    props.selected ? "#2a6b46" : "#d1d7dc"};
+  border: 1px solid ${(props) => (props.selected ? "#1a4971" : "#e2e8f0")};
 
   &:hover {
-    background-color: ${(props) =>
-      props.selected ? "#23583b" : "#e9ecef"};
+    background-color: ${(props) => (props.selected ? "#153e61" : "#e2e8f0")};
   }
 `;
 
-const TravelerGroup = styled.div`
-  background: #f8fafc;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+const TravelerGroup = styled(motion.div)`
+  background: #f1f5f9;
+  padding: 1.75rem;
+  border-radius: 10px;
+  margin-bottom: 1.75rem;
   border: 1px solid #e2e8f0;
 `;
 
@@ -670,94 +785,100 @@ const TravelerHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 
   h4 {
     margin: 0;
-    color: #2a6b46;
-    font-size: 1.1rem;
+    color: #1a4971;
+    font-size: 1.2rem;
   }
 `;
 
-const AddButton = styled.button`
-  background-color: #2a6b46;
+const AddButton = styled(motion.button)`
+  background-color: #1a4971;
   color: white;
   border: none;
-  padding: 0.9rem 1.5rem;
-  border-radius: 6px;
+  padding: 1rem 1.75rem;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
   transition: all 0.3s;
-  font-size: 0.95rem;
+  font-size: 1rem;
 
   &:hover {
-    background-color: #23583b;
+    background-color: #153e61;
   }
 `;
 
-const RemoveButton = styled.button`
-  background-color: #f8f9fa;
-  color: #dc3545;
-  border: 1px solid #f1f3f5;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+const RemoveButton = styled(motion.button)`
+  background-color: #f7fafc;
+  color: #e53e3e;
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   transition: all 0.2s;
 
   &:hover {
-    background-color: #f1f3f5;
-    border-color: #e9ecef;
+    background-color: #edf2f7;
+    border-color: #e2e8f0;
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+`;
+
 const ImportantNote = styled.div`
-  background-color: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin: 2.5rem 0;
+  background-color: #f0f7ff;
+  padding: 1.75rem;
+  border-radius: 10px;
+  margin: 3rem 0;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.75rem;
   align-items: flex-start;
-  border-left: 4px solid #2a6b46;
+  border-left: 5px solid #1a4971;
 
   ul {
-    padding-left: 1.5rem;
-    margin: 0.5rem 0 0;
+    padding-left: 1.75rem;
+    margin: 0.75rem 0 0;
   }
 
   li {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
   }
 
   strong {
-    color: #2a6b46;
+    color: #1a4971;
   }
 `;
 
 const PaymentSection = styled.div`
-  margin: 3rem 0;
+  margin: 3.5rem 0;
 
   h3 {
-    color: #2a6b46;
-    margin-bottom: 2rem;
+    color: #1a4971;
+    margin-bottom: 2.5rem;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 `;
 
 const PaymentOptions = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -765,79 +886,81 @@ const PaymentOptions = styled.div`
 `;
 
 const PaymentCard = styled.div`
-  background: #f8f9fa;
-  padding: 1.75rem;
-  border-radius: 8px;
+  background: #f0f7ff;
+  padding: 2rem;
+  border-radius: 10px;
   border: 1px solid #e2e8f0;
 
   h4 {
     margin-top: 0;
-    margin-bottom: 1.25rem;
-    color: #2a6b46;
-    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #1a4971;
+    font-size: 1.3rem;
   }
 
   ul {
-    padding-left: 1.5rem;
+    padding-left: 1.75rem;
     margin: 0;
   }
 
   li {
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
+    margin-bottom: 1rem;
+    line-height: 1.7;
     display: flex;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
 `;
 
 const PaymentIcon = styled.span`
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
+  font-size: 1.2rem;
 `;
 
 const PaymentNote = styled.p`
-  margin-top: 1.5rem;
-  color: #6c757d;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  margin-top: 1.75rem;
+  color: #718096;
+  font-size: 0.95rem;
+  line-height: 1.7;
 `;
 
 const SubmitContainer = styled.div`
-  margin-top: 3rem;
+  margin-top: 3.5rem;
   text-align: center;
 `;
 
-const SubmitButton = styled.button`
-  background-color: #2a6b46;
+const SubmitButton = styled(motion.button)`
+  background-color: #1a4971;
   color: white;
   border: none;
-  padding: 1.1rem 2rem;
-  border-radius: 6px;
-  font-size: 1.1rem;
+  padding: 1.2rem 2.5rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
   font-weight: 600;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   transition: all 0.3s;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
   display: block;
+  opacity: ${(props) => (props.disabled ? 0.7 : 1)};
 
-  &:hover {
-    background-color: #23583b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(42, 107, 70, 0.2);
+  &:hover:not(:disabled) {
+    background-color: #153e61;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(26, 73, 113, 0.2);
   }
 `;
 
 const FormFooter = styled.div`
-  margin-top: 1.5rem;
-  color: #6c757d;
-  font-size: 0.85rem;
+  margin-top: 2rem;
+  color: #718096;
+  font-size: 0.9rem;
 
   a {
-    color: #2a6b46;
+    color: #1a4971;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 
     &:hover {
       text-decoration: underline;
