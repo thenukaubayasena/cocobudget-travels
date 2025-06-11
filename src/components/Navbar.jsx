@@ -44,7 +44,7 @@ const Navbar = () => {
           Current Packages
         </NavItem>
         <NavItem to="/form" $isActive={activeTab === "form"}>
-          Form
+          Booking Form
         </NavItem>
       </NavMenu>
 
