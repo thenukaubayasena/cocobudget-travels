@@ -108,6 +108,11 @@ const Form = () => {
       newErrors[`name_${index}`] = validateField(`traveler_name_${index}`, traveler.name, index);
       newErrors[`age_${index}`] = validateField(`traveler_age_${index}`, traveler.age, index);
     });
+    // Check if there are any valid travelers
+    const validTravelers = formData.travelers.filter(t => t.name.trim() && t.age && !isNaN(t.age));
+    if (validTravelers.length === 0) {
+      newErrors.travelers = "At least one valid traveler is required.";
+    }
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => !error);
   };
@@ -124,36 +129,56 @@ const Form = () => {
     const date = currentDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const time = currentDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 
+    // Prepare travelers data, ensuring only valid entries are included
+    const validTravelers = formData.travelers.filter(t => t.name.trim() && t.age && !isNaN(t.age));
+    const travelersDataString = validTravelers.length > 0 
+      ? validTravelers.map(t => `${t.name} (Age: ${t.age})`).join(", ") 
+      : "No travelers provided";
+
+    // Prepare interests data
+    const interestsString = formData.interests.length > 0 ? formData.interests.join(", ") : "None";
+
+    // Debug: Log form data to console
+    console.log("Form Data:", {
+      ...formData,
+      date,
+      time,
+      travelers_data: travelersDataString,
+      interests: interestsString,
+    });
+
     const formElement = form.current;
+
+    // Add hidden inputs with validation
     const dateInput = document.createElement("input");
     dateInput.type = "hidden";
     dateInput.name = "date";
-    dateInput.value = date;
+    dateInput.value = date || "N/A";
     formElement.appendChild(dateInput);
 
     const timeInput = document.createElement("input");
     timeInput.type = "hidden";
     timeInput.name = "time";
-    timeInput.value = time;
+    timeInput.value = time || "N/A";
     formElement.appendChild(timeInput);
 
     const interestsInput = document.createElement("input");
     interestsInput.type = "hidden";
     interestsInput.name = "interests";
-    interestsInput.value = formData.interests.join(",");
+    interestsInput.value = interestsString;
     formElement.appendChild(interestsInput);
 
     const travelersInput = document.createElement("input");
     travelersInput.type = "hidden";
     travelersInput.name = "travelers_data";
-    travelersInput.value = JSON.stringify(formData.travelers);
+    travelersInput.value = travelersDataString;
     formElement.appendChild(travelersInput);
 
     emailjs
       .sendForm("service_ifeol5e", "template_1392er3", form.current, "PkmG2dA-xVVupW-YC")
       .then(
         (result) => {
-          console.log(result.text);
+          console.log("EmailJS Success:", result.text);
           alert("Thank you for your booking! We'll contact you shortly.");
           setFormData({
             name: "",
@@ -167,21 +192,19 @@ const Form = () => {
             travelers: [{ name: "", age: "" }],
           });
           setErrors({});
-          formElement.removeChild(dateInput);
-          formElement.removeChild(timeInput);
-          formElement.removeChild(interestsInput);
-          formElement.removeChild(travelersInput);
         },
         (error) => {
-          console.log(error.text);
+          console.error("EmailJS Error:", error.text);
           alert("There was an error submitting your booking. Please try again.");
-          formElement.removeChild(dateInput);
-          formElement.removeChild(timeInput);
-          formElement.removeChild(interestsInput);
-          formElement.removeChild(travelersInput);
         }
       )
-      .finally(() => setIsSubmitting(false));
+      .finally(() => {
+        // Clean up hidden inputs
+        [dateInput, timeInput, interestsInput, travelersInput].forEach(input => {
+          if (formElement.contains(input)) formElement.removeChild(input);
+        });
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -368,6 +391,7 @@ const Form = () => {
               <p>Add information for other travelers in your group</p>
             </div>
           </SectionHeader>
+          {errors.travelers && <ErrorMessage>{errors.travelers}</ErrorMessage>}
           <AnimatePresence>
             {formData.travelers.map((traveler, index) => (
               <TravelerGroup
