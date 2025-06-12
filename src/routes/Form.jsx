@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { FaUser, FaCalendarAlt, FaUsers, FaPhone, FaEnvelope, FaInfoCircle, FaPlus, FaMinus } from "react-icons/fa";
+import { FaUser, FaCalendarAlt, FaUsers, FaPhone, FaEnvelope, FaInfoCircle, FaChild } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import formImage from '../assets/homeAssets/form.jpg';
@@ -13,13 +13,16 @@ const Form = () => {
     mobile: "",
     email: "",
     package: "",
-    tripDate: "",
+    arrivalDate: "",
+    departureDate: "",
+    adults: "",
+    kids: "",
+    interest: "",
     message: "",
-    interests: [],
-    travelers: [{ name: "", age: "" }],
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const packages = [
     "Cultural Triangle & East Coast Adventure (Package 1)",
@@ -30,26 +33,28 @@ const Form = () => {
   ];
 
   const interests = [
-    { name: "Beaches", description: "Relax on pristine sandy shores" },
-    { name: "Wildlife", description: "Explore national parks and safaris" },
-    { name: "History", description: "Discover ancient ruins and temples" },
-    { name: "Culture", description: "Immerse in local traditions" },
-    { name: "Adventure", description: "Hiking, surfing, and more" },
-    { name: "Wellness", description: "Ayurveda and spa retreats" },
-    { name: "Photography", description: "Capture stunning landscapes" },
-    { name: "Food", description: "Savor authentic Sri Lankan cuisine" },
+    "Beaches",
+    "Wildlife",
+    "History",
+    "Culture",
+    "Adventure",
+    "Wellness",
+    "Photography",
+    "Food",
   ];
 
-  const validateField = (name, value, index = null) => {
+  const validateField = (name, value) => {
     let error = "";
     if (name === "name" && !value.trim()) error = "Full name is required";
     if (name === "age" && (!value || value < 18)) error = "Age must be 18 or older";
     if (name === "mobile" && !/^\+\d{1,3}\s\d{1,14}$/.test(value)) error = "Enter a valid phone number (e.g., +358 77 123 4567)";
     if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Enter a valid email address";
     if (name === "package" && !value) error = "Please select a package";
-    if (name === "tripDate" && !value) error = "Please select a trip date";
-    if (name === `traveler_name_${index}` && !value.trim()) error = "Traveler name is required";
-    if (name === `traveler_age_${index}` && (!value || value < 0)) error = "Age must be 0 or older";
+    if (name === "arrivalDate" && !value) error = "Please select arrival date";
+    if (name === "departureDate" && !value) error = "Please select departure date";
+    if (name === "adults" && (!value || value < 1)) error = "At least 1 adult required";
+    if (name === "kids" && value < 0) error = "Cannot be negative";
+    if (name === "interest" && !value) error = "Please select your most preferred interest";
     return error;
   };
 
@@ -59,60 +64,29 @@ const Form = () => {
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  const handleTravelerChange = (index, e) => {
-    const { name, value } = e.target;
-    const field = name.includes("name") ? "name" : "age";
-    const updatedTravelers = [...formData.travelers];
-    updatedTravelers[index] = { ...updatedTravelers[index], [field]: value };
-    setFormData((prev) => ({ ...prev, travelers: updatedTravelers }));
-    setErrors((prev) => ({ ...prev, [`${field}_${index}`]: validateField(name, value, index) }));
-  };
-
-  const handleInterestChange = (interest) => {
-    setFormData((prev) => {
-      const updatedInterests = prev.interests.includes(interest)
-        ? prev.interests.filter((i) => i !== interest)
-        : [...prev.interests, interest];
-      return { ...prev, interests: updatedInterests };
-    });
-  };
-
-  const addTraveler = () => {
-    setFormData((prev) => ({
-      ...prev,
-      travelers: [...prev.travelers, { name: "", age: "" }],
-    }));
-  };
-
-  const removeTraveler = (index) => {
-    if (formData.travelers.length > 1) {
-      const updatedTravelers = formData.travelers.filter((_, i) => i !== index);
-      setFormData((prev) => ({ ...prev, travelers: updatedTravelers }));
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[`name_${index}`];
-        delete newErrors[`age_${index}`];
-        return newErrors;
-      });
-    }
+  const handleNumberChange = (name, value) => {
+    const numValue = parseInt(value) || 0;
+    setFormData((prev) => ({ ...prev, [name]: numValue }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, numValue) }));
   };
 
   const validateForm = () => {
     const newErrors = {};
     Object.keys(formData).forEach((key) => {
-      if (key !== "travelers" && key !== "interests" && key !== "message") {
+      if (key !== "message") {
         newErrors[key] = validateField(key, formData[key]);
       }
     });
-    formData.travelers.forEach((traveler, index) => {
-      newErrors[`name_${index}`] = validateField(`traveler_name_${index}`, traveler.name, index);
-      newErrors[`age_${index}`] = validateField(`traveler_age_${index}`, traveler.age, index);
-    });
-    // Check if there are any valid travelers
-    const validTravelers = formData.travelers.filter(t => t.name.trim() && t.age && !isNaN(t.age));
-    if (validTravelers.length === 0) {
-      newErrors.travelers = "At least one valid traveler is required.";
+    
+    // Validate date range
+    if (formData.arrivalDate && formData.departureDate) {
+      const arrival = new Date(formData.arrivalDate);
+      const departure = new Date(formData.departureDate);
+      if (departure <= arrival) {
+        newErrors.departureDate = "Departure date must be after arrival date";
+      }
     }
+    
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => !error);
   };
@@ -129,24 +103,6 @@ const Form = () => {
     const date = currentDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const time = currentDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 
-    // Prepare travelers data, ensuring only valid entries are included
-    const validTravelers = formData.travelers.filter(t => t.name.trim() && t.age && !isNaN(t.age));
-    const travelersDataString = validTravelers.length > 0 
-      ? validTravelers.map(t => `${t.name} (Age: ${t.age})`).join(", ") 
-      : "No travelers provided";
-
-    // Prepare interests data
-    const interestsString = formData.interests.length > 0 ? formData.interests.join(", ") : "None";
-
-    // Debug: Log form data to console
-    console.log("Form Data:", {
-      ...formData,
-      date,
-      time,
-      travelers_data: travelersDataString,
-      interests: interestsString,
-    });
-
     const formElement = form.current;
 
     // Add hidden inputs with validation
@@ -161,35 +117,37 @@ const Form = () => {
     timeInput.name = "time";
     timeInput.value = time || "N/A";
     formElement.appendChild(timeInput);
+    
+    const adultsInput = document.createElement("input");
+    adultsInput.type = "hidden";
+    adultsInput.name = "adults";
+    adultsInput.value = formData.adults || "N/A";
+    formElement.appendChild(adultsInput);
 
-    const interestsInput = document.createElement("input");
-    interestsInput.type = "hidden";
-    interestsInput.name = "interests";
-    interestsInput.value = interestsString;
-    formElement.appendChild(interestsInput);
-
-    const travelersInput = document.createElement("input");
-    travelersInput.type = "hidden";
-    travelersInput.name = "travelers_data";
-    travelersInput.value = travelersDataString;
-    formElement.appendChild(travelersInput);
+    const kidsInput = document.createElement("input");
+    kidsInput.type = "hidden";
+    kidsInput.name = "kids";
+    kidsInput.value = formData.kids || "N/A";
+    formElement.appendChild(kidsInput);
 
     emailjs
       .sendForm("service_ifeol5e", "template_1392er3", form.current, "PkmG2dA-xVVupW-YC")
       .then(
         (result) => {
           console.log("EmailJS Success:", result.text);
-          alert("Thank you for your booking! We'll contact you shortly.");
+          setShowSuccessPopup(true);
           setFormData({
             name: "",
             age: "",
             mobile: "",
             email: "",
             package: "",
-            tripDate: "",
+            arrivalDate: "",
+            departureDate: "",
+            adults: 1,
+            kids: 0,
+            interest: "",
             message: "",
-            interests: [],
-            travelers: [{ name: "", age: "" }],
           });
           setErrors({});
         },
@@ -200,11 +158,15 @@ const Form = () => {
       )
       .finally(() => {
         // Clean up hidden inputs
-        [dateInput, timeInput, interestsInput, travelersInput].forEach(input => {
+        [dateInput, timeInput, adultsInput, kidsInput].forEach(input => {
           if (formElement.contains(input)) formElement.removeChild(input);
         });
         setIsSubmitting(false);
       });
+  };
+
+  const closePopup = () => {
+    setShowSuccessPopup(false);
   };
 
   return (
@@ -335,38 +297,98 @@ const Form = () => {
           </InputGroup>
           <FormRow>
             <InputGroup>
-              <label htmlFor="tripDate">Planned Trip Date*</label>
+              <label htmlFor="arrivalDate">Arrival Date*</label>
               <Input
-                id="tripDate"
+                id="arrivalDate"
                 type="date"
-                name="tripDate"
-                value={formData.tripDate}
+                name="arrivalDate"
+                value={formData.arrivalDate}
                 onChange={handleChange}
                 min={new Date().toISOString().split('T')[0]}
                 required
-                aria-label="Planned trip date"
-                hasError={!!errors.tripDate}
+                aria-label="Arrival date"
+                hasError={!!errors.arrivalDate}
               />
-              {errors.tripDate && <ErrorMessage>{errors.tripDate}</ErrorMessage>}
+              {errors.arrivalDate && <ErrorMessage>{errors.arrivalDate}</ErrorMessage>}
             </InputGroup>
             <InputGroup>
-              <label>Your Interests</label>
-              <InterestContainer>
-                {interests.map((interest, i) => (
-                  <Tooltip key={i} title={interest.description}>
-                    <InterestOption
-                      selected={formData.interests.includes(interest.name)}
-                      onClick={() => handleInterestChange(interest.name)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {interest.name}
-                    </InterestOption>
-                  </Tooltip>
-                ))}
-              </InterestContainer>
+              <label htmlFor="departureDate">Departure Date*</label>
+              <Input
+                id="departureDate"
+                type="date"
+                name="departureDate"
+                value={formData.departureDate}
+                onChange={handleChange}
+                min={formData.arrivalDate || new Date().toISOString().split('T')[0]}
+                required
+                aria-label="Departure date"
+                hasError={!!errors.departureDate}
+              />
+              {errors.departureDate && <ErrorMessage>{errors.departureDate}</ErrorMessage>}
             </InputGroup>
           </FormRow>
+          <FormRow>
+            <InputGroup>
+              <label htmlFor="adults">Number of Adults*</label>
+              <NumberInputContainer>
+                <NumberButton 
+                  type="button" 
+                  onClick={() => handleNumberChange("adults", formData.adults - 1)}
+                  disabled={formData.adults <= 1}
+                >
+                  -
+                </NumberButton>
+                <NumberDisplay>{formData.adults}</NumberDisplay>
+                <NumberButton 
+                  type="button" 
+                  onClick={() => handleNumberChange("adults", formData.adults + 1)}
+                >
+                  +
+                </NumberButton>
+              </NumberInputContainer>
+              {errors.adults && <ErrorMessage>{errors.adults}</ErrorMessage>}
+            </InputGroup>
+            <InputGroup>
+              <label htmlFor="kids">Number of Kids (below 4 years)</label>
+              <NumberInputContainer>
+                <NumberButton 
+                  type="button" 
+                  onClick={() => handleNumberChange("kids", formData.kids - 1)}
+                  disabled={formData.kids <= 0}
+                >
+                  -
+                </NumberButton>
+                <NumberDisplay>{formData.kids}</NumberDisplay>
+                <NumberButton 
+                  type="button" 
+                  onClick={() => handleNumberChange("kids", formData.kids + 1)}
+                >
+                  +
+                </NumberButton>
+              </NumberInputContainer>
+              {errors.kids && <ErrorMessage>{errors.kids}</ErrorMessage>}
+            </InputGroup>
+          </FormRow>
+          <InputGroup>
+            <label htmlFor="interest">Most Preferred Interest*</label>
+            <Select
+              id="interest"
+              name="interest"
+              value={formData.interest}
+              onChange={handleChange}
+              required
+              aria-label="Preferred travel interest"
+              hasError={!!errors.interest}
+            >
+              <option value="">-- Select Interest --</option>
+              {interests.map((int, i) => (
+                <option key={i} value={int}>
+                  {int}
+                </option>
+              ))}
+            </Select>
+            {errors.interest && <ErrorMessage>{errors.interest}</ErrorMessage>}
+          </InputGroup>
           <InputGroup>
             <label htmlFor="message">Special Requests/Message</label>
             <TextArea
@@ -379,85 +401,6 @@ const Form = () => {
               aria-label="Special requests or message"
             />
           </InputGroup>
-        </FormSection>
-
-        <FormSection>
-          <SectionHeader>
-            <IconWrapper>
-              <FaUsers />
-            </IconWrapper>
-            <div>
-              <h3>Travel Companions ({formData.travelers.length})</h3>
-              <p>Add information for other travelers in your group</p>
-            </div>
-          </SectionHeader>
-          {errors.travelers && <ErrorMessage>{errors.travelers}</ErrorMessage>}
-          <AnimatePresence>
-            {formData.travelers.map((traveler, index) => (
-              <TravelerGroup
-                key={index}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <TravelerHeader>
-                  <h4>Person {index + 1}</h4>
-                  {formData.travelers.length > 1 && (
-                    <RemoveButton
-                      type="button"
-                      onClick={() => removeTraveler(index)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <FaMinus /> Remove
-                    </RemoveButton>
-                  )}
-                </TravelerHeader>
-                <FormRow>
-                  <InputGroup style={{ flex: 2 }}>
-                    <label htmlFor={`traveler_name_${index}`}>Full Name*</label>
-                    <Input
-                      id={`traveler_name_${index}`}
-                      type="text"
-                      name={`traveler_name_${index}`}
-                      value={traveler.name}
-                      onChange={(e) => handleTravelerChange(index, e)}
-                      placeholder="Traveler name"
-                      required
-                      aria-label={`Traveler ${index + 1} full name`}
-                      hasError={!!errors[`name_${index}`]}
-                    />
-                    {errors[`name_${index}`] && <ErrorMessage>{errors[`name_${index}`]}</ErrorMessage>}
-                  </InputGroup>
-                  <InputGroup>
-                    <label htmlFor={`traveler_age_${index}`}>Age*</label>
-                    <Input
-                      id={`traveler_age_${index}`}
-                      type="number"
-                      name={`traveler_age_${index}`}
-                      value={traveler.age}
-                      onChange={(e) => handleTravelerChange(index, e)}
-                      placeholder="Age"
-                      min="0"
-                      required
-                      aria-label={`Traveler ${index + 1} age`}
-                      hasError={!!errors[`age_${index}`]}
-                    />
-                    {errors[`age_${index}`] && <ErrorMessage>{errors[`age_${index}`]}</ErrorMessage>}
-                  </InputGroup>
-                </FormRow>
-              </TravelerGroup>
-            ))}
-          </AnimatePresence>
-          <AddButton
-            type="button"
-            onClick={addTraveler}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FaPlus /> Add Another Traveler
-          </AddButton>
         </FormSection>
 
         <ImportantNote>
@@ -514,11 +457,138 @@ const Form = () => {
           </FormFooter>
         </SubmitContainer>
       </FormContainer>
+
+      {/* Success Popup */}
+      <AnimatePresence>
+        {showSuccessPopup && (
+          <PopupOverlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closePopup}
+          >
+            <PopupContainer
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <PopupIcon>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </PopupIcon>
+              <PopupTitle>Booking Submitted Successfully!</PopupTitle>
+              <PopupText>
+                Thank you for your booking request. We've received your details and will contact you within 24 hours to confirm your reservation.
+              </PopupText>
+              <PopupButton onClick={closePopup}>OK</PopupButton>
+            </PopupContainer>
+          </PopupOverlay>
+        )}
+      </AnimatePresence>
     </Container>
   );
 };
 
-// Enhanced Styled Components
+// New styled components for number input and popup
+const NumberInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const NumberButton = styled.button`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #1a4971;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  opacity: ${props => props.disabled ? 0.5 : 1};
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: #153e61;
+  }
+`;
+
+const NumberDisplay = styled.div`
+  width: 50px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+`;
+
+const PopupOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+const PopupContainer = styled(motion.div)`
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+`;
+
+const PopupIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  color: #4BB543;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const PopupTitle = styled.h3`
+  font-size: 1.8rem;
+  color: #1a4971;
+  margin-bottom: 1rem;
+`;
+
+const PopupText = styled.p`
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+`;
+
+const PopupButton = styled.button`
+  background-color: #1a4971;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #153e61;
+  }
+`;
+
+// Existing styled components (keep all the ones from your original code)
 const Container = styled.div`
   padding: 0;
   font-family: 'Montserrat', sans-serif;
@@ -794,66 +864,6 @@ const InterestOption = styled(motion.div)`
 
   &:hover {
     background-color: ${(props) => (props.selected ? "#153e61" : "#e2e8f0")};
-  }
-`;
-
-const TravelerGroup = styled(motion.div)`
-  background: #f1f5f9;
-  padding: 1.75rem;
-  border-radius: 10px;
-  margin-bottom: 1.75rem;
-  border: 1px solid #e2e8f0;
-`;
-
-const TravelerHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.2rem;
-
-  h4 {
-    margin: 0;
-    color: #1a4971;
-    font-size: 1.2rem;
-  }
-`;
-
-const AddButton = styled(motion.button)`
-  background-color: #1a4971;
-  color: white;
-  border: none;
-  padding: 1rem 1.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 0.75rem;
-  transition: all 0.3s;
-  font-size: 1rem;
-
-  &:hover {
-    background-color: #153e61;
-  }
-`;
-
-const RemoveButton = styled(motion.button)`
-  background-color: #f7fafc;
-  color: #e53e3e;
-  border: 1px solid #e2e8f0;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: #edf2f7;
-    border-color: #e2e8f0;
   }
 `;
 
