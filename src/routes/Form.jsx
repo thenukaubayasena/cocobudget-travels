@@ -47,7 +47,7 @@ const Form = () => {
     let error = "";
     if (name === "name" && !value.trim()) error = "Full name is required";
     if (name === "age" && (!value || value < 18)) error = "Age must be 18 or older";
-    if (name === "mobile" && !/^\+\d{1,3}\s\d{1,14}$/.test(value)) error = "Enter a valid phone number (e.g., +358 77 123 4567)";
+    if (name === "mobile" && !/^\+\d{1,3}\s\d{1,14}$/.test(value)) error = "Enter a valid phone number";
     if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Enter a valid email address";
     if (name === "package" && !value) error = "Please select a package";
     if (name === "arrivalDate" && !value) error = "Please select arrival date";
@@ -240,7 +240,7 @@ const Form = () => {
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleChange}
-                placeholder="+358 77 123 4567"
+                placeholder="+358 12 345 6789"
                 required
                 aria-label="Lead traveler mobile number"
                 hasError={!!errors.mobile}
@@ -349,7 +349,7 @@ const Form = () => {
               {errors.adults && <ErrorMessage>{errors.adults}</ErrorMessage>}
             </InputGroup>
             <InputGroup>
-              <label htmlFor="kids">Number of Kids (below 4 years)</label>
+              <label htmlFor="kids">Number of Kids (below 2 years)</label>
               <NumberInputContainer>
                 <NumberButton 
                   type="button" 
@@ -410,10 +410,12 @@ const Form = () => {
           <div>
             <p><strong>Important Information:</strong></p>
             <ul>
-              <li>Minimum 4 persons required for booking (€500 per person)</li>
-              <li>Children below 4 years travel free of charge</li>
-              <li>Children above 5 years are charged full price</li>
+              <li>A minimum of 4 persons is required for booking. The cost is €500 per person, or €2,000 for a full package for 4 persons</li>
+              <li>A maximum of 10 persons is allowed per group. If your group has 10 persons, you are eligible for a discount</li>
+              <li>Children below 2 years travel free of charge and above 2 years are charged full price</li>
               <li>If you register alone, you'll be merged with other travelers to form a group</li>
+              <li>We can also arrange air ticket bookings upon request</li>
+              <li>Personal expenses such as entrance tickets (e.g., Sigiriya) are not included in the package.</li>
             </ul>
           </div>
         </ImportantNote>
@@ -427,15 +429,14 @@ const Form = () => {
                 <li><PaymentIcon>💳</PaymentIcon> Credit/Debit Card (Visa/Mastercard/Amex)</li>
                 <li><PaymentIcon>🏦</PaymentIcon> Bank Transfer to our Sri Lankan account</li>
                 <li><PaymentIcon>🌍</PaymentIcon> Wise (TransferWise) for international transfers</li>
-                <li><PaymentIcon>✈️</PaymentIcon> Payment on Arrival (remaining balance)</li>
+                <li><PaymentIcon>✈️</PaymentIcon> Payment on Arrival</li>
               </ul>
               <PaymentNote>We'll send payment instructions after booking confirmation.</PaymentNote>
             </PaymentCard>
             <PaymentCard>
               <h4>Payment Policy</h4>
               <ul>
-                <li>€150 non-refundable deposit required</li>
-                <li>Remaining €350 payable on arrival</li>
+                <li>€500 per person</li>
                 <li>All payments processed securely</li>
                 <li>Registered with SLTDA and Sri Lanka Registrar of Companies</li>
               </ul>

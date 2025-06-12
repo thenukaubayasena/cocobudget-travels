@@ -286,13 +286,7 @@ const CurrentPackages = () => {
             </PaymentPlanHeader>
             <PaymentPlanDetails>
               <PaymentPlanItem>
-                <strong>Registration Fee:</strong> €150 per person (non-refundable)
-              </PaymentPlanItem>
-              <PaymentPlanItem>
-                <strong>Balance Payment:</strong> €350 per person to be paid upon arrival in Sri Lanka
-              </PaymentPlanItem>
-              <PaymentPlanItem>
-                <strong>Total Package Price:</strong> €500 per person
+                <strong>Package Price:</strong> The cost is €500 per person, or €2,000 for a full package for 4 persons
               </PaymentPlanItem>
             </PaymentPlanDetails>
           </PaymentPlanCard>
@@ -426,7 +420,7 @@ const CurrentPackages = () => {
               </DetailItem>
               <DetailItem>
                 <FaMoneyBillWave />
-                <span><strong>Payment Plan:</strong> €150 registration, €350 upon arrival</span>
+                <span><strong>Payment Plan:</strong> €500 per person</span>
               </DetailItem>
             </ModalDetails>
             
@@ -484,7 +478,7 @@ const CurrentPackages = () => {
 
               <ImportantNote>
                 <strong>Note:</strong> Itinerary can be customized according to your preferences. 
-                Minimum 4 persons required for booking at €500 per person (€150 registration fee, €350 balance upon arrival).
+                Minimum 4 persons required for booking at €500 per person.
               </ImportantNote>
 
               <GallerySection>
