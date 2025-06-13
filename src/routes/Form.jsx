@@ -438,7 +438,6 @@ const Form = () => {
               <ul>
                 <li>€500 per person</li>
                 <li>All payments processed securely</li>
-                <li>Registered with SLTDA and Sri Lanka Registrar of Companies</li>
               </ul>
             </PaymentCard>
           </PaymentOptions>
