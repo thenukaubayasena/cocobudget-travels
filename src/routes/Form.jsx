@@ -47,7 +47,7 @@ const Form = () => {
     let error = "";
     if (name === "name" && !value.trim()) error = "Full name is required";
     if (name === "age" && (!value || value < 18)) error = "Age must be 18 or older";
-    if (name === "mobile" && !/^\+\d{1,3}\s\d{1,14}$/.test(value)) error = "Enter a valid phone number";
+    if (name === "mobile" && !/^\+\d{1,3}\d{1,14}$/.test(value)) error = "Enter a valid phone number";
     if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Enter a valid email address";
     if (name === "package" && !value) error = "Please select a package";
     if (name === "arrivalDate" && !value) error = "Please select arrival date";
@@ -131,7 +131,7 @@ const Form = () => {
     formElement.appendChild(kidsInput);
 
     emailjs
-      .sendForm("service_ifeol5e", "template_1392er3", form.current, "PkmG2dA-xVVupW-YC")
+      .sendForm("service_qbjz21v", "template_ry0m2nd", form.current, "h1H9gnCVTf12Zt_Gv")
       .then(
         (result) => {
           console.log("EmailJS Success:", result.text);
