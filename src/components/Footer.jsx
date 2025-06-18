@@ -30,7 +30,7 @@ const Footer = () => {
               <ContactIcon>
                 <IoMail />
               </ContactIcon>
-              <ContactText>kasunliyanage90@gmail.com</ContactText>
+              <ContactText>cocobudget.travels@gmail.com</ContactText>
             </ContactItem>
             <ContactItem>
               <ContactIcon>
@@ -39,13 +39,10 @@ const Footer = () => {
               <ContactText>+358 44 245 8212 / +94 70 552 8650</ContactText>
             </ContactItem>
             <SocialLinks>
-              <SocialLink href="https://www.instagram.com/21_dite_paakne/" target="_blank" aria-label="Instagram">
+              <SocialLink href="https://www.instagram.com/cocobudget.travels/" target="_blank" aria-label="Instagram">
                 <RiInstagramFill />
               </SocialLink>
-              <SocialLink href="https://www.tiktok.com/@21ditepaakne" target="_blank" aria-label="YouTube">
-                <FaYoutube />
-              </SocialLink>
-              <SocialLink href="https://www.facebook.com/21ditepaakne" target="_blank" aria-label="Facebook">
+              <SocialLink href="https://www.facebook.com/profile.php?id=61577163428909" target="_blank" aria-label="Facebook">
                 <FaFacebook />
               </SocialLink>
             </SocialLinks>

@@ -286,7 +286,16 @@ const CurrentPackages = () => {
             </PaymentPlanHeader>
             <PaymentPlanDetails>
               <PaymentPlanItem>
-                <strong>Package Price:</strong> The cost is €500 per person, or €2,000 for a full package for 4 persons
+                <strong>Original Price:</strong> <span className="strike">€800</span> per person
+              </PaymentPlanItem>
+              <PaymentPlanItem>
+                <strong>Discount:</strong> <span className="discount">€300 OFF</span>
+              </PaymentPlanItem>
+              <PaymentPlanItem>
+                <strong>Final Cost:</strong> <span className="final-price">€500</span> per person
+              </PaymentPlanItem>
+              <PaymentPlanItem>
+                <strong>Group Offer:</strong> Just <span className="final-price">€2,000</span> for 4 persons full package
               </PaymentPlanItem>
             </PaymentPlanDetails>
           </PaymentPlanCard>
@@ -713,6 +722,25 @@ const PaymentPlanItem = styled.p`
 
   strong {
     color: #333;
+  }
+
+  .strike {
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 0.3rem;
+  }
+
+  .discount {
+    color: #d9534f;
+    font-weight: bold;
+    margin-left: 0.3rem;
+  }
+
+  .final-price {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-left: 0.3rem;
   }
 `;
 

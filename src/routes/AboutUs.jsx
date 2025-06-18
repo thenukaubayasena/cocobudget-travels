@@ -186,7 +186,7 @@ const AboutUs = () => {
             {
               name: "Mr. Kasun Liyanage",
               role: "Founder & CEO - Marketing and Operations in Finland ",
-              email: "(kasunliyanage90@gmail.com)",
+              email: "(cocobudget.travels@gmail.com)",
               image: kasunImage
             },
             {
@@ -232,7 +232,7 @@ const AboutUs = () => {
             <ContactCard>
               <FaEnvelope className="icon" />
               <h3>Email</h3>
-              <p>kasunliyanage90@gmail.com</p>
+              <p>cocobudget.travels@gmail.com</p>
             </ContactCard>
             <ContactCard>
               <FaMapMarkerAlt className="icon" />
@@ -250,13 +250,10 @@ const AboutUs = () => {
           <SocialLinks>
             <h3>Follow Us</h3>
             <SocialIcons>
-              <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/cocobudget.travels/" target="_blank" rel="noopener noreferrer">
                 <RiInstagramFill />
               </a>
-              <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
-                <FaYoutube />
-              </a>
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/profile.php?id=61577163428909" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
               </a>
             </SocialIcons>
